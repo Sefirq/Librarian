@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="CD7DD769-0938-A0C6-2260-9BDA949481CE" mainViewID="2A2283CC-F0F2-FFA9-AD9A-BA226D41E2FC">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-19 14:43:35 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</LogicalDesign>

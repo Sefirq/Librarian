@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<ProcessModel class="oracle.dbtools.crest.model.design.process.ProcessModel" name="Process Model" id="8EF5D029-BC9F-263A-3F21-DD58408104DD">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-19 14:43:35 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</ProcessModel>

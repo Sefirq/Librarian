@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BusinessInfoDesign class="oracle.dbtools.crest.model.businessinfo.BusinessInfoDesign" name="Business Information" id="D08FC464-2FEA-10DA-4C18-5FA5E85865E3">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-19 14:43:36 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</BusinessInfoDesign>

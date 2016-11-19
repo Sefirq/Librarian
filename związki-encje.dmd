@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="związki-encje" id="0AF10F3F-3996-1F9A-AE13-49449282EC1C" version="3.5">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-19 14:43:35 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>0AF10F3F-3996-1F9A-AE13-49449282EC1C</designId>
+</OSDM_Design>

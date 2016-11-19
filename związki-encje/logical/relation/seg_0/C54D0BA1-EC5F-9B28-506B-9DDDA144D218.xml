@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Relation_10" directorySegmentName="seg_0" id="C54D0BA1-EC5F-9B28-506B-9DDDA144D218">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-19 16:06:17 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<nameOnSource>ma</nameOnSource>
+<nameOnTarget>podlega pod</nameOnTarget>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>8F8BBDEC-4156-436D-32D1-44F3005677D8</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>AC23938D-08B9-DFBB-04B2-A48B7EB92A83</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>
