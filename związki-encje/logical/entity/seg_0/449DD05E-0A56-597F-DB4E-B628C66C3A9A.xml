@@ -15,4 +15,59 @@
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
 <preferredAbbreviation>Materiały dodatkowe</preferredAbbreviation>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ID_wydania" id="B4EA4BBA-E7E0-B5DF-1AC7-51E2B0D9CA39">
+<createdBy>sefir</createdBy>
+<createdTime>2016-11-19 23:04:21 UTC</createdTime>
+<generatorID>03A82C05-5117-A529-5929-A67A41017797</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<referedAttribute>28130A7D-D00B-312F-2884-4F1ECC23D93F</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ID_materialu" id="7C8FD82E-BFDF-3D18-E0AE-4E4A8113D008">
+<createdBy>sefir</createdBy>
+<createdTime>2016-11-19 23:14:51 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Typ" id="B2CA7928-309B-853B-AB53-47977D63BC7D">
+<createdBy>sefir</createdBy>
+<createdTime>2016-11-19 23:14:25 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="26414C0C-2BB9-0E8A-F1B3-AB27AF413663" name="Materiał dodatkowy PK">
+<createdBy>sefir</createdBy>
+<createdTime>2016-11-19 23:15:01 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>7C8FD82E-BFDF-3D18-E0AE-4E4A8113D008</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
 </Entity>

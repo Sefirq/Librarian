@@ -6,7 +6,10 @@
 <engineerTo>
 <item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
 </engineerTo>
+<sourcePk>2B3FB541-7B09-F844-A0E1-1DF8454226AE</sourcePk>
 <identifying>true</identifying>
+<nameOnSource>inicjuje</nameOnSource>
+<nameOnTarget>dotyczy</nameOnTarget>
 <optionalSource>true</optionalSource>
 <optionalTarget>false</optionalTarget>
 <sourceCardinality>1</sourceCardinality>

@@ -6,7 +6,8 @@
 <engineerTo>
 <item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
 </engineerTo>
-<identifying>false</identifying>
+<sourcePk>46F76BB2-D309-C8DD-A845-F028D575A586</sourcePk>
+<identifying>true</identifying>
 <nameOnSource>ma</nameOnSource>
 <nameOnTarget>podlega pod</nameOnTarget>
 <optionalSource>false</optionalSource>

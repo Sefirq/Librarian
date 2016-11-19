@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Relation_18" directorySegmentName="seg_0" id="81527A9E-430B-3D80-7612-FA8669689365">
+<createdBy>sefir</createdBy>
+<createdTime>2016-11-19 21:58:27 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<nameOnSource>jest zarejestrowany w</nameOnSource>
+<nameOnTarget>ma</nameOnTarget>
+<optionalSource>false</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>52A67014-B243-1FAD-2521-D9D20FE2B170</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>8F8BBDEC-4156-436D-32D1-44F3005677D8</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

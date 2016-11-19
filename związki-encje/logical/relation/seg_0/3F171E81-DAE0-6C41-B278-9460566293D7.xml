@@ -6,7 +6,10 @@
 <engineerTo>
 <item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
 </engineerTo>
+<sourcePk>638CA0F4-A391-1744-0027-8FE19332FD01</sourcePk>
 <identifying>false</identifying>
+<nameOnSource>realizuje</nameOnSource>
+<nameOnTarget>jest realizowane przez</nameOnTarget>
 <optionalSource>true</optionalSource>
 <optionalTarget>false</optionalTarget>
 <sourceCardinality>1</sourceCardinality>
