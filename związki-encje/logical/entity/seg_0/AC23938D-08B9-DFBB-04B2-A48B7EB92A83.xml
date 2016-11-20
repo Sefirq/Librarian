@@ -29,7 +29,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>50</dataTypeSize>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="Numer" id="0AF14DAD-E20C-0454-074A-ED44EA01725D">
 <createdBy>sefir</createdBy>
@@ -80,7 +80,6 @@
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
-<attributeRef>A6B262F9-2776-6E98-9756-CC68273A3CAA</attributeRef>
 <attributeRef>A6B262F9-2776-6E98-9756-CC68273A3CAA</attributeRef>
 <attributeRef>0AF14DAD-E20C-0454-074A-ED44EA01725D</attributeRef>
 </usedAttributes>

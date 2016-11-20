@@ -16,18 +16,6 @@
 <normalForm>Third</normalForm>
 <preferredAbbreviation>Wydania</preferredAbbreviation>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="ID_wydania" id="28130A7D-D00B-312F-2884-4F1ECC23D93F">
-<createdBy>sefir</createdBy>
-<createdTime>2016-11-19 23:04:06 UTC</createdTime>
-<ownerDesignName>związki-encje</ownerDesignName>
-<engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
-</engineerTo>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
 <Attribute name="Nazwa" id="60187BC8-7E8C-A7BC-D5A8-A3F6B6FC7D17">
 <createdBy>sefir</createdBy>
 <createdTime>2016-11-19 22:52:02 UTC</createdTime>
@@ -95,6 +83,33 @@
 <dataTypeSize>20</dataTypeSize>
 <ownDataTypeParameters>20,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="Numer_wydania" id="87E20CE5-28FE-D53A-D887-DB49D17A029E">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-20 17:07:30 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="VAT_ID" id="8CBDF9CB-8255-2608-6224-3038352B89AE">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-20 17:17:22 UTC</createdTime>
+<generatorID>2301C406-5F6F-6760-BBBC-7CBA083393E4</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<referedAttribute>5536A99F-87E1-DCF8-87E5-810BD6D395EE</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="B93D16BA-05EB-BCD1-F5E2-8C4FE29293D4" name="Wydanie PK">
@@ -106,7 +121,7 @@
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
-<attributeRef>28130A7D-D00B-312F-2884-4F1ECC23D93F</attributeRef>
+<attributeRef>285F8B55-1973-ABBB-0D73-B349E25C711B</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>

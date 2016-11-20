@@ -7,7 +7,7 @@
 <item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
 </engineerTo>
 <sourcePk>0F764AFC-1E33-89B3-8450-85EADA4F0936</sourcePk>
-<identifying>false</identifying>
+<identifying>true</identifying>
 <nameOnSource>posiada</nameOnSource>
 <nameOnTarget>znajduje się w</nameOnTarget>
 <optionalSource>true</optionalSource>
@@ -15,7 +15,7 @@
 <sourceCardinality>1</sourceCardinality>
 <sourceEntity>AC23938D-08B9-DFBB-04B2-A48B7EB92A83</sourceEntity>
 <targetCardinalityString>*</targetCardinalityString>
-<targetEntity>41CB4FE0-678F-B272-E688-8799C6C22778</targetEntity>
+<targetEntity>15F18B57-2C17-3E21-67EE-E8474ABA5DE7</targetEntity>
 <transferable>true</transferable>
 <deleteRule>NO ACTION</deleteRule>
 </Relation>

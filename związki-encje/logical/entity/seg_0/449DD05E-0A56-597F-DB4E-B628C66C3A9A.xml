@@ -16,20 +16,6 @@
 <normalForm>Third</normalForm>
 <preferredAbbreviation>Materiały dodatkowe</preferredAbbreviation>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="ID_wydania" id="B4EA4BBA-E7E0-B5DF-1AC7-51E2B0D9CA39">
-<createdBy>sefir</createdBy>
-<createdTime>2016-11-19 23:04:21 UTC</createdTime>
-<generatorID>03A82C05-5117-A529-5929-A67A41017797</generatorID>
-<ownerDesignName>związki-encje</ownerDesignName>
-<engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
-</engineerTo>
-<referedAttribute>28130A7D-D00B-312F-2884-4F1ECC23D93F</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
 <Attribute name="ID_materialu" id="7C8FD82E-BFDF-3D18-E0AE-4E4A8113D008">
 <createdBy>sefir</createdBy>
 <createdTime>2016-11-19 23:14:51 UTC</createdTime>
@@ -54,6 +40,21 @@
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>50</dataTypeSize>
 <ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ISBN" id="AC404DF8-D85F-0326-5503-83F840134E17">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-20 17:07:06 UTC</createdTime>
+<generatorID>03A82C05-5117-A529-5929-A67A41017797</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<referedAttribute>285F8B55-1973-ABBB-0D73-B349E25C711B</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>13</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">

@@ -1,3 +1,7 @@
-* [ ] opis 2 związków do wypożyczenia
+* [x] opis 2 związków do wypożyczenia
 * [ ] encja Cykl?
-* [ ] atrybuty
+* [ ] ID Książki. Tytuł i Autor?
+* [ ] ID Tłumacza.
+* [ ] opis związku Kopia–Wydanie
+* [ ] Materiał – czy encja słaba bez ID, ale z opisem?
+* [x] atrybuty
