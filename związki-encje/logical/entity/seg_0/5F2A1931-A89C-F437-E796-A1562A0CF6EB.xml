@@ -16,20 +16,6 @@
 <normalForm>Third</normalForm>
 <preferredAbbreviation>Wypożyczenia</preferredAbbreviation>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="ID_wydania" id="E281B047-B5D1-87AF-4FA2-56550F386028">
-<createdBy>sefir</createdBy>
-<createdTime>2016-11-19 23:04:21 UTC</createdTime>
-<generatorID>31077949-B64F-0236-2BF1-1D386AA6227B</generatorID>
-<ownerDesignName>związki-encje</ownerDesignName>
-<engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
-</engineerTo>
-<referedAttribute>28130A7D-D00B-312F-2884-4F1ECC23D93F</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
 <Attribute name="PESEL" id="ED2B7512-F24B-2C71-FBF2-70373BD7C5ED">
 <createdBy>sefir</createdBy>
 <createdTime>2016-11-19 23:13:21 UTC</createdTime>
@@ -70,6 +56,21 @@
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="ISBN" id="2B9B5362-B88F-106E-1CB8-06FE4A52DEB1">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-20 17:07:06 UTC</createdTime>
+<generatorID>31077949-B64F-0236-2BF1-1D386AA6227B</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<referedAttribute>285F8B55-1973-ABBB-0D73-B349E25C711B</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>13</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="B56A9582-DF29-3384-4A36-2BEEC8029318" name="Wypożyczenie PK">
@@ -81,9 +82,9 @@
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
-<attributeRef>E281B047-B5D1-87AF-4FA2-56550F386028</attributeRef>
 <attributeRef>ED2B7512-F24B-2C71-FBF2-70373BD7C5ED</attributeRef>
 <attributeRef>F3BA835E-F12C-C607-FB52-34E404026870</attributeRef>
+<attributeRef>2B9B5362-B88F-106E-1CB8-06FE4A52DEB1</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>
