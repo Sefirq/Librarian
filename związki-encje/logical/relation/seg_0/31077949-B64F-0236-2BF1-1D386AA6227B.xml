@@ -6,10 +6,10 @@
 <engineerTo>
 <item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
 </engineerTo>
-<sourcePk>B93D16BA-05EB-BCD1-F5E2-8C4FE29293D4</sourcePk>
+<sourcePk>3633AE45-88AE-0F64-5EBE-D47156871E33</sourcePk>
 <identifying>true</identifying>
 <nameOnSource>jest obiektem</nameOnSource>
-<nameOnTarget>realizowane z</nameOnTarget>
+<nameOnTarget>realizowane na</nameOnTarget>
 <optionalSource>true</optionalSource>
 <optionalTarget>false</optionalTarget>
 <sourceCardinality>1</sourceCardinality>

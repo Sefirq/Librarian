@@ -54,6 +54,18 @@
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>13</dataTypeSize>
+<ownDataTypeParameters>13,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Opis" id="820D2651-89F0-0530-6D1D-82BE1B8DD12D">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-21 10:59:58 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT040</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>

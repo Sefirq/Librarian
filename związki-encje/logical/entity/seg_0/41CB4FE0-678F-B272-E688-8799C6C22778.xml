@@ -16,7 +16,20 @@
 <normalForm>Third</normalForm>
 <preferredAbbreviation>Wydania</preferredAbbreviation>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="Nazwa" id="60187BC8-7E8C-A7BC-D5A8-A3F6B6FC7D17">
+<Attribute name="ISBN" id="285F8B55-1973-ABBB-0D73-B349E25C711B">
+<createdBy>sefir</createdBy>
+<createdTime>2016-11-19 23:01:03 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>13</dataTypeSize>
+<ownDataTypeParameters>13,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Tytuł_tłumaczenia" id="60187BC8-7E8C-A7BC-D5A8-A3F6B6FC7D17">
 <createdBy>sefir</createdBy>
 <createdTime>2016-11-19 22:52:02 UTC</createdTime>
 <generatorID>63035E72-8B83-FE47-B880-A7D29EB7D6AC</generatorID>
@@ -29,7 +42,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>50</dataTypeSize>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="Numer" id="CEBC304D-1864-7F19-C383-DD0E909D6732">
 <createdBy>sefir</createdBy>
@@ -44,19 +57,6 @@
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
-<Attribute name="ISBN" id="285F8B55-1973-ABBB-0D73-B349E25C711B">
-<createdBy>sefir</createdBy>
-<createdTime>2016-11-19 23:01:03 UTC</createdTime>
-<ownerDesignName>związki-encje</ownerDesignName>
-<engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
-</engineerTo>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>13</dataTypeSize>
-<ownDataTypeParameters>13,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="Rok_wydania" id="92FEB1EF-6F08-2189-4423-5B29A4B145DD">
 <createdBy>sefir</createdBy>
@@ -83,18 +83,6 @@
 <dataTypeSize>20</dataTypeSize>
 <ownDataTypeParameters>20,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="Numer_wydania" id="87E20CE5-28FE-D53A-D887-DB49D17A029E">
-<createdBy>adam</createdBy>
-<createdTime>2016-11-20 17:07:30 UTC</createdTime>
-<ownerDesignName>związki-encje</ownerDesignName>
-<engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
-</engineerTo>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
 <Attribute name="VAT_ID" id="8CBDF9CB-8255-2608-6224-3038352B89AE">
 <createdBy>adam</createdBy>
 <createdTime>2016-11-20 17:17:22 UTC</createdTime>
@@ -108,6 +96,19 @@
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ID_Książki" id="9348D126-21B2-98C9-B6F2-0BF6869F3244">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-21 10:45:51 UTC</createdTime>
+<generatorID>835109E3-9B19-E1B0-79C1-3E871488A8FC</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<referedAttribute>DFA70428-94E3-4B2B-7745-1A212A29CF11</referedAttribute>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>

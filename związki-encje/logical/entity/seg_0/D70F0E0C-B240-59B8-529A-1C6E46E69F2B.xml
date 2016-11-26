@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="15F18B57-2C17-3E21-67EE-E8474ABA5DE7" name="Kopia">
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="D70F0E0C-B240-59B8-529A-1C6E46E69F2B" name="Etat">
 <createdBy>adam</createdBy>
-<createdTime>2016-11-20 17:05:55 UTC</createdTime>
+<createdTime>2016-11-21 10:47:33 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
 <item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
@@ -14,11 +14,11 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<preferredAbbreviation>Kopie</preferredAbbreviation>
+<preferredAbbreviation>Etaty</preferredAbbreviation>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="Sygnatura" id="D89AEF6A-DD59-E610-15F2-63305FAC0384">
+<Attribute name="Część_etatu" id="FF422B45-D7FD-DFAB-A202-C67F8B888468">
 <createdBy>adam</createdBy>
-<createdTime>2016-11-20 17:06:05 UTC</createdTime>
+<createdTime>2016-11-21 10:47:56 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
 <item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
@@ -26,13 +26,25 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>20</dataTypeSize>
-<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<dataTypeSize>5</dataTypeSize>
+<ownDataTypeParameters>5,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="Nazwa" id="2DCC6736-555C-99D2-9533-EABA1BDBE8AE">
+<Attribute name="Pensja" id="CBE55151-1B3F-60ED-8323-0C5E166B826E">
 <createdBy>adam</createdBy>
-<createdTime>2016-11-20 17:06:52 UTC</createdTime>
-<generatorID>63035E72-8B83-FE47-B880-A7D29EB7D6AC</generatorID>
+<createdTime>2016-11-21 10:48:27 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT043</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Nazwa" id="2784DE15-81F3-867F-0158-4AA27EF20A20">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-21 10:49:00 UTC</createdTime>
+<generatorID>EB20BC28-0C21-45AC-7D5F-3FA7B6649B0E</generatorID>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
 <item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
@@ -42,12 +54,12 @@
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>50</dataTypeSize>
-<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="Numer" id="EF66562A-169C-D990-F17E-FA511926C357">
+<Attribute name="Numer" id="C92AFAF5-4302-26AD-3137-96F5C109D1B8">
 <createdBy>adam</createdBy>
-<createdTime>2016-11-20 17:06:52 UTC</createdTime>
-<generatorID>63035E72-8B83-FE47-B880-A7D29EB7D6AC</generatorID>
+<createdTime>2016-11-21 10:49:00 UTC</createdTime>
+<generatorID>EB20BC28-0C21-45AC-7D5F-3FA7B6649B0E</generatorID>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
 <item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
@@ -58,36 +70,34 @@
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="ISBN" id="896AC969-F7E5-2893-8672-E23D87C05F36">
+<Attribute name="ID_bibliotekarza" id="42CA6142-2BE8-D97B-77F5-C9F8ABB03F28">
 <createdBy>adam</createdBy>
-<createdTime>2016-11-20 17:11:54 UTC</createdTime>
-<generatorID>5924844E-EB26-9602-A250-F2AE2DB95CF2</generatorID>
+<createdTime>2016-11-21 10:49:22 UTC</createdTime>
+<generatorID>5E7944A1-AA65-9962-A91C-A1C5ACC661ED</generatorID>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
 <item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
 </engineerTo>
-<referedAttribute>285F8B55-1973-ABBB-0D73-B349E25C711B</referedAttribute>
+<referedAttribute>8FB59EC8-6F8F-8F64-43DC-1A9FD8F74F14</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>13</dataTypeSize>
-<ownDataTypeParameters>13,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
-<identifier id="3633AE45-88AE-0F64-5EBE-D47156871E33" name="Kopia PK">
+<identifier id="71D2F3E5-3685-880A-5849-DF45EA92EA7D" name="Zatrudnienie PK">
 <createdBy>adam</createdBy>
-<createdTime>2016-11-20 17:06:25 UTC</createdTime>
+<createdTime>2016-11-21 10:49:00 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
 <item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
-<attributeRef>D89AEF6A-DD59-E610-15F2-63305FAC0384</attributeRef>
-<attributeRef>2DCC6736-555C-99D2-9533-EABA1BDBE8AE</attributeRef>
-<attributeRef>EF66562A-169C-D990-F17E-FA511926C357</attributeRef>
-<attributeRef>896AC969-F7E5-2893-8672-E23D87C05F36</attributeRef>
+<attributeRef>2784DE15-81F3-867F-0158-4AA27EF20A20</attributeRef>
+<attributeRef>C92AFAF5-4302-26AD-3137-96F5C109D1B8</attributeRef>
+<attributeRef>42CA6142-2BE8-D97B-77F5-C9F8ABB03F28</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>

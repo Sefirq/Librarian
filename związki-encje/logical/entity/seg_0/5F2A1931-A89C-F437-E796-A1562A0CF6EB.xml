@@ -56,19 +56,88 @@
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="ISBN" id="2B9B5362-B88F-106E-1CB8-06FE4A52DEB1">
+<Attribute name="Sygnatura" id="FCB40001-584D-4B88-5B50-8D0DB800E5D1">
 <createdBy>adam</createdBy>
-<createdTime>2016-11-20 17:07:06 UTC</createdTime>
+<createdTime>2016-11-21 11:12:51 UTC</createdTime>
 <generatorID>31077949-B64F-0236-2BF1-1D386AA6227B</generatorID>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
 <item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
 </engineerTo>
-<referedAttribute>285F8B55-1973-ABBB-0D73-B349E25C711B</referedAttribute>
+<referedAttribute>D89AEF6A-DD59-E610-15F2-63305FAC0384</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Nazwa" id="11AA6EE2-D0D1-52FF-F809-9DD35D1FB977">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-21 11:12:51 UTC</createdTime>
+<generatorID>31077949-B64F-0236-2BF1-1D386AA6227B</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<referedAttribute>2DCC6736-555C-99D2-9533-EABA1BDBE8AE</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Numer" id="B2B1CC6D-952F-2AA8-653A-34E8EABB6F27">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-21 11:12:51 UTC</createdTime>
+<generatorID>31077949-B64F-0236-2BF1-1D386AA6227B</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<referedAttribute>EF66562A-169C-D990-F17E-FA511926C357</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ISBN" id="EB3708E2-DEDC-8A3B-6DCB-1EC2E44E76F7">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-21 11:12:51 UTC</createdTime>
+<generatorID>31077949-B64F-0236-2BF1-1D386AA6227B</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<referedAttribute>896AC969-F7E5-2893-8672-E23D87C05F36</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>13</dataTypeSize>
+<ownDataTypeParameters>13,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Data_wypozyczenia" id="1048CDA6-6E55-EBC7-B42F-06F5C72CD97D">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-26 10:28:38 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Data_oddania" id="417F95D8-F292-E2A2-7D5C-59BEC90996A8">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-26 10:29:07 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
@@ -84,7 +153,10 @@
 <usedAttributes>
 <attributeRef>ED2B7512-F24B-2C71-FBF2-70373BD7C5ED</attributeRef>
 <attributeRef>F3BA835E-F12C-C607-FB52-34E404026870</attributeRef>
-<attributeRef>2B9B5362-B88F-106E-1CB8-06FE4A52DEB1</attributeRef>
+<attributeRef>FCB40001-584D-4B88-5B50-8D0DB800E5D1</attributeRef>
+<attributeRef>11AA6EE2-D0D1-52FF-F809-9DD35D1FB977</attributeRef>
+<attributeRef>B2B1CC6D-952F-2AA8-653A-34E8EABB6F27</attributeRef>
+<attributeRef>EB3708E2-DEDC-8A3B-6DCB-1EC2E44E76F7</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>

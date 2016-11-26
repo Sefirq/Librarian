@@ -16,6 +16,18 @@
 <normalForm>Third</normalForm>
 <preferredAbbreviation>Książki</preferredAbbreviation>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ID_Książki" id="DFA70428-94E3-4B2B-7745-1A212A29CF11">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-21 10:45:45 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 <Attribute name="Tytuł" id="3FBDA752-E5EE-3C2E-77BB-9EE6B75370CF">
 <createdBy>sefir</createdBy>
 <createdTime>2016-11-19 23:07:01 UTC</createdTime>
@@ -74,4 +86,18 @@
 <ownDataTypeParameters>50,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="5B4154B1-4911-3DBE-08FE-A4D017093B31" name="Książka PK">
+<createdBy>adam</createdBy>
+<createdTime>2016-11-21 10:44:45 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>DFA70428-94E3-4B2B-7745-1A212A29CF11</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
 </Entity>
