@@ -1,6 +1,7 @@
 package ml.adamsprogs.librarian;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,11 +22,12 @@ import java.util.logging.Logger;
 // Zrobimy potem relacje u jednego i damy pełne uprawnienia drugiemu.
 //!!!
 
-public class Main extends Application implements Controller.onLoginRequestListener, AppController.onCloseButtonListener {
+public class Main extends Application implements LoginController.onLoginRequestListener, AppController.onCloseButtonListener {
 
     private Logger l;
     private static Connection dbConnection;
     private static Stage stage;
+
     {
         l = Logger.getAnonymousLogger();
     }
@@ -35,7 +37,7 @@ public class Main extends Application implements Controller.onLoginRequestListen
     }
 
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) {
         stage = primaryStage;
         setFxmlScene("ui/login.fxml", "Librarian: Log in");
     }
@@ -53,26 +55,21 @@ public class Main extends Application implements Controller.onLoginRequestListen
         //tytuł okna
         stage.setTitle(windowTitle);
 
-        stage.setScene(new Scene(root, 300, 275));
+        stage.setScene(new Scene(root));
         stage.show();
     }
 
     @Override
-    public void onLoginRequest(String login, String password, String proxyAddress, String proxyPort) {
+    public void onLoginRequest(String login, String password, String proxyAddress, String proxyPort) throws SQLException {
         //ustawienie proxy, ponieważ baza jest dostępna tylko z sieci PUT
-        if(!proxyAddress.equals("") && !proxyPort.equals("")) {
+        if (!proxyAddress.equals("") && !proxyPort.equals("")) {
             System.setProperty("socksProxyHost", proxyAddress);
             System.setProperty("socksProxyPort", proxyPort);
         }
         //połączenie z DB
-        try {
-            dbConnection = DriverManager.getConnection(
-                    "jdbc:oracle:thin:@//admlab2-main.cs.put.poznan.pl:1521/dblab01.cs.put.poznan.pl",
-                    login, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            l.log(Level.SEVERE, "Cannot login");
-        }
+        dbConnection = DriverManager.getConnection(
+                "jdbc:oracle:thin:@//admlab2-main.cs.put.poznan.pl:1521/dblab01.cs.put.poznan.pl",
+                login, password);
         l.log(Level.INFO, "Logged in");
         setFxmlScene("ui/helloWorld.fxml", "Librarian");
     }
@@ -81,6 +78,7 @@ public class Main extends Application implements Controller.onLoginRequestListen
     public void onCloseButtonPressed() {
         try {
             dbConnection.close();
+            Platform.exit();
         } catch (SQLException e) {
             e.printStackTrace();
         }
