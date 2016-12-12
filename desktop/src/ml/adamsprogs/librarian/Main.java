@@ -6,48 +6,83 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.Scanner;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //!!!
 // Proxy:
 // Przed uruchomieniem javy, uruchom w terminalu `ssh -C2qTnN -D 2048 inf...@polluks.cs.put.poznan.pl`, wpisz hasło i zostaw.
+// Wtedy proxy: localhost:2048
 //
-// W katalogu domowym stwórz plik .librarian i wpisz w nim login i hasło (oddzielone spacją albo enterem) do konta w bazie (to, które wpisujemy na zajęciach).
 // Zrobimy potem relacje u jednego i damy pełne uprawnienia drugiemu.
-// Może potem zrobimy okno logowania…
 //!!!
 
-public class Main extends Application {
+public class Main extends Application implements Controller.onLoginRequestListener, AppController.onCloseButtonListener {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        //login i hasło do bazy
-        File f = new File(System.getProperty("user.home")+"/.librarian");
-        Scanner s = new Scanner(f);
-        String login = s.next();
-        String password = s.next();
-        //ustawienie proxy, ponieważ baza jest dostępna tylko z sieci PUT
-        System.setProperty("socksProxyHost", "localhost");
-        System.setProperty("socksProxyPort", "2048");
-        //połączenie z DB
-        Connection dbConnection = DriverManager.getConnection(
-                "jdbc:oracle:thin:@//admlab2-main.cs.put.poznan.pl:1521/dblab01.cs.put.poznan.pl",
-                login, password);
-        //ładowanie pliku z UI
-        Parent root = FXMLLoader.load(getClass().getResource("ui/helloWorld.fxml"));
-        //tytuł okna
-        primaryStage.setTitle("Hello World");
-
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
-        dbConnection.close();
+    private Logger l;
+    private static Connection dbConnection;
+    private static Stage stage;
+    {
+        l = Logger.getAnonymousLogger();
     }
-
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage){
+        stage = primaryStage;
+        setFxmlScene("ui/login.fxml", "Librarian: Log in");
+    }
+
+    private void setFxmlScene(String scenePath, String windowTitle) {
+        //ładowanie pliku z UI
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource(scenePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+            l.log(Level.SEVERE, "Cannot load scene " + scenePath);
+            return;
+        }
+        //tytuł okna
+        stage.setTitle(windowTitle);
+
+        stage.setScene(new Scene(root, 300, 275));
+        stage.show();
+    }
+
+    @Override
+    public void onLoginRequest(String login, String password, String proxyAddress, String proxyPort) {
+        //ustawienie proxy, ponieważ baza jest dostępna tylko z sieci PUT
+        if(!proxyAddress.equals("") && !proxyPort.equals("")) {
+            System.setProperty("socksProxyHost", proxyAddress);
+            System.setProperty("socksProxyPort", proxyPort);
+        }
+        //połączenie z DB
+        try {
+            dbConnection = DriverManager.getConnection(
+                    "jdbc:oracle:thin:@//admlab2-main.cs.put.poznan.pl:1521/dblab01.cs.put.poznan.pl",
+                    login, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            l.log(Level.SEVERE, "Cannot login");
+        }
+        l.log(Level.INFO, "Logged in");
+        setFxmlScene("ui/helloWorld.fxml", "Librarian");
+    }
+
+    @Override
+    public void onCloseButtonPressed() {
+        try {
+            dbConnection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

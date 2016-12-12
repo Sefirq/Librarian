@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TabPane fx:controller="ml.adamsprogs.librarian.Controller" maxHeight="-Infinity" maxWidth="-Infinity"
+<TabPane fx:controller="ml.adamsprogs.librarian.AppController" maxHeight="-Infinity" maxWidth="-Infinity"
          minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@materialfx.css"
          tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1">
     <tabs>
@@ -14,7 +14,7 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="170.0" prefWidth="341.0">
                     <children>
                         <Button layoutX="261.0" layoutY="312.0" mnemonicParsing="false" onAction="#onButtonPressed"
-                                text="Hit me!" AnchorPane.bottomAnchor="16.0"/>
+                                text="Close" AnchorPane.bottomAnchor="16.0"/>
                     </children>
                 </AnchorPane>
             </content>
