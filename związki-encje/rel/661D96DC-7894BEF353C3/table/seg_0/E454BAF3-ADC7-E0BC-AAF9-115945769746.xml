@@ -96,5 +96,14 @@
 <colUsage columnID="6441F521-B175-901D-0CDC-9970E282E1FB"/>
 </indexColumnUsage>
 </ind_PK_UK>
+<ind_PK_UK id="AE703E86-568E-96F5-2F10-CB746A412A38" name="Książki_IDX">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 19:48:42 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6441F521-B175-901D-0CDC-9970E282E1FB"/>
+</indexColumnUsage>
+</ind_PK_UK>
 </indexes>
 </Table>

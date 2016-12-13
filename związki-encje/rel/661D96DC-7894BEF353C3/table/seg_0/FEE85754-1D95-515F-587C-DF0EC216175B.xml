@@ -84,6 +84,24 @@
 <colUsage columnID="E710A295-BC1E-D04F-A6DB-E5267312D4B9"/>
 </indexColumnUsage>
 </ind_PK_UK>
+<ind_PK_UK id="C11CF677-6039-067C-0541-B75235DC8CC2" name="Kopie_Sygnatury_IDX">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 19:44:03 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="96C0F0C5-B744-00E6-60C0-6551CE39926D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A7B59050-ED76-F6C5-15EF-3EFA218407FA" name="Kopie_ISBN_IDX">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 19:44:15 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E710A295-BC1E-D04F-A6DB-E5267312D4B9"/>
+</indexColumnUsage>
+</ind_PK_UK>
 <ind_PK_UK id="05144FB3-5BA6-87F2-8622-B6BBEABAF040" name="Kopie_Filie_FK">
 <createdBy>adam</createdBy>
 <createdTime>2016-12-13 11:03:21 UTC</createdTime>

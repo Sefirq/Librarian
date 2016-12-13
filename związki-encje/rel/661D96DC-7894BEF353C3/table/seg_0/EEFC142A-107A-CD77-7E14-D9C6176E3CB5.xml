@@ -57,5 +57,14 @@
 <colUsage columnID="EF8F9233-AA39-E536-22A7-D911146B6C3D"/>
 </indexColumnUsage>
 </ind_PK_UK>
+<ind_PK_UK id="EF4884AE-AA85-8A9F-B607-3BDCE070D06E" name="Czytelnicy_IDX">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 19:42:54 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EF8F9233-AA39-E536-22A7-D911146B6C3D"/>
+</indexColumnUsage>
+</ind_PK_UK>
 </indexes>
 </Table>

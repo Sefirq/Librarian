@@ -59,5 +59,14 @@
 <colUsage columnID="6685CFC6-8AC2-318E-A9FD-FE99128797F9"/>
 </indexColumnUsage>
 </ind_PK_UK>
+<ind_PK_UK id="7AE16703-4CBE-11E7-B62A-D8A4B31EC29D" name="Bibliotekarze_IDX">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 19:43:26 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6685CFC6-8AC2-318E-A9FD-FE99128797F9"/>
+</indexColumnUsage>
+</ind_PK_UK>
 </indexes>
 </Table>
