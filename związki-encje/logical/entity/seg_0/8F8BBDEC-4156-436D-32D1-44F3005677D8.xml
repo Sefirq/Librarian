@@ -104,7 +104,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
@@ -112,8 +113,9 @@
 <createdBy>sefir</createdBy>
 <createdTime>2016-11-19 22:45:49 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="false"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

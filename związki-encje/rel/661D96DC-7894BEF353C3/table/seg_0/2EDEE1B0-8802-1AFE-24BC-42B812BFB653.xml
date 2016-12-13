@@ -1,0 +1,110 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="2EDEE1B0-8802-1AFE-24BC-42B812BFB653" name="Biblioteki">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>8F8BBDEC-4156-436D-32D1-44F3005677D8</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Nazwa" id="51212FF8-5657-8D87-5BE9-01F65D67832F">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>DC8BE7E2-B3A2-B0BF-1D7A-806F64E853D2</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Data_założenia" id="C574A813-F7C8-B710-2EB1-4746312D65CA">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>878975E3-E7A4-D4FB-4999-626045C8CF07</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Typ" id="1A4DFC1F-47C5-C5CC-9E2C-C22139EBF5AA">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>2A1E7F38-95B8-5991-233E-E6700FB9FE9A</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Adres_biura" id="A5335765-FFF5-531C-B052-2721DD33D46D">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>3BCC0A63-CFB0-C6F6-C063-D4354FC455D4</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Imie_dyrektora" id="A914AF75-EEA3-D155-655F-B33D220755BB">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>5363C804-9811-9750-8502-3776845538FF</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Nazwisko_dyrektora" id="F1FD5C21-9D19-C2B2-808D-E6D2E0966872">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>E5F7710E-6ACC-B6CC-A849-9164B6BCD116</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Adres_www" id="E57E9F13-FD14-C020-2AC0-C65CB438B861">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>43821BCB-5F0C-51CE-E6B6-45C558FDAC32</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="86A3CB57-8707-F745-BC2D-90C6B16240C2" name="Biblioteki_PK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>46F76BB2-D309-C8DD-A845-F028D575A586</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="51212FF8-5657-8D87-5BE9-01F65D67832F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

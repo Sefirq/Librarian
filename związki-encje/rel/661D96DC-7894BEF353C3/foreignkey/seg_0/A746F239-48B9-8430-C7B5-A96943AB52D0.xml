@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="A746F239-48B9-8430-C7B5-A96943AB52D0" containerWithKeyObject="ECBBA455-095D-2BF8-C78F-9815F13B095E" localFKIndex="20CE4E65-607C-93D9-50F3-D0DEC71EA7D0" name="Wydania_Książki_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:21 UTC</createdTime>
+<generatorID>835109E3-9B19-E1B0-79C1-3E871488A8FC</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>E454BAF3-ADC7-E0BC-AAF9-115945769746</referredTableID>
+<keyObject>4F143F80-59A6-5B31-94BC-49E464E6294D</keyObject>
+<referredKeyID>4F143F80-59A6-5B31-94BC-49E464E6294D</referredKeyID>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

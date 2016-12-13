@@ -1,0 +1,120 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B6C91A3E-58BF-BA17-613C-99E0D4DDEE49" name="Etaty">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>D70F0E0C-B240-59B8-529A-1C6E46E69F2B</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Część_etatu" id="D838856F-30F4-EA4E-CA03-73A3A322DA1E">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>FF422B45-D7FD-DFAB-A202-C67F8B888468</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5</dataTypeSize>
+<ownDataTypeParameters>5,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Pensja" id="2953DFEB-5586-ABE3-C59A-FF7F7DE4F1E9">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>CBE55151-1B3F-60ED-8323-0C5E166B826E</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT043</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Filie_Biblioteki_Nazwa" id="B89C8BA2-DD80-25BA-BC21-C5FE56C579E8">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>2784DE15-81F3-867F-0158-4AA27EF20A20</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="7BC68F73-708B-5500-FC5A-31392CA7278D" referredColumn="1D56EB0C-D52C-520F-DFB5-D1A52A5CC13C"/>
+</associations>
+</Column>
+<Column name="Filie_Numer" id="EC4E73A5-AF62-F998-9C99-A5761114FC19">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>C92AFAF5-4302-26AD-3137-96F5C109D1B8</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="7BC68F73-708B-5500-FC5A-31392CA7278D" referredColumn="AD242FDE-170F-26B9-E6F3-CAC22D6CB704"/>
+</associations>
+</Column>
+<Column name="Bibliotekarze_ID_bibliotekarza" id="C31B0049-F611-D3BF-599E-EE64B37B0BB4">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>42CA6142-2BE8-D97B-77F5-C9F8ABB03F28</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="19BBD102-B76E-F6CF-ACC4-4E4D329C8F67" referredColumn="6685CFC6-8AC2-318E-A9FD-FE99128797F9"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="84150C98-149D-6C83-40B5-2EB34C6756F9" name="Etaty_PK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>71D2F3E5-3685-880A-5849-DF45EA92EA7D</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B89C8BA2-DD80-25BA-BC21-C5FE56C579E8"/>
+<colUsage columnID="EC4E73A5-AF62-F998-9C99-A5761114FC19"/>
+<colUsage columnID="C31B0049-F611-D3BF-599E-EE64B37B0BB4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CCE92149-E52E-6BC2-4FAC-0333F9E759EB" name="Etaty_Filie_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:21 UTC</createdTime>
+<generatorID>EB20BC28-0C21-45AC-7D5F-3FA7B6649B0E</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B89C8BA2-DD80-25BA-BC21-C5FE56C579E8"/>
+<colUsage columnID="EC4E73A5-AF62-F998-9C99-A5761114FC19"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B56CB821-8809-4C4F-4677-486F21651759" name="Etaty_Bibliotekarze_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:21 UTC</createdTime>
+<generatorID>5E7944A1-AA65-9962-A91C-A1C5ACC661ED</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C31B0049-F611-D3BF-599E-EE64B37B0BB4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

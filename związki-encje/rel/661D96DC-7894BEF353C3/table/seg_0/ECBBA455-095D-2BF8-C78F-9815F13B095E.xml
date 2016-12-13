@@ -1,0 +1,137 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="ECBBA455-095D-2BF8-C78F-9815F13B095E" name="Wydania">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>41CB4FE0-678F-B272-E688-8799C6C22778</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ISBN" id="36E582F2-D32D-0378-11EC-DCE0AD808707">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>285F8B55-1973-ABBB-0D73-B349E25C711B</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>13</dataTypeSize>
+<ownDataTypeParameters>13,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Tytuł_tłumaczenia" id="0DF2685F-2F35-3E95-0A27-BD0C59C4700B">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>60187BC8-7E8C-A7BC-D5A8-A3F6B6FC7D17</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Numer" id="96F27F61-2EF0-3AE6-2AE7-65C556063192">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>CEBC304D-1864-7F19-C383-DD0E909D6732</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Rok_wydania" id="05E76D4C-BFD2-6528-EAAB-C00EE7C03762">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>92FEB1EF-6F08-2189-4423-5B29A4B145DD</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Jezyk" id="BE6C9BA6-B833-1CC0-68D0-D7DB42AFE10C">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>9121543B-AFDB-1E89-9608-DBD199EBD2F1</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Wydawcy_VAT_ID" id="9B9970C0-41FA-939B-365B-CE0CFDD110E4">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>8CBDF9CB-8255-2608-6224-3038352B89AE</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="71B177A9-847F-B86D-54E2-8ECFD53C6FB7" referredColumn="8BAE2A10-3D4A-0052-2D4E-8D2008BFD2ED"/>
+</associations>
+</Column>
+<Column name="Książki_ID_Książki" id="D748879A-ED32-36D2-8CD8-08CEA51E59D6">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>9348D126-21B2-98C9-B6F2-0BF6869F3244</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A746F239-48B9-8430-C7B5-A96943AB52D0" referredColumn="6441F521-B175-901D-0CDC-9970E282E1FB"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D04EF5AD-0067-6A19-A6EC-C6F8DAF049AB" name="Wydania_PK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>B93D16BA-05EB-BCD1-F5E2-8C4FE29293D4</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="36E582F2-D32D-0378-11EC-DCE0AD808707"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="20CE4E65-607C-93D9-50F3-D0DEC71EA7D0" name="Wydania_Książki_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:21 UTC</createdTime>
+<generatorID>835109E3-9B19-E1B0-79C1-3E871488A8FC</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D748879A-ED32-36D2-8CD8-08CEA51E59D6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="55B4E48C-F270-605C-AC2F-C4B9DB1F37BA" name="Wydania_Wydawcy_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:21 UTC</createdTime>
+<generatorID>2301C406-5F6F-6760-BBBC-7CBA083393E4</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9B9970C0-41FA-939B-365B-CE0CFDD110E4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

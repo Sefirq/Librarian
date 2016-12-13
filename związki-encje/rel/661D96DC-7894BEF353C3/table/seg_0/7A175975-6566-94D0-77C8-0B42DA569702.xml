@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7A175975-6566-94D0-77C8-0B42DA569702" name="Autorzy">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>B6C77C8C-8EC6-7C74-6BF3-4BC13377A2D0</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID_autora" id="F4945C95-98B8-1CD8-7158-A92D1A475625">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>8456BC69-FBE4-B399-6F37-4D2311A7D96A</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementTriggerName>AUTORZY_SEQ</autoIncrementTriggerName>
+</Column>
+<Column name="Imię" id="A40AFAFA-1D55-1654-0BBD-7AACECAF44CA">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>1F13B91A-EA3E-5B9D-5B7A-FEBDB82ADECC</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Nazwisko" id="DDB6B1C7-0912-6C99-4138-23D1CC4774BE">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>48C668B2-3C5A-A877-72FE-A0B35B2B4A6E</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Narodowość" id="A1C4351E-5755-5C48-711B-2E0CC634E4E4">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>92D4A349-3162-5ECA-7EE3-7371F17C1792</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1DC24D77-8B66-9E2D-1BDA-35579C529BA7" name="Autorzy_PK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-13 11:03:20 UTC</createdTime>
+<generatorID>F507030A-338F-FEC6-7CF1-05D2F4BB4876</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F4945C95-98B8-1CD8-7158-A92D1A475625"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

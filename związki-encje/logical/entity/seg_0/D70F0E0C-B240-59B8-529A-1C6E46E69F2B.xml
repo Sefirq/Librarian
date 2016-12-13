@@ -86,12 +86,13 @@
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
-<identifier id="71D2F3E5-3685-880A-5849-DF45EA92EA7D" name="Zatrudnienie PK">
+<identifier id="71D2F3E5-3685-880A-5849-DF45EA92EA7D" name="Etat PK">
 <createdBy>adam</createdBy>
 <createdTime>2016-11-21 10:49:00 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="false"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
