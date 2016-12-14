@@ -1,4 +1,4 @@
-Ekran logowania - pierwszy ekran, który pojawia nam się po włączeniu aplikacji. Wyświetlają się pola "Nazwa użytkownika" i "Hasło". Wypełnienie ich i naciśnięcie przycisku "Zaloguj" pozwala na nawiązanie połączenia z bazą danych. Zależnie od typu konta użytkownika, różne ekrany będa dostępne.
+Ekran logowania - pierwszy ekran, który pojawia nam się po włączeniu aplikacji. Wyświetlają się pola "Nazwa użytkownika" i "Hasło". Wypełnienie ich i naciśnięcie przycisku "Zaloguj" pozwala na nawiązanie połączenia z bazą danych. Zależnie od typu konta użytkownika, różne ekrany będą dostępne.
 
 Ekran zarządzania biblioteką. Pozwala on na edycję podstawowych danych dotyczących biblioteki, lub wybrania konkretnej filii naszej biblioteki w celu dalszych analiz.
 
@@ -6,7 +6,11 @@ Ekran zarządzania filią - tu możemy zmieniać dane dotyczące danej filii, pr
 
 Ekran zatrudnień - wyświetla dane o zatrudnieniach i identyfikator osoby zatrudnionej na danym etacie. 
 
-Ekran wypożyczeń - 
+Ekran wypożyczeń - pozwala wyświetlać wszystkie wypożyczenia lub filtrować je ze względu na filie, czytelników oraz bibliotekarzy.
 
-Ekran książek, tłumaczy, autorów, wydań, wydawców - 
+Ekran książek - pozwala wyświetlić wszystkie książki lub filtrować ze względu na dostępność we wskazanej filii, tytuł, autora oraz wydawcę. Pozwala także wybrać pojedynczą książkę.
+
+Ekran pojedynczej książki - pozwala podejrzeć informacje o wszystkich wydaniach wybranej książki, sprawdzić dostępność w filiach oraz, czytelnikowi – zarezerwować, a bibliotekarzowi – edytować (a także dodać lub usunąć kopię) i wypożyczyć.
+
+(Ekran tłumaczy, autorów, wydań, wydawców)
 
