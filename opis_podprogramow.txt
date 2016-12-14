@@ -1,0 +1,3 @@
+1. Funkcja licząca średnią liczbę wypożyczonych książek w filiach na rok lub miesiąc
+2. Funkcja licząca średnią liczbę wypożyczonych książek przez bibliotekarza na rok lub miesiąc
+3. Procedura przenosząca wszystkie książki z filii do innej filii
