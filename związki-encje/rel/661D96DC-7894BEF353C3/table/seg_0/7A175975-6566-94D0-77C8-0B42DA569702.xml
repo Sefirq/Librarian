@@ -19,7 +19,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementColumn>true</autoIncrementColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<autoIncrementTriggerName>AUTORZY_SEQ</autoIncrementTriggerName>
+<autoIncrementSequenceName>AUTORZY_SEQ</autoIncrementSequenceName>
 </Column>
 <Column name="Imię" id="A40AFAFA-1D55-1654-0BBD-7AACECAF44CA">
 <createdBy>adam</createdBy>

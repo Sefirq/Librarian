@@ -1,3 +1,29 @@
 1. Funkcja licząca średnią liczbę wypożyczonych książek w filiach na rok lub miesiąc
 2. Funkcja licząca średnią liczbę wypożyczonych książek przez bibliotekarza na rok lub miesiąc
 3. Procedura przenosząca wszystkie książki z filii do innej filii
+
+1.
+CREATE OR REPLACE FUNCTION wypozyczenia_filie
+RETURN NUMBER IS
+
+BEGIN
+
+END wypozyczenia_filie;
+2.
+CREATE OR REPLACE FUNCTION wypozyczenia_bibliotekarze
+RETURN NUMBER IS
+
+BEGIN
+
+END wypozyczenia_bibliotekarze;
+3.
+CREATE OR REPLACE PROCEDURE przenies_ksiazki
+    (lib_name_from VARCHAR2, branch_num_from INTEGER,
+	lib_id_to VARCHAR2, branch_num_to INTEGER)
+IS
+
+BEGIN
+
+EXCEPTION
+
+END przenies_ksiazkia;

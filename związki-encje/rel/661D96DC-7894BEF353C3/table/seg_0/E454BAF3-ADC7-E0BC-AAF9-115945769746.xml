@@ -20,7 +20,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementColumn>true</autoIncrementColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<autoIncrementTriggerName>KSIAZKI_SEQ</autoIncrementTriggerName>
+<autoIncrementSequenceName>KSIAZKI_SEQ</autoIncrementSequenceName>
 </Column>
 <Column name="Tytuł" id="D22DC5CE-32B4-0AF7-2A5B-81630D7F3BDF">
 <createdBy>adam</createdBy>

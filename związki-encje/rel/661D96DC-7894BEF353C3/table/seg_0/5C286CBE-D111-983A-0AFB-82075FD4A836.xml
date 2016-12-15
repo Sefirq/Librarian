@@ -20,7 +20,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementColumn>true</autoIncrementColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<autoIncrementTriggerName>MATERIALY_SEQ</autoIncrementTriggerName>
+<autoIncrementSequenceName>MATERIALY_SEQ</autoIncrementSequenceName>
 </Column>
 <Column name="Typ" id="EEA9D5FC-492E-B5F7-F021-A530A559240F">
 <createdBy>adam</createdBy>
