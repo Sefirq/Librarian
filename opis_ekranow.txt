@@ -2,15 +2,15 @@ Ekran logowania - pierwszy ekran, który pojawia nam się po włączeniu aplikac
 
 Ekran zarządzania biblioteką. Pozwala on na edycję podstawowych danych dotyczących biblioteki, lub wybrania konkretnej filii naszej biblioteki w celu dalszych analiz.
 
-Ekran zarządzania filią - tu możemy zmieniać dane dotyczące danej filii, przejść do zakładki "Zatrudnienia" i filtrować, lub wyświetlić wszystkie zatrudnienia, realizowane w tej filii, dodać nowe zatrudnienie, lub do zakładki "Książki" - spisu kopii (fizycznych książek i materiałów dodatkowych do nich) w filii, z możliwością edycji każdej pozycji, dodania nowej, lub usunięcia . 
+Ekran zarządzania filią - tu możemy zmieniać dane dotyczące danej filii, przejść do zakładki "Zatrudnienia" i filtrować, lub wyświetlić wszystkie zatrudnienia, realizowane w tej filii, dodać nowe zatrudnienie, lub do zakładki "Książki" - spisu kopii (fizycznych książek i materiałów dodatkowych do nich) w filii, z możliwością edycji każdej pozycji, dodania nowej, lub usunięcia.
 
 Ekran zatrudnień - wyświetla dane o zatrudnieniach i identyfikator osoby zatrudnionej na danym etacie. 
 
-Ekran wypożyczeń - pozwala wyświetlać wszystkie wypożyczenia lub filtrować je ze względu na filie, czytelników oraz bibliotekarzy.
+Ekran wypożyczeń - pozwala wyświetlać wszystkie wypożyczenia lub filtrować je ze względu na filie, czytelników oraz bibliotekarzy. Tu również można stworzyć raport dotyczący wypożyczeń w danej filii.
 
-Ekran książek - pozwala wyświetlić wszystkie książki lub filtrować ze względu na dostępność we wskazanej filii, tytuł, autora oraz wydawcę. Pozwala także wybrać pojedynczą książkę.
+Ekran książek (u nas: wydań) - pozwala wyświetlić wszystkie książki lub filtrować ze względu na dostępność we wskazanej filii, tytuł, autora oraz wydawcę. Pozwala także wybrać pojedynczą książkę.
 
 Ekran pojedynczej książki - pozwala podejrzeć informacje o wszystkich wydaniach wybranej książki, sprawdzić dostępność w filiach oraz, czytelnikowi – zarezerwować, a bibliotekarzowi – edytować (a także dodać lub usunąć kopię) i wypożyczyć.
 
-(Ekran tłumaczy, autorów, wydań, wydawców)
+(Ekran tłumaczy, autorów, wydań, wydawców) - na tym ekranie możemy wybrać zakładkę z interesującym nas pojęciem. Wtedy pojawią się stosowne pola, pozwalające na dodanie nowego rekordu, a także te, których wypełnienie pozwoli nam zidentyfikować lub ułatwić wyszukiwanie tłumaczy, autorów, wydań czy wydawców wraz z informacjami o nich. Przy wynikach wyszukiwania będzie możliwa edycja lub usunięcie danego rekordu.
 
