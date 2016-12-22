@@ -1,17 +1,20 @@
 package ml.adamsprogs.librarian;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class AppController {
-    public interface onCloseButtonListener{
-        void onCloseButtonPressed();
-    }
+import java.sql.SQLException;
 
-    private onCloseButtonListener ocbL = new Main();
+public class AppController extends FxController{
 
     @FXML
     public void onButtonPressed(ActionEvent actionEvent) {
-        ocbL.onCloseButtonPressed();
+        try {
+            dbConnection.close();
+            Platform.exit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
