@@ -13,11 +13,12 @@ import java.util.logging.Logger;
 class FxController {
     Connection dbConnection;
     private Stage stage;
+    static FxController currentController;
 
-    private Logger l;
+    Logger logger;
 
     {
-        l = Logger.getAnonymousLogger();
+        logger = Logger.getAnonymousLogger();
     }
 
     void setStage(Stage stage) {
@@ -37,13 +38,14 @@ class FxController {
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
-            l.log(Level.SEVERE, "Cannot load scene " + scenePath);
+            logger.log(Level.SEVERE, "Cannot load scene " + scenePath);
             return;
         }
 
         FxController controller = loader.getController();
         controller.setStage(stage);
         controller.setConnection(dbConnection);
+        currentController = controller;
 
         //tytuł okna
         stage.setTitle(windowTitle);

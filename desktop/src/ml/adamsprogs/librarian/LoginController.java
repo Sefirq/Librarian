@@ -8,25 +8,25 @@ import javafx.scene.text.Text;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class LoginController extends FxController{
+public class LoginController extends FxController {
 
-    private Logger l;
-    {
-        l = Logger.getAnonymousLogger();
-    }
-
-    @FXML private TextField login;
-    @FXML private TextField password;
-    @FXML private TextField proxyAddr;
-    @FXML private TextField proxyPort;
-    @FXML private Text errorText;
+    @FXML
+    private TextField login;
+    @FXML
+    private TextField password;
+    @FXML
+    private TextField proxyAddr;
+    @FXML
+    private TextField proxyPort;
+    @FXML
+    private Text errorText;
 
     public void onProxyToggled(ActionEvent actionEvent) {
         proxyAddr.setDisable(!proxyAddr.isDisabled());
         proxyPort.setDisable(!proxyPort.isDisabled());
     }
+
     public void onLoginPressed(ActionEvent actionEvent) {
         try {
             //ustawienie proxy, ponieważ baza jest dostępna tylko z sieci PUT
@@ -38,8 +38,8 @@ public class LoginController extends FxController{
             dbConnection = DriverManager.getConnection(
                     "jdbc:oracle:thin:@//admlab2-main.cs.put.poznan.pl:1521/dblab01.cs.put.poznan.pl",
                     login.getText(), password.getText());
-            l.log(Level.INFO, "Logged in");
-            setScene("ui/helloWorld.fxml", "Librarian");
+            logger.log(Level.INFO, "Logged in");
+            setScene("ui/app.fxml", "Librarian");
         } catch (SQLException e) {
             errorText.setText(e.getMessage());
         }
