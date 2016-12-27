@@ -7,6 +7,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class AppController extends FxController {
 
     @FXML
@@ -19,7 +23,7 @@ public class AppController extends FxController {
     private Button clearLibrariesButton;
 
     @FXML
-    private TreeView<?> libraryTree;
+    private TreeView<String> libraryTree;
 
     @FXML
     private VBox libraryBox;
@@ -139,7 +143,26 @@ public class AppController extends FxController {
 
     @FXML
     void onBranchTabSelected(ActionEvent event) {
-
+        TreeItem<String> rootItem = new TreeItem<>("Biblioteki");
+        try {
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT ID, Nazwa FROM L_BIBLIOTEKI");
+            while (resultSet.next()) {
+                TreeItem<String> libraryItem = new TreeItem<>(resultSet.getString("Nazwa"));
+                Statement subStatement = dbConnection.createStatement();
+                ResultSet subResult = subStatement.executeQuery("SELECT Numer, Adres FROM L_Filie WHERE Biblioteki_ID = "
+                        + resultSet.getInt("ID"));
+                while (subResult.next()) {
+                    TreeItem<String> branchItem = new TreeItem<>("Filia nr " + subResult.getInt("Numer") +
+                            " (" + subResult.getString("Adres") + ")");
+                    libraryItem.getChildren().add(branchItem);
+                }
+                rootItem.getChildren().add(libraryItem);
+            }
+            libraryTree.setRoot(rootItem);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -189,6 +212,6 @@ public class AppController extends FxController {
 
     @FXML
     void initialize() {
-
+        onBranchTabSelected(null);
     }
 }

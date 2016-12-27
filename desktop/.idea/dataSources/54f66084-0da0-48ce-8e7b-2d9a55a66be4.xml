@@ -5287,17 +5287,17 @@ WEBPAGE_ID</ColNames>
     <column id="1557" parent="1224" name="SHOW_ADD_ROW">
       <Position>16</Position>
       <DataType>VARCHAR2(1)|0</DataType>
-      <DefaultExpression>&apos;N&apos; </DefaultExpression>
+      <DefaultExpression>&apos;N&apos;</DefaultExpression>
     </column>
     <column id="1558" parent="1224" name="SHOW_EDIT_ROW">
       <Position>17</Position>
       <DataType>VARCHAR2(1)|0</DataType>
-      <DefaultExpression>&apos;N&apos; </DefaultExpression>
+      <DefaultExpression>&apos;N&apos;</DefaultExpression>
     </column>
     <column id="1559" parent="1224" name="SHOW_SEARCH">
       <Position>18</Position>
       <DataType>VARCHAR2(1)|0</DataType>
-      <DefaultExpression>&apos;Y&apos; </DefaultExpression>
+      <DefaultExpression>&apos;Y&apos;</DefaultExpression>
     </column>
     <column id="1560" parent="1224" name="MAX_ROW_COUNT">
       <Position>19</Position>
