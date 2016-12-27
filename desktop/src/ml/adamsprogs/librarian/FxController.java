@@ -11,9 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 class FxController {
-    Connection dbConnection;
+    static Connection dbConnection;
     private Stage stage;
-    static FxController currentController;
 
     Logger logger;
 
@@ -25,8 +24,8 @@ class FxController {
         this.stage = stage;
     }
 
-    private void setConnection(Connection dbConnection) {
-        this.dbConnection = dbConnection;
+    private void setConnection(Connection connection) {
+        dbConnection = connection;
     }
 
     void setScene(String scenePath, String windowTitle) {
@@ -44,8 +43,6 @@ class FxController {
 
         FxController controller = loader.getController();
         controller.setStage(stage);
-        controller.setConnection(dbConnection);
-        currentController = controller;
 
         //tytuł okna
         stage.setTitle(windowTitle);

@@ -1,15 +1,24 @@
 package ml.adamsprogs.librarian;
 
+import com.sun.istack.internal.Nullable;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.chrono.Chronology;
+import java.time.chrono.IsoChronology;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class AppController extends FxController {
 
@@ -65,7 +74,7 @@ public class AppController extends FxController {
     private TextField branchNumber;
 
     @FXML
-    private TextArea branchAddress;
+    private TextField branchAddress;
 
     @FXML
     private TextField branchType;
@@ -83,7 +92,7 @@ public class AppController extends FxController {
     private Button clearLibrariansButton;
 
     @FXML
-    private TreeView<?> librarianTree;
+    private TreeView<String> librarianTree;
 
     @FXML
     private VBox librarianBox;
@@ -122,8 +131,17 @@ public class AppController extends FxController {
     private TableView<?> librarianLends;
 
     @FXML
-    void addLibraryButtonPressed(ActionEvent event) {
-
+    void onAddLibraryButtonPressed(ActionEvent event) {
+        TreeItem<String> root = libraryTree.getRoot();
+        TreeItem<String> newLibrary = new TreeItem<>("Nowa Biblioteka");
+        root.getChildren().add(newLibrary);
+        libraryTree.getSelectionModel().select(newLibrary);
+        try {
+            setLibraryData(null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        branchBox.setVisible(false);
     }
 
     @FXML
@@ -142,23 +160,30 @@ public class AppController extends FxController {
     }
 
     @FXML
-    void onBranchTabSelected(ActionEvent event) {
+    void onBranchTabSelected(Event event) {
+        libraryBox.setVisible(false);
+        branchBox.setVisible(false);
         TreeItem<String> rootItem = new TreeItem<>("Biblioteki");
+        rootItem.setExpanded(true);
         try {
             Statement statement = dbConnection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT ID, Nazwa FROM L_BIBLIOTEKI");
+            ResultSet resultSet = statement.executeQuery("SELECT ID, Nazwa FROM INF122446.L_BIBLIOTEKI");
             while (resultSet.next()) {
                 TreeItem<String> libraryItem = new TreeItem<>(resultSet.getString("Nazwa"));
                 Statement subStatement = dbConnection.createStatement();
-                ResultSet subResult = subStatement.executeQuery("SELECT Numer, Adres FROM L_Filie WHERE Biblioteki_ID = "
+                ResultSet subResult = subStatement.executeQuery("SELECT Numer, Adres FROM INF122446.L_FILIE WHERE Biblioteki_ID = "
                         + resultSet.getInt("ID"));
                 while (subResult.next()) {
                     TreeItem<String> branchItem = new TreeItem<>("Filia nr " + subResult.getInt("Numer") +
                             " (" + subResult.getString("Adres") + ")");
                     libraryItem.getChildren().add(branchItem);
                 }
+                subResult.close();
+                subStatement.close();
                 rootItem.getChildren().add(libraryItem);
             }
+            resultSet.close();
+            statement.close();
             libraryTree.setRoot(rootItem);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -176,7 +201,7 @@ public class AppController extends FxController {
     }
 
     @FXML
-    void onLibrarianTabSelected(ActionEvent event) {
+    void onLibrarianTabSelected(Event event) {
 
     }
 
@@ -186,8 +211,93 @@ public class AppController extends FxController {
     }
 
     @FXML
-    void onLibraryTreeClicked(MouseEvent event) {
+    void onLibraryTreeClicked(MouseEvent event) {  //todo selected not clicked
+        TreeItem<String> root = libraryTree.getRoot();
+        ObservableList<TreeItem<String>> libraries = root.getChildren();
+        for (TreeItem<String> library : libraries) {
+            if (library.getValue().equals("Nowa Biblioteka"))
+                libraries.remove(library);
+            else {
+                ObservableList<TreeItem<String>> branches = library.getChildren();
+                for (TreeItem<String> branch : branches) {
+                    if (branch.getValue().equals("Nowa Filia"))
+                        branches.remove(branch);
+                }
+            }
+        }
 
+        TreeItem<String> selectedItem = libraryTree.getSelectionModel().getSelectedItem();
+        String[] label = selectedItem.getValue().split(" ");
+        if (label[0].equals("Filia")) {
+            int branchNumber = Integer.parseInt(label[2]);
+            String branchParentName = selectedItem.getParent().getValue();
+            try {
+                Statement statement = dbConnection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446.L_BIBLIOTEKI WHERE Nazwa = '"
+                        + branchParentName + "'");
+                resultSet.next();
+                int libraryID = resultSet.getInt("ID");
+                setLibraryData(resultSet);
+                resultSet.close();
+                statement.close();
+
+                statement = dbConnection.createStatement();
+                resultSet = statement.executeQuery("SELECT * FROM INF122446.L_FILIE WHERE Biblioteki_ID = " + libraryID
+                        + " AND Numer = " + branchNumber);
+                resultSet.next();
+                setBranchData(resultSet);
+                resultSet.close();
+                statement.close();
+                libraryBox.setVisible(true);
+                branchBox.setVisible(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                Statement statement = dbConnection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446.L_BIBLIOTEKI WHERE Nazwa = '"
+                        + selectedItem.getValue() + "'");
+                resultSet.next();
+                setLibraryData(resultSet);
+                resultSet.close();
+                statement.close();
+                libraryBox.setVisible(true);
+                branchBox.setVisible(false);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    private void setLibraryData(@Nullable ResultSet data) throws SQLException {
+        if (data == null) {
+            libraryName.setText("");
+            libraryFoundDate.setValue(LocalDate.now());
+            libraryType.setText("");
+            libraryAddress.setText("");
+            libraryBossForename.setText("");
+            libraryBossSurname.setText("");
+            libraryWebsite.setText("");
+        } else {
+            libraryName.setText(data.getString("Nazwa"));
+            Calendar foundDate = new GregorianCalendar();
+            foundDate.setTime(data.getDate("Data_założenia"));
+            libraryFoundDate.setValue(LocalDate.of(foundDate.get(Calendar.YEAR), foundDate.get(Calendar.MONTH) + 1,
+                    foundDate.get(Calendar.DAY_OF_MONTH)));
+            libraryType.setText(data.getString("Typ"));
+            libraryAddress.setText(data.getString("Adres_biura"));
+            libraryBossForename.setText(data.getString("Imie_dyrektora"));
+            libraryBossSurname.setText(data.getString("Nazwisko_dyrektora"));
+            libraryWebsite.setText(data.getString("Adres_www"));
+        }
+    }
+
+    private void setBranchData(ResultSet data) throws SQLException {
+        branchNumber.setText(data.getString("Numer"));
+        branchAddress.setText(data.getString("Adres"));
+        branchType.setText(data.getString("Typ"));
     }
 
     @FXML
@@ -202,7 +312,57 @@ public class AppController extends FxController {
 
     @FXML
     void onSaveLibraryButtonPressed(ActionEvent event) {
+        Statement statement;
+        PreparedStatement update;
+        TreeItem<String> selectedItem = libraryTree.getSelectionModel().getSelectedItem();
+        String name =  libraryName.getText();
+        LocalDate foundDate = libraryFoundDate.getValue();
+        String foundDateString = foundDate.getYear() + "-" + foundDate.getMonthValue() + "-" + foundDate.getDayOfMonth();
+        String type = libraryType.getText();
+        String address = libraryAddress.getText();
+        String bossForename = libraryBossForename.getText();
+        String bossSurname = libraryBossSurname.getText();
+        String website = libraryWebsite.getText();
 
+        try {
+            statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM inf122446.L_BIBLIOTEKI WHERE Nazwa = '" + name + "'");
+            if(resultSet.next()) {
+                update = dbConnection.prepareStatement("UPDATE INF122446.L_BIBLIOTEKI SET nazwa = ?," //Data_założenia = ?, "
+                +"Typ = ?, ADRES_BIURA = ?, Imie_dyrektora = ?, Nazwisko_dyrektora = ?, Adres_www = ? where ID = ?");
+                update.setString(1, name);
+                //update.setString(2, foundDateString); todo non-numeric char found when numeric expected:
+                update.setString(2, type);
+                update.setString(3, address);
+                update.setString(4, bossForename);
+                update.setString(5, bossSurname);
+                update.setString(6, website);
+                update.setInt(7, resultSet.getInt("ID"));
+                update.executeUpdate();
+                selectedItem.setValue(name);
+                update.close();
+            }
+            else {
+                update = dbConnection.prepareStatement("INSERT INTO INF122446.L_BIBLIOTEKI(Nazwa, /*Data_założenia,*/ Typ,"
+                        + "ADRES_BIURA, Imie_dyrektora, Nazwisko_dyrektora, Adres_www)"
+                        + "VALUES (?, ?, ?, ?, ?, ?/*, ?*/)");
+                update.setString(1, name);
+                //update.setString(2, foundDateString); todo non-numeric char found when numeric expected:
+                update.setString(2, type);
+                update.setString(3, address);
+                update.setString(4, bossForename);
+                update.setString(5, bossSurname);
+                update.setString(6, website);
+                update.executeUpdate();
+                update.executeUpdate();
+                selectedItem.setValue(name);
+                update.close();
+            }
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            //todo show user whats wrong
+        }
     }
 
     @FXML
@@ -212,6 +372,7 @@ public class AppController extends FxController {
 
     @FXML
     void initialize() {
-        onBranchTabSelected(null);
+        branchNumber.setTextFormatter(new TextFormatter<Integer>(change ->
+                change.getControlNewText().matches("\\d*") ? change : null));
     }
 }

@@ -24,9 +24,9 @@
                <children>
                   <VBox alignment="CENTER">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER">
                            <children>
-                              <Button fx:id="addLibraryButton" mnemonicParsing="false" onAction="#addLibraryButtonPressed" text="Dodaj">
+                              <Button fx:id="addLibraryButton" mnemonicParsing="false" onAction="#onAddLibraryButtonPressed" text="Dodaj">
                                  <HBox.margin>
                                     <Insets right="16.0" />
                                  </HBox.margin>
@@ -78,7 +78,7 @@
                         </HBox>
                         <Label text="Strona www" />
                         <TextField fx:id="libraryWebsite" />
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER">
                            <VBox.margin>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                            </VBox.margin>
@@ -105,12 +105,10 @@
                         <Insets left="16.0" right="16.0" />
                      </padding>
                      <children>
-                        <Label text="Biblioteka" />
-                        <Text fx:id="libName" strokeType="OUTSIDE" strokeWidth="0.0" />
                         <Label text="Numer" />
                         <TextField fx:id="branchNumber" />
                         <Label text="Adres" />
-                        <TextArea fx:id="branchAddress" prefHeight="200.0" prefWidth="200.0" />
+                        <TextField fx:id="branchAddress" />
                         <Label text="Typ" />
                         <TextField fx:id="branchType" />
                         <Button fx:id="saveBranchButton" mnemonicParsing="false" onAction="#onSaveBranchButtonPressed" text="Zapisz">

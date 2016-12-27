@@ -27,8 +27,8 @@ public class Main extends Application {
     @Override
     public void stop() {
         try {
-            FxController.currentController.dbConnection.close();
-        } catch (SQLException e) {
+            FxController.dbConnection.close();
+        } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
         }
     }
