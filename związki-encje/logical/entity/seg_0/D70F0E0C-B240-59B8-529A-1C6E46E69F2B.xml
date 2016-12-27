@@ -4,7 +4,7 @@
 <createdTime>2016-11-21 10:47:33 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -21,7 +21,7 @@
 <createdTime>2016-11-21 10:47:56 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -34,26 +34,11 @@
 <createdTime>2016-11-21 10:48:27 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT043</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
-<Attribute name="Nazwa" id="2784DE15-81F3-867F-0158-4AA27EF20A20">
-<createdBy>adam</createdBy>
-<createdTime>2016-11-21 10:49:00 UTC</createdTime>
-<generatorID>EB20BC28-0C21-45AC-7D5F-3FA7B6649B0E</generatorID>
-<ownerDesignName>związki-encje</ownerDesignName>
-<engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
-</engineerTo>
-<referedAttribute>A6B262F9-2776-6E98-9756-CC68273A3CAA</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>50</dataTypeSize>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="Numer" id="C92AFAF5-4302-26AD-3137-96F5C109D1B8">
@@ -62,7 +47,7 @@
 <generatorID>EB20BC28-0C21-45AC-7D5F-3FA7B6649B0E</generatorID>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <referedAttribute>0AF14DAD-E20C-0454-074A-ED44EA01725D</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -70,16 +55,29 @@
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="ID_bibliotekarza" id="42CA6142-2BE8-D97B-77F5-C9F8ABB03F28">
+<Attribute name="ID" id="42CA6142-2BE8-D97B-77F5-C9F8ABB03F28">
 <createdBy>adam</createdBy>
 <createdTime>2016-11-21 10:49:22 UTC</createdTime>
 <generatorID>5E7944A1-AA65-9962-A91C-A1C5ACC661ED</generatorID>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <referedAttribute>8FB59EC8-6F8F-8F64-43DC-1A9FD8F74F14</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ID1" id="A0D8D4D7-16AF-11E5-E34E-62C393233D18">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:29:50 UTC</createdTime>
+<generatorID>EB20BC28-0C21-45AC-7D5F-3FA7B6649B0E</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
+</engineerTo>
+<referedAttribute>B9A93D37-CCAE-8D6B-1C54-8AB896C2B55A</referedAttribute>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
@@ -90,15 +88,14 @@
 <createdBy>adam</createdBy>
 <createdTime>2016-11-21 10:49:00 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="false"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
-<attributeRef>2784DE15-81F3-867F-0158-4AA27EF20A20</attributeRef>
 <attributeRef>C92AFAF5-4302-26AD-3137-96F5C109D1B8</attributeRef>
 <attributeRef>42CA6142-2BE8-D97B-77F5-C9F8ABB03F28</attributeRef>
+<attributeRef>A0D8D4D7-16AF-11E5-E34E-62C393233D18</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>

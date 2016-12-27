@@ -1,0 +1,107 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="5D6BEFBC-2A17-9375-83A3-815E313D40A9" name="Kopie">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>15F18B57-2C17-3E21-67EE-E8474ABA5DE7</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Sygnatura" id="E74B18B4-1F2A-48CB-6412-913D6827A5C2">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>D89AEF6A-DD59-E610-15F2-63305FAC0384</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Filie_Numer" id="F7B833D5-1019-1BEC-8CDF-3A9B6D08D4D8">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>EF66562A-169C-D990-F17E-FA511926C357</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2509309C-88F6-C03E-2C3A-449D4653602A" referredColumn="5C6E7155-6856-5F3E-ACA5-FF68AF4D44CD"/>
+</associations>
+</Column>
+<Column name="Wydania_ISBN" id="E9E839DF-9CEF-2F64-6D3B-5CA9E5DEB1D9">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>896AC969-F7E5-2893-8672-E23D87C05F36</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>13</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DEE0208A-0437-B8AC-7A3D-18135D640E0F" referredColumn="2A80D94D-D57E-1168-6EFE-3DFA666D64B1"/>
+</associations>
+</Column>
+<Column name="Biblioteki_ID" id="8A0381FA-26A3-BA5B-43AF-7506D16BA9FA">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>846EA9DB-B0DF-E19C-AED8-76B54D598F8D</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2509309C-88F6-C03E-2C3A-449D4653602A" referredColumn="EB6FA71D-7982-9EB5-0770-801BAF58E2BC"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B245C2A0-5693-21D7-5DDF-51D982276AA0" name="Kopie_PK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>3633AE45-88AE-0F64-5EBE-D47156871E33</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E74B18B4-1F2A-48CB-6412-913D6827A5C2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="24BB9476-2FA4-FFE1-E550-C0277782656F" name="Kopie_Filie_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>63035E72-8B83-FE47-B880-A7D29EB7D6AC</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F7B833D5-1019-1BEC-8CDF-3A9B6D08D4D8"/>
+<colUsage columnID="8A0381FA-26A3-BA5B-43AF-7506D16BA9FA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="D4A1F2A8-5720-3749-B02F-6B2E8D382633" name="Kopie_Wydania_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<generatorID>5924844E-EB26-9602-A250-F2AE2DB95CF2</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E9E839DF-9CEF-2F64-6D3B-5CA9E5DEB1D9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -4,10 +4,10 @@
 <createdTime>2016-11-19 16:08:30 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <sourcePk>3633AE45-88AE-0F64-5EBE-D47156871E33</sourcePk>
-<identifying>true</identifying>
+<identifying>false</identifying>
 <nameOnSource>jest obiektem</nameOnSource>
 <nameOnTarget>realizowane na</nameOnTarget>
 <optionalSource>true</optionalSource>

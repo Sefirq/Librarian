@@ -1,0 +1,100 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F74517E2-4362-B9F4-FB00-21E4FDA2716F" name="Książki">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>1D26AB11-2EBF-6A98-ED20-11A1E4D8B3BE</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<ordsAlias>ksiazki</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="7664F239-1F09-76CA-167E-0008D29DD01F">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>DFA70428-94E3-4B2B-7745-1A212A29CF11</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<autoIncrementGenerateAlways>true</autoIncrementGenerateAlways>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Tytuł" id="A0919FBA-DE89-3B69-18CC-B5EEBFFAF0A6">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>3FBDA752-E5EE-3C2E-77BB-9EE6B75370CF</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>300</dataTypeSize>
+<ownDataTypeParameters>300,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Rok_ukończenia" id="0B592EB9-8FA6-9717-FD73-49FD2B05C4B6">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>3C2E5152-C321-C4F7-40FB-6BF0D9049EEF</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Gatunek" id="E2BF59CC-5D45-4898-94D4-9B9F6A1A6A35">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>6D6193FF-A24E-72CE-C27A-691508384357</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Język" id="78BD47C3-479D-B074-E24B-2880402BA95C">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>2547C695-1BFB-6AED-D019-7AF39C6E61F5</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Nurt" id="0B436585-6FBD-A9B2-FFA2-67850C58B8FF">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>8CF08B59-D4FA-E385-3176-CD73C5C5602D</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="8EF1B47D-4823-DA4B-DD85-853E2FB57464" name="Książki_PK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>5B4154B1-4911-3DBE-08FE-A4D017093B31</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7664F239-1F09-76CA-167E-0008D29DD01F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

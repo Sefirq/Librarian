@@ -1,0 +1,63 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="36CB048E-0EC7-25B9-15C5-53438184AF15" name="Bibliotekarze">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>6EF9F0C4-0DC1-7241-84E3-37816BB272C1</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="C807C194-086D-FB85-B3D3-F36127FE52B4">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>8FB59EC8-6F8F-8F64-43DC-1A9FD8F74F14</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<autoIncrementGenerateAlways>true</autoIncrementGenerateAlways>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Imie" id="0B2C8730-B9D3-8691-D614-7D6C56490340">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>1C9F6EB2-1B5F-D45F-369A-9672616E3B9B</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Nazwisko" id="EA26580B-1487-485F-0C85-625FCC9E447C">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>59E0BF1F-A6EF-C2DE-7579-0A5DFE0F7F85</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="62BF5C79-D379-3610-DFE9-0B5FA9C4693C" name="Bibliotekarze_PK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>638CA0F4-A391-1744-0027-8FE19332FD01</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C807C194-086D-FB85-B3D3-F36127FE52B4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -4,7 +4,7 @@
 <createdTime>2016-11-19 15:55:01 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -16,12 +16,24 @@
 <normalForm>Third</normalForm>
 <preferredAbbreviation>Biblioteki</preferredAbbreviation>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ID" id="5D84A753-4E70-8CF7-F4AD-3991FD7038EF">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:29:42 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 <Attribute name="Nazwa" id="DC8BE7E2-B3A2-B0BF-1D7A-806F64E853D2">
 <createdBy>sefir</createdBy>
 <createdTime>2016-11-19 22:13:15 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -34,7 +46,7 @@
 <createdTime>2016-11-19 22:43:59 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -46,7 +58,7 @@
 <createdTime>2016-11-19 22:44:23 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -59,7 +71,7 @@
 <createdTime>2016-11-19 22:44:54 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -72,7 +84,7 @@
 <createdTime>2016-11-19 22:45:04 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -85,7 +97,7 @@
 <createdTime>2016-11-19 22:45:25 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -98,7 +110,7 @@
 <createdTime>2016-11-19 22:51:17 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -113,13 +125,12 @@
 <createdBy>sefir</createdBy>
 <createdTime>2016-11-19 22:45:49 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="false"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
-<attributeRef>DC8BE7E2-B3A2-B0BF-1D7A-806F64E853D2</attributeRef>
+<attributeRef>5D84A753-4E70-8CF7-F4AD-3991FD7038EF</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>

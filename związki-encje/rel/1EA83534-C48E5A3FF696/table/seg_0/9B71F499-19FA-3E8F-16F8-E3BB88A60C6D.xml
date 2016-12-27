@@ -1,0 +1,142 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="9B71F499-19FA-3E8F-16F8-E3BB88A60C6D" name="Wypożyczenia">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>5F2A1931-A89C-F437-E796-A1562A0CF6EB</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<ordsAlias>wypozyczenia</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Czytelnicy_PESEL" id="068B0F3F-AF65-2A9B-3B9F-272E08EB0CE4">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>ED2B7512-F24B-2C71-FBF2-70373BD7C5ED</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="875F8B03-EFD8-D332-8F0C-32BF5053650C" referredColumn="E4CF81F1-24A0-4413-13BB-1BF62C1EA5DB"/>
+</associations>
+</Column>
+<Column name="ID" id="40453E31-9B9A-738C-AE09-E613922F0526">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>F3BA835E-F12C-C607-FB52-34E404026870</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<autoIncrementGenerateAlways>true</autoIncrementGenerateAlways>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Bibliotekarze_ID" id="18D2BB6B-0196-26B9-FCF7-A795AE22C6BF">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>41CCB39C-6A2F-28D1-EAFC-5C4001762F0D</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1355B977-669C-570F-7FE4-70B4D84479DB" referredColumn="C807C194-086D-FB85-B3D3-F36127FE52B4"/>
+</associations>
+</Column>
+<Column name="Kopie_Sygnatura" id="B2114AEF-7D52-3B5D-1DCD-ACC54CED5F28">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>FCB40001-584D-4B88-5B50-8D0DB800E5D1</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="002C0252-58D5-A6DA-FA84-74C71DF0C75A" referredColumn="E74B18B4-1F2A-48CB-6412-913D6827A5C2"/>
+</associations>
+</Column>
+<Column name="Data_wypozyczenia" id="B00CA7A2-AD54-2D7A-6E10-2FE600BB0D90">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>1048CDA6-6E55-EBC7-B42F-06F5C72CD97D</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Data_oddania" id="F3750939-BAF3-8EB7-B398-35E4FC4C5107">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>417F95D8-F292-E2A2-7D5C-59BEC90996A8</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DD3DF88D-B592-DEF2-5490-9B730D4AB077" name="Wypożyczenia_PK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>B56A9582-DF29-3384-4A36-2BEEC8029318</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="40453E31-9B9A-738C-AE09-E613922F0526"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6EF882D5-2BAF-9719-90A3-675F9B099BE8" name="Wypożyczenia_Kopie_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<generatorID>31077949-B64F-0236-2BF1-1D386AA6227B</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B2114AEF-7D52-3B5D-1DCD-ACC54CED5F28"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="628E3F5C-2CE2-D295-E2F1-059A0712593F" name="Wypożyczenia_Czytelnicy_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<generatorID>8A45F426-A11B-B5C2-71F9-EEB0682B1FE3</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="068B0F3F-AF65-2A9B-3B9F-272E08EB0CE4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E71DD6FB-43F6-008A-09B1-4C8FB5EB62DF" name="Wypożyczenia_Bibliotekarze_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<generatorID>3F171E81-DAE0-6C41-B278-9460566293D7</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="18D2BB6B-0196-26B9-FCF7-A795AE22C6BF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

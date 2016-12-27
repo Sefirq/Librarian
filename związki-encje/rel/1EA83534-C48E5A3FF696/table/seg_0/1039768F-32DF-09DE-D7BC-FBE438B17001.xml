@@ -1,0 +1,88 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1039768F-32DF-09DE-D7BC-FBE438B17001" name="Filie">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>AC23938D-08B9-DFBB-04B2-A48B7EB92A83</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Numer" id="5C6E7155-6856-5F3E-ACA5-FF68AF4D44CD">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>0AF14DAD-E20C-0454-074A-ED44EA01725D</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Adres" id="A0D4A504-D606-BA82-9E57-7F2F67D3809F">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>B5CDC706-9F04-10B5-3C4E-86E33F8BC3E5</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Typ" id="3015E21D-4EC3-F377-5FF7-C45FADFDFE03">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>FABEFD89-DAC9-197A-0DA3-216A1121884B</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Biblioteki_ID" id="EB6FA71D-7982-9EB5-0770-801BAF58E2BC">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>B9A93D37-CCAE-8D6B-1C54-8AB896C2B55A</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="579F6C0A-3226-5614-4875-9CB07D228D07" referredColumn="3144CEB6-C32A-BE29-2831-E3A158136195"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="66E8EA68-A00A-73DC-DFA1-DDB6A2FA539B" name="Filie_PK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>0F764AFC-1E33-89B3-8450-85EADA4F0936</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5C6E7155-6856-5F3E-ACA5-FF68AF4D44CD"/>
+<colUsage columnID="EB6FA71D-7982-9EB5-0770-801BAF58E2BC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B839EE1B-DF2B-3762-A0C8-E6F666AB3518" name="Filie_Biblioteki_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:33 UTC</createdTime>
+<generatorID>C54D0BA1-EC5F-9B28-506B-9DDDA144D218</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EB6FA71D-7982-9EB5-0770-801BAF58E2BC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -4,7 +4,7 @@
 <createdTime>2016-11-19 15:55:19 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -16,12 +16,12 @@
 <normalForm>Third</normalForm>
 <preferredAbbreviation>Bibliotekarze</preferredAbbreviation>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="ID_bibliotekarza" id="8FB59EC8-6F8F-8F64-43DC-1A9FD8F74F14">
+<Attribute name="ID" id="8FB59EC8-6F8F-8F64-43DC-1A9FD8F74F14">
 <createdBy>sefir</createdBy>
 <createdTime>2016-11-19 23:15:52 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -33,7 +33,7 @@
 <createdTime>2016-11-19 22:48:50 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -46,7 +46,7 @@
 <createdTime>2016-11-19 22:49:09 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -61,7 +61,7 @@
 <createdTime>2016-11-19 23:16:00 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

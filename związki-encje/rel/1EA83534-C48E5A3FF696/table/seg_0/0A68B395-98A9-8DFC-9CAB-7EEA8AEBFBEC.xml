@@ -1,0 +1,77 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0A68B395-98A9-8DFC-9CAB-7EEA8AEBFBEC" name="_Tłumaczenia">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<ordsAlias>relation_6</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Wydania_ISBN" id="A68E253B-B327-1E17-5FBC-011417FFE1CA">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>13</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="76A9A397-D632-DF6F-5628-662132C4B7AA" referredColumn="2A80D94D-D57E-1168-6EFE-3DFA666D64B1"/>
+</associations>
+</Column>
+<Column name="Tłumacze_ID" id="E255F7C5-7081-D4AD-D9B6-DFB6C7428327">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4A3CDCF7-5A45-18DF-278E-73EAB1739B1C" referredColumn="368768A0-90B5-69EE-9A13-53F4D6618862"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="77173AA1-A905-4EDB-16BE-AF26F66A182F" name="_Tłumaczenia_PK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A68E253B-B327-1E17-5FBC-011417FFE1CA"/>
+<colUsage columnID="E255F7C5-7081-D4AD-D9B6-DFB6C7428327"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4F4C9BBB-2B7D-09F5-7AA4-A75B57C62034" name="_Tłumaczenia_Wydania_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<generatorID>458D7F32-77DD-1278-5B05-3C57C25ED64D</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A68E253B-B327-1E17-5FBC-011417FFE1CA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A77A6468-BBF4-8C71-00A9-1EE73A6681C3" name="_Tłumaczenia_Tłumacze_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<generatorID>458D7F32-77DD-1278-5B05-3C57C25ED64D</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E255F7C5-7081-D4AD-D9B6-DFB6C7428327"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

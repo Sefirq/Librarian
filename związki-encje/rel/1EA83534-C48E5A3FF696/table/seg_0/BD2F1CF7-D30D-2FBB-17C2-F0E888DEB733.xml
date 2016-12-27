@@ -1,0 +1,76 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="BD2F1CF7-D30D-2FBB-17C2-F0E888DEB733" name="_Autorstwa">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<ordsAlias>relation_5</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Książki_ID" id="499342A8-8D5C-BAAE-F61F-4D3B5B77565D">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9914372C-3E62-FA64-29A1-B7AEBEA2C8F7" referredColumn="7664F239-1F09-76CA-167E-0008D29DD01F"/>
+</associations>
+</Column>
+<Column name="Autorzy_ID" id="F36C7F57-5EAB-6133-218F-53705EBED900">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="12B0B926-C4A3-6400-1DDC-EDA4466C9C62" referredColumn="F9E118DE-4AE8-4ABB-2A4D-5E79521A56F3"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="13AC9720-2863-020A-7B89-3648BDFC1D62" name="_Autorstwa_PK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<ownerDesignName>związki-encje</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="499342A8-8D5C-BAAE-F61F-4D3B5B77565D"/>
+<colUsage columnID="F36C7F57-5EAB-6133-218F-53705EBED900"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F484A606-2ABD-A2E2-AA57-7291F2143F11" name="_Autorstwa_Książki_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<generatorID>1BDE1E30-3395-B103-997A-9CB288849DB8</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="499342A8-8D5C-BAAE-F61F-4D3B5B77565D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="35D0AC4F-B9AA-21A2-99B8-0BF2844EC1D2" name="_Autorstwa_Autorzy_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<generatorID>1BDE1E30-3395-B103-997A-9CB288849DB8</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F36C7F57-5EAB-6133-218F-53705EBED900"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

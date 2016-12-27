@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="875F8B03-EFD8-D332-8F0C-32BF5053650C" containerWithKeyObject="9B71F499-19FA-3E8F-16F8-E3BB88A60C6D" localFKIndex="628E3F5C-2CE2-D295-E2F1-059A0712593F" name="Wypożyczenia_Czytelnicy_FK">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:36:34 UTC</createdTime>
+<generatorID>8A45F426-A11B-B5C2-71F9-EEB0682B1FE3</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>3654C955-C5D0-DA0C-F434-AC83F1BE4AEE</referredTableID>
+<keyObject>1CF8CE43-2953-75BA-E232-0B9C3F57AE4B</keyObject>
+<referredKeyID>1CF8CE43-2953-75BA-E232-0B9C3F57AE4B</referredKeyID>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

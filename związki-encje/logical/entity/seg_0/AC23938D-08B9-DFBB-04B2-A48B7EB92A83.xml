@@ -4,7 +4,7 @@
 <createdTime>2016-11-19 15:54:50 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -16,27 +16,12 @@
 <normalForm>Third</normalForm>
 <preferredAbbreviation>Filie</preferredAbbreviation>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="Nazwa" id="A6B262F9-2776-6E98-9756-CC68273A3CAA">
-<createdBy>sefir</createdBy>
-<createdTime>2016-11-19 22:45:51 UTC</createdTime>
-<generatorID>C54D0BA1-EC5F-9B28-506B-9DDDA144D218</generatorID>
-<ownerDesignName>związki-encje</ownerDesignName>
-<engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
-</engineerTo>
-<referedAttribute>DC8BE7E2-B3A2-B0BF-1D7A-806F64E853D2</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>50</dataTypeSize>
-<ownDataTypeParameters>50,,</ownDataTypeParameters>
-</Attribute>
 <Attribute name="Numer" id="0AF14DAD-E20C-0454-074A-ED44EA01725D">
 <createdBy>sefir</createdBy>
 <createdTime>2016-11-19 22:46:12 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -48,7 +33,7 @@
 <createdTime>2016-11-19 22:46:44 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -61,13 +46,27 @@
 <createdTime>2016-11-19 22:47:20 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>20</dataTypeSize>
 <ownDataTypeParameters>20,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ID" id="B9A93D37-CCAE-8D6B-1C54-8AB896C2B55A">
+<createdBy>adam</createdBy>
+<createdTime>2016-12-27 09:29:50 UTC</createdTime>
+<generatorID>C54D0BA1-EC5F-9B28-506B-9DDDA144D218</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
+</engineerTo>
+<referedAttribute>5D84A753-4E70-8CF7-F4AD-3991FD7038EF</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
@@ -76,12 +75,12 @@
 <createdTime>2016-11-19 22:52:02 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
-<attributeRef>A6B262F9-2776-6E98-9756-CC68273A3CAA</attributeRef>
 <attributeRef>0AF14DAD-E20C-0454-074A-ED44EA01725D</attributeRef>
+<attributeRef>B9A93D37-CCAE-8D6B-1C54-8AB896C2B55A</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>

@@ -4,7 +4,7 @@
 <createdTime>2016-11-19 15:52:05 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -21,7 +21,7 @@
 <createdTime>2016-11-19 23:01:03 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -35,7 +35,7 @@
 <generatorID>63035E72-8B83-FE47-B880-A7D29EB7D6AC</generatorID>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <referedAttribute>A6B262F9-2776-6E98-9756-CC68273A3CAA</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -50,7 +50,7 @@
 <generatorID>63035E72-8B83-FE47-B880-A7D29EB7D6AC</generatorID>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <referedAttribute>0AF14DAD-E20C-0454-074A-ED44EA01725D</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -63,7 +63,7 @@
 <createdTime>2016-11-19 23:02:39 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -75,7 +75,7 @@
 <createdTime>2016-11-19 23:02:58 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -89,7 +89,7 @@
 <generatorID>2301C406-5F6F-6760-BBBC-7CBA083393E4</generatorID>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <referedAttribute>5536A99F-87E1-DCF8-87E5-810BD6D395EE</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -98,15 +98,16 @@
 <dataTypeSize>20</dataTypeSize>
 <ownDataTypeParameters>20,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="ID_Książki" id="9348D126-21B2-98C9-B6F2-0BF6869F3244">
+<Attribute name="ID" id="9348D126-21B2-98C9-B6F2-0BF6869F3244">
 <createdBy>adam</createdBy>
 <createdTime>2016-11-21 10:45:51 UTC</createdTime>
 <generatorID>835109E3-9B19-E1B0-79C1-3E871488A8FC</generatorID>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <referedAttribute>DFA70428-94E3-4B2B-7745-1A212A29CF11</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
@@ -118,7 +119,7 @@
 <createdTime>2016-11-19 23:04:20 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
 <engineerTo>
-<item key="661D96DC-3667-C939-FAF5-7894BEF353C3" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
