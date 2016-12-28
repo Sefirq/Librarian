@@ -10,10 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.chrono.Chronology;
 import java.time.chrono.IsoChronology;
@@ -27,9 +24,6 @@ public class AppController extends FxController {
 
     @FXML
     private Button addLibraryButton;
-
-    @FXML
-    private Button clearLibrariesButton;
 
     @FXML
     private TreeView<String> libraryTree;
@@ -87,9 +81,6 @@ public class AppController extends FxController {
 
     @FXML
     private Button addLibrarianButton;
-
-    @FXML
-    private Button clearLibrariansButton;
 
     @FXML
     private TreeView<String> librarianTree;
@@ -188,16 +179,6 @@ public class AppController extends FxController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    void onClearLibrariansButtonPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onClearLibraryButtonPressed(ActionEvent event) {
-
     }
 
     @FXML
@@ -317,7 +298,6 @@ public class AppController extends FxController {
         TreeItem<String> selectedItem = libraryTree.getSelectionModel().getSelectedItem();
         String name =  libraryName.getText();
         LocalDate foundDate = libraryFoundDate.getValue();
-        String foundDateString = foundDate.getYear() + "-" + foundDate.getMonthValue() + "-" + foundDate.getDayOfMonth();
         String type = libraryType.getText();
         String address = libraryAddress.getText();
         String bossForename = libraryBossForename.getText();
@@ -328,32 +308,31 @@ public class AppController extends FxController {
             statement = dbConnection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM inf122446.L_BIBLIOTEKI WHERE Nazwa = '" + name + "'");
             if(resultSet.next()) {
-                update = dbConnection.prepareStatement("UPDATE INF122446.L_BIBLIOTEKI SET nazwa = ?," //Data_założenia = ?, "
+                update = dbConnection.prepareStatement("UPDATE INF122446.L_BIBLIOTEKI SET nazwa = ?, Data_założenia = ?, "
                 +"Typ = ?, ADRES_BIURA = ?, Imie_dyrektora = ?, Nazwisko_dyrektora = ?, Adres_www = ? where ID = ?");
                 update.setString(1, name);
-                //update.setString(2, foundDateString); todo non-numeric char found when numeric expected:
-                update.setString(2, type);
-                update.setString(3, address);
-                update.setString(4, bossForename);
-                update.setString(5, bossSurname);
-                update.setString(6, website);
-                update.setInt(7, resultSet.getInt("ID"));
+                update.setDate(2, Date.valueOf(foundDate));
+                update.setString(3, type);
+                update.setString(4, address);
+                update.setString(5, bossForename);
+                update.setString(6, bossSurname);
+                update.setString(7, website);
+                update.setInt(8, resultSet.getInt("ID"));
                 update.executeUpdate();
                 selectedItem.setValue(name);
                 update.close();
             }
             else {
-                update = dbConnection.prepareStatement("INSERT INTO INF122446.L_BIBLIOTEKI(Nazwa, /*Data_założenia,*/ Typ,"
+                update = dbConnection.prepareStatement("INSERT INTO INF122446.L_BIBLIOTEKI(Nazwa, Data_założenia, Typ,"
                         + "ADRES_BIURA, Imie_dyrektora, Nazwisko_dyrektora, Adres_www)"
-                        + "VALUES (?, ?, ?, ?, ?, ?/*, ?*/)");
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?)");
                 update.setString(1, name);
-                //update.setString(2, foundDateString); todo non-numeric char found when numeric expected:
-                update.setString(2, type);
-                update.setString(3, address);
-                update.setString(4, bossForename);
-                update.setString(5, bossSurname);
-                update.setString(6, website);
-                update.executeUpdate();
+                update.setDate(2, Date.valueOf(foundDate));
+                update.setString(3, type);
+                update.setString(4, address);
+                update.setString(5, bossForename);
+                update.setString(6, bossSurname);
+                update.setString(7, website);
                 update.executeUpdate();
                 selectedItem.setValue(name);
                 update.close();

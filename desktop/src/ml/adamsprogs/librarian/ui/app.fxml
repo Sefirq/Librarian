@@ -31,11 +31,6 @@
                                     <Insets right="16.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="clearLibrariesButton" mnemonicParsing="false" onAction="#onClearLibraryButtonPressed" text="Wyczyść">
-                                 <HBox.margin>
-                                    <Insets left="16.0" />
-                                 </HBox.margin>
-                              </Button>
                            </children>
                            <padding>
                               <Insets bottom="16.0" top="16.0" />
@@ -133,11 +128,6 @@
                               <Button fx:id="addLibrarianButton" mnemonicParsing="false" onAction="#onAddLibrarianButtonPressed" text="Dodaj">
                                  <HBox.margin>
                                     <Insets right="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="clearLibrariansButton" mnemonicParsing="false" onAction="#onClearLibrariansButtonPressed" text="Wyczyść">
-                                 <HBox.margin>
-                                    <Insets />
                                  </HBox.margin>
                               </Button>
                            </children>
