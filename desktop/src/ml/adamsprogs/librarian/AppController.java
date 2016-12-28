@@ -17,6 +17,8 @@ import java.util.GregorianCalendar;
 
 public class AppController extends FxController {
 
+    //todo feedback
+
     @FXML
     private Tab branchTab;
 
@@ -132,7 +134,23 @@ public class AppController extends FxController {
 
     @FXML
     void onAddBranchButtonPressed(ActionEvent event) {
-
+        String libName = getLibraryNameFromSelectedItem(libraryTree);
+        if(libName.equals("*Nowa Biblioteka")) {
+            //todo show user that they cannot do it
+            return;
+        }
+        TreeItem<String> library = findItemByName(libraryTree, libName);
+        if (library == null)
+            return;
+        TreeItem<String> newBranch = new TreeItem<>("*Nowa Filia");
+        library.getChildren().add(newBranch);
+        libraryTree.getSelectionModel().select(newBranch);
+        try {
+            setBranchData(null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        branchBox.setVisible(true);
     }
 
     @FXML
@@ -162,8 +180,7 @@ public class AppController extends FxController {
                 ResultSet subResult = subStatement.executeQuery("SELECT Numer, Adres FROM INF122446.L_FILIE WHERE Biblioteki_ID = "
                         + resultSet.getInt("ID"));
                 while (subResult.next()) {
-                    TreeItem<String> branchItem = new TreeItem<>("Filia nr " + subResult.getInt("Numer") +
-                            " (" + subResult.getString("Adres") + ")");
+                    TreeItem<String> branchItem = new TreeItem<>(composeBranchItemName(subResult.getInt("Numer"), subResult.getString("Adres")));
                     libraryItem.getChildren().add(branchItem);
                 }
                 subResult.close();
@@ -176,6 +193,10 @@ public class AppController extends FxController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private String composeBranchItemName(int number, String address) {
+        return "Filia nr " + number + " (" + address + ")";
     }
 
     private void clearTree(@NotNull TreeView<String> tree) {
@@ -192,6 +213,9 @@ public class AppController extends FxController {
     }
 
     private void onLibraryTreeItemSelected(TreeItem<String> selectedItem) {
+        if (selectedItem == null || selectedItem.getValue() == null || selectedItem.getValue().charAt(0) == '*')
+            return;
+
         removeEmptyItems();
 
         String[] label = selectedItem.getValue().split(" ");
@@ -244,12 +268,15 @@ public class AppController extends FxController {
             return;
         ObservableList<TreeItem<String>> libraries = root.getChildren();
         for (TreeItem<String> library : libraries) {
-            if (library.getValue().equals("*Nowa Biblioteka"))
+            if (library.getValue().equals("*Nowa Biblioteka") &&
+                    !libraryTree.getSelectionModel().getSelectedItem().equals(library))
                 libraries.remove(library);
             else {
                 ObservableList<TreeItem<String>> branches = library.getChildren();
                 for (TreeItem<String> branch : branches) {
-                    if (branch.getValue().equals("*Nowa Filia"))
+                    if (branch.getValue().equals("*Nowa Filia") &&
+                            !(libraryTree.getSelectionModel().getSelectedItem().equals(branch) ||
+                                    libraryTree.getSelectionModel().getSelectedItem().equals(branch.getParent())))
                         branches.remove(branch);
                 }
             }
@@ -277,6 +304,61 @@ public class AppController extends FxController {
 
     @FXML
     void onSaveBranchButtonPressed(ActionEvent event) {
+        Statement statement;
+        PreparedStatement update;
+        String libname = libraryName.getText();
+        int oldNumber;
+        try {
+            oldNumber = Integer.parseInt(libraryTree.getSelectionModel().getSelectedItem().getValue().split(" ")[2]);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            oldNumber = -1;
+        }
+        int number = Integer.parseInt(branchNumber.getText());
+        String address = branchAddress.getText();
+        String type = branchType.getText();
+
+        try {
+            statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT ID FROM INF122446.L_FILIE JOIN INF122446.L_BIBLIOTEKI "
+                    + "ON(BIBLIOTEKI_ID = ID) WHERE NUMER = " + oldNumber + " AND NAZWA = '" + libname + "'");
+            if (resultSet.next()) {
+                int ID = resultSet.getInt("ID");
+                statement.close();
+                update = dbConnection.prepareStatement("UPDATE INF122446.L_FILIE SET NUMER = ?, ADRES = ?, TYP = ?"
+                        + " WHERE BIBLIOTEKI_ID = ? AND NUMER = ?");
+                update.setInt(1, number);
+                update.setString(2, address);
+                update.setString(3, type);
+                update.setInt(4, ID);
+                update.setInt(5, oldNumber);
+                update.executeUpdate();
+                update.close();
+                onBranchTabSelected(null);
+                libraryTree.getSelectionModel().select(findItemByName(libraryTree, composeBranchItemName(number, address)));
+            } else {
+                statement.close();
+                statement = dbConnection.createStatement();
+                ResultSet subResult = statement.executeQuery("SELECT ID FROM INF122446.L_BIBLIOTEKI WHERE NAZWA = '"
+                        + libname + "'");
+                subResult.next();
+                update = dbConnection.prepareStatement("INSERT INTO INF122446.L_FILIE(NUMER, ADRES, TYP, BIBLIOTEKI_ID)"
+                        + "VALUES(?, ?, ?, ?)");
+                update.setInt(1, number);
+                update.setString(2, address);
+                update.setString(3, type);
+                update.setInt(4, subResult.getInt("ID"));
+                update.executeUpdate();
+                update.close();
+                subResult.close();
+                statement.close();
+                onBranchTabSelected(null);
+                libraryTree.getSelectionModel().select(findItemByName(libraryTree, composeBranchItemName(number, address)));
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            //todo show user what’s wrong
+        }
 
     }
 
@@ -289,7 +371,7 @@ public class AppController extends FxController {
     void onSaveLibraryButtonPressed(ActionEvent event) {
         Statement statement;
         PreparedStatement update;
-        String oldName = getLibraryNameFromTreeItem(libraryTree);
+        String oldName = getLibraryNameFromSelectedItem(libraryTree);
         String name = libraryName.getText();
         LocalDate foundDate = libraryFoundDate.getValue();
         String type = libraryType.getText();
@@ -300,7 +382,7 @@ public class AppController extends FxController {
 
         try {
             statement = dbConnection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM inf122446.L_BIBLIOTEKI "
+            ResultSet resultSet = statement.executeQuery("SELECT ID FROM inf122446.L_BIBLIOTEKI "
                     + "WHERE Nazwa = '" + oldName + "'");
             if (resultSet.next()) {
                 update = dbConnection.prepareStatement("UPDATE INF122446.L_BIBLIOTEKI SET nazwa = ?, "
@@ -335,13 +417,14 @@ public class AppController extends FxController {
                 update.close();
             }
             statement.close();
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            //todo show user whats wrong
+            //todo show user what’s wrong
         }
     }
 
-    private String getLibraryNameFromTreeItem(@NotNull TreeView<String> tree) {
+    private String getLibraryNameFromSelectedItem(@NotNull TreeView<String> tree) {
         TreeItem<String> selectedItem = tree.getSelectionModel().getSelectedItem();
         if (selectedItem.getValue().split(" ")[0].equals("Filia"))
             selectedItem = selectedItem.getParent();
@@ -371,7 +454,7 @@ public class AppController extends FxController {
     @FXML
     void initialize() {
         branchNumber.setTextFormatter(new TextFormatter<Integer>(change ->
-                change.getControlNewText().matches("\\d*") ? change : null));
+                change.getControlNewText().matches("[+-]?\\d*") ? change : null));
         libraryTree.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> onLibraryTreeItemSelected(newValue));
