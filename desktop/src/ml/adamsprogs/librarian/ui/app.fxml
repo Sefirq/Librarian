@@ -171,7 +171,7 @@
                                 <Insets left="16.0" right="16.0" />
                             </padding>
                         </VBox>
-                        <VBox fx:id="positionBox" alignment="CENTER">
+                        <VBox fx:id="postBox" alignment="CENTER">
                             <children>
                                 <Label text="Część etatu" />
                                 <TextField fx:id="postFraction" />
@@ -191,7 +191,7 @@
                                 <Insets left="16.0" right="16.0" />
                             </padding>
                         </VBox>
-                  <VBox alignment="CENTER">
+                  <VBox fx:id="librarianLendBox" alignment="CENTER">
                      <children>
                               <TableView fx:id="librarianLends">
                                   <columns>
@@ -239,7 +239,7 @@
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox alignment="CENTER">
+                  <VBox fx:id="readerBox" alignment="CENTER">
                      <HBox.margin>
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                      </HBox.margin>
@@ -257,7 +257,7 @@
                         </Button>
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER">
+                  <VBox fx:id="readerBorrowBox" alignment="CENTER">
                      <children>
                         <TableView fx:id="readerBorrowsTable">
                           <columns>

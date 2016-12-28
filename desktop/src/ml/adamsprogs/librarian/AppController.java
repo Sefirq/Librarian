@@ -20,11 +20,10 @@ public class AppController extends FxController {
 
     //todo feedback
 
-    @FXML
-    private Tab branchTab;
-
-    @FXML
-    private Button addLibraryButton;
+    /*
+    ====================================================================================================================
+    Library/Branch screen
+    */
 
     @FXML
     private TreeView<String> libraryTree;
@@ -54,12 +53,6 @@ public class AppController extends FxController {
     private TextField libraryWebsite;
 
     @FXML
-    private Button saveLibraryButton;
-
-    @FXML
-    private Button addBranchButton;
-
-    @FXML
     private VBox branchBox;
 
     @FXML
@@ -71,14 +64,10 @@ public class AppController extends FxController {
     @FXML
     private TextField branchType;
 
-    @FXML
-    private Button saveBranchButton;
-
-    @FXML
-    private Tab librarianTab;
-
-    @FXML
-    private Button addLibrarianButton;
+    /*
+    ====================================================================================================================
+    Librarian/Post screen
+    */
 
     @FXML
     private TreeView<String> librarianTree;
@@ -93,13 +82,7 @@ public class AppController extends FxController {
     private TextField librariansSurname;
 
     @FXML
-    private Button saveLibrarianButton;
-
-    @FXML
-    private Button addPostButton;
-
-    @FXML
-    private VBox positionBox;
+    private VBox postBox;
 
     @FXML
     private TextField postFraction;
@@ -114,40 +97,69 @@ public class AppController extends FxController {
     private Text postBranch;
 
     @FXML
-    private Button savePostButton;
+    private VBox librarianLendBox;
 
     @FXML
     private TableView<Lend> librarianLends;
 
     @FXML
-    private Tab readerTab;
+    private TableColumn<Lend, String> librarianLendTitle;
 
     @FXML
-    private Button addReaderButton;
+    private TableColumn<Lend, String> librarianLendAuthor;
 
     @FXML
-    private Button saveReaderButton;
+    private TableColumn<Lend, String> librarianLendReader;
+
+    @FXML
+    private TableColumn<Lend, String> librarianLendSince;
+
+    @FXML
+    private TableColumn<Lend, String> librarianLendTill;
+
+    @FXML
+    private TableColumn<Lend, String> librarianLendLibrary;
+
+    @FXML
+    private TableColumn<Lend, String> librarianLendBranch;
+
+    @FXML
+    private TableColumn<Lend, String> librarianLendSignature;
+
+    @FXML
+    private TableColumn<Lend, String> librarianLendISBN;
+
+    /*
+    ====================================================================================================================
+    Reader screen
+    */
 
     @FXML
     private TableView<Reader> readersTable;
 
     @FXML
-    private TextField readerPESEL;
-
-    @FXML
     private TableColumn<Reader, String> readerPeselColumn;
-
-    @FXML
-    private TextField readerForename;
 
     @FXML
     private TableColumn<Reader, String> readerForenameColumn;
 
     @FXML
+    private TableColumn<Reader, String> readerSurnameColumn;
+
+    @FXML
+    private VBox readerBox;
+
+    @FXML
+    private TextField readerPESEL;
+
+    @FXML
+    private TextField readerForename;
+
+    @FXML
     private TextField readerSurname;
 
     @FXML
-    private TableColumn<Reader, String> readerSurnameColumn;
+    private VBox readerBorrowBox;
 
     @FXML
     private TableView<Lend> readerBorrowsTable;
@@ -179,77 +191,11 @@ public class AppController extends FxController {
     @FXML
     private TableColumn<Lend, String> readerBorrowLibrarian;
 
-    @FXML
-    private TableColumn<Lend, String> librarianLendTitle;
-
-    @FXML
-    private TableColumn<Lend, String> librarianLendAuthor;
-
-    @FXML
-    private TableColumn<Lend, String> librarianLendReader;
-
-    @FXML
-    private TableColumn<Lend, String> librarianLendSince;
-
-    @FXML
-    private TableColumn<Lend, String> librarianLendTill;
-
-    @FXML
-    private TableColumn<Lend, String> librarianLendLibrary;
-
-    @FXML
-    private TableColumn<Lend, String> librarianLendBranch;
-
-    @FXML
-    private TableColumn<Lend, String> librarianLendSignature;
-
-    @FXML
-    private TableColumn<Lend, String> librarianLendISBN;
-
-    @FXML
-    void onAddLibraryButtonPressed(ActionEvent event) {
-        TreeItem<String> root = libraryTree.getRoot();
-        TreeItem<String> newLibrary = new TreeItem<>("*Nowa Biblioteka");
-        root.getChildren().add(newLibrary);
-        libraryTree.getSelectionModel().select(newLibrary);
-        try {
-            setLibraryData(null);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        branchBox.setVisible(false);
-    }
-
-    @FXML
-    void onAddBranchButtonPressed(ActionEvent event) {
-        String libName = getLibraryNameFromSelectedItem(libraryTree);
-        if (libName.equals("*Nowa Biblioteka")) {
-            //todo show user that they cannot do it
-            return;
-        }
-        TreeItem<String> library = findItemByName(libraryTree, libName);
-        if (library == null)
-            return;
-        TreeItem<String> newBranch = new TreeItem<>("*Nowa Filia");
-        library.getChildren().add(newBranch);
-        libraryTree.getSelectionModel().select(newBranch);
-        try {
-            setBranchData(null);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        branchBox.setVisible(true);
-    }
-
-    @FXML
-    void onAddLibrarianButtonPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onAddPostButtonPressed(ActionEvent event) {
-
-    }
+    /*
+    ====================================================================================================================
+    ====================================================================================================================
+    Library/Branch screen
+    */
 
     @FXML
     void onBranchTabSelected(Event event) {
@@ -283,29 +229,43 @@ public class AppController extends FxController {
         }
     }
 
-    private String composeBranchItemName(int number, String address) {
-        return "Filia nr " + number + " (" + address + ")";
-    }
-
     private void clearTree(@NotNull TreeView<String> tree) {
         tree.setRoot(null);
     }
 
-    @FXML
-    void onLibrarianTabSelected(Event event) {
-
-    }
-
-    private void onLibrarianTreeItemSelected(TreeItem<String> newValue) {
-
+    @NotNull
+    private String composeBranchItemName(int number, String address) {
+        return "Filia nr " + number + " (" + address + ")";
     }
 
     @FXML
-    private void onReturnLibrarianLendButtonPressed(ActionEvent actionEvent) {
-
+    void onAddLibraryButtonPressed(ActionEvent event) {
+        TreeItem<String> root = libraryTree.getRoot();
+        TreeItem<String> newLibrary = new TreeItem<>("*Nowa Biblioteka");
+        root.getChildren().add(newLibrary);
+        libraryTree.getSelectionModel().select(newLibrary);
+        try {
+            setLibraryData(null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        branchBox.setVisible(false);
     }
 
-    private void onLibraryTreeItemSelected(TreeItem<String> selectedItem) {
+    private void setLibraryData(@Nullable ResultSet data) throws SQLException {
+        libraryName.setText(data != null ? data.getString("Nazwa") : "");
+        Calendar foundDate = new GregorianCalendar();
+        foundDate.setTime(data != null ? data.getDate("Data_założenia") : GregorianCalendar.getInstance().getTime());
+        libraryFoundDate.setValue(LocalDate.of(foundDate.get(Calendar.YEAR), foundDate.get(Calendar.MONTH) + 1,
+                foundDate.get(Calendar.DAY_OF_MONTH)));
+        libraryType.setText(data != null ? data.getString("Typ") : "");
+        libraryAddress.setText(data != null ? data.getString("Adres_biura") : "");
+        libraryBossForename.setText(data != null ? data.getString("Imie_dyrektora") : "");
+        libraryBossSurname.setText(data != null ? data.getString("Nazwisko_dyrektora") : "");
+        libraryWebsite.setText(data != null ? data.getString("Adres_www") : "");
+    }
+
+    private void onLibraryTreeItemSelected(@Nullable TreeItem<String> selectedItem) {
         if (selectedItem == null || selectedItem.getValue() == null || selectedItem.getValue().charAt(0) == '*')
             return;
 
@@ -352,7 +312,12 @@ public class AppController extends FxController {
                 e.printStackTrace();
             }
         }
+    }
 
+    private void setBranchData(@Nullable ResultSet data) throws SQLException {
+        branchNumber.setText(data != null ? data.getString("Numer") : "");
+        branchAddress.setText(data != null ? data.getString("Adres") : "");
+        branchType.setText(data != null ? data.getString("Typ") : "");
     }
 
     private void removeEmptyItems() {
@@ -376,90 +341,6 @@ public class AppController extends FxController {
         }
     }
 
-    private void setLibraryData(@Nullable ResultSet data) throws SQLException {
-        libraryName.setText(data != null ? data.getString("Nazwa") : "");
-        Calendar foundDate = new GregorianCalendar();
-        foundDate.setTime(data != null ? data.getDate("Data_założenia") : GregorianCalendar.getInstance().getTime());
-        libraryFoundDate.setValue(LocalDate.of(foundDate.get(Calendar.YEAR), foundDate.get(Calendar.MONTH) + 1,
-                foundDate.get(Calendar.DAY_OF_MONTH)));
-        libraryType.setText(data != null ? data.getString("Typ") : "");
-        libraryAddress.setText(data != null ? data.getString("Adres_biura") : "");
-        libraryBossForename.setText(data != null ? data.getString("Imie_dyrektora") : "");
-        libraryBossSurname.setText(data != null ? data.getString("Nazwisko_dyrektora") : "");
-        libraryWebsite.setText(data != null ? data.getString("Adres_www") : "");
-    }
-
-    private void setBranchData(@Nullable ResultSet data) throws SQLException {
-        branchNumber.setText(data != null ? data.getString("Numer") : "");
-        branchAddress.setText(data != null ? data.getString("Adres") : "");
-        branchType.setText(data != null ? data.getString("Typ") : "");
-    }
-
-    @FXML
-    void onSaveBranchButtonPressed(ActionEvent event) {
-        Statement statement;
-        PreparedStatement update;
-        String libname = libraryName.getText();
-        int oldNumber;
-        try {
-            oldNumber = Integer.parseInt(libraryTree.getSelectionModel().getSelectedItem().getValue().split(" ")[2]);
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            oldNumber = -1;
-        }
-        int number = Integer.parseInt(branchNumber.getText());
-        String address = branchAddress.getText();
-        String type = branchType.getText();
-
-        try {
-            statement = dbConnection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT ID FROM INF122446.L_FILIE JOIN INF122446.L_BIBLIOTEKI "
-                    + "ON(BIBLIOTEKI_ID = ID) WHERE NUMER = " + oldNumber + " AND NAZWA = '" + libname + "'");
-            if (resultSet.next()) {
-                int ID = resultSet.getInt("ID");
-                statement.close();
-                update = dbConnection.prepareStatement("UPDATE INF122446.L_FILIE SET NUMER = ?, ADRES = ?, TYP = ?"
-                        + " WHERE BIBLIOTEKI_ID = ? AND NUMER = ?");
-                update.setInt(1, number);
-                update.setString(2, address);
-                update.setString(3, type);
-                update.setInt(4, ID);
-                update.setInt(5, oldNumber);
-                update.executeUpdate();
-                update.close();
-                onBranchTabSelected(null);
-                libraryTree.getSelectionModel().select(findItemByName(libraryTree, composeBranchItemName(number, address)));
-            } else {
-                statement.close();
-                statement = dbConnection.createStatement();
-                ResultSet subResult = statement.executeQuery("SELECT ID FROM INF122446.L_BIBLIOTEKI WHERE NAZWA = '"
-                        + libname + "'");
-                subResult.next();
-                update = dbConnection.prepareStatement("INSERT INTO INF122446.L_FILIE(NUMER, ADRES, TYP, BIBLIOTEKI_ID)"
-                        + "VALUES(?, ?, ?, ?)");
-                update.setInt(1, number);
-                update.setString(2, address);
-                update.setString(3, type);
-                update.setInt(4, subResult.getInt("ID"));
-                update.executeUpdate();
-                update.close();
-                subResult.close();
-                statement.close();
-                onBranchTabSelected(null);
-                libraryTree.getSelectionModel().select(findItemByName(libraryTree, composeBranchItemName(number, address)));
-            }
-            resultSet.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            //todo show user what’s wrong
-        }
-
-    }
-
-    @FXML
-    void onSaveLibrarianButtonPressed(ActionEvent event) {
-
-    }
-
     @FXML
     void onSaveLibraryButtonPressed(ActionEvent event) {
         Statement statement;
@@ -481,33 +362,15 @@ public class AppController extends FxController {
                 update = dbConnection.prepareStatement("UPDATE INF122446.L_BIBLIOTEKI SET nazwa = ?, "
                         + "Data_założenia = ?, Typ = ?, ADRES_BIURA = ?, Imie_dyrektora = ?, Nazwisko_dyrektora = ?, "
                         + "Adres_www = ? WHERE ID = ?");
-                update.setString(1, name);
-                update.setDate(2, Date.valueOf(foundDate));
-                update.setString(3, type);
-                update.setString(4, address);
-                update.setString(5, bossForename);
-                update.setString(6, bossSurname);
-                update.setString(7, website);
+                update = insertIntoUpdate(update, name, foundDate, type, address, bossForename, bossSurname, website);
                 update.setInt(8, resultSet.getInt("ID"));
-                update.executeUpdate();
-                onBranchTabSelected(null);
-                libraryTree.getSelectionModel().select(findItemByName(libraryTree, name));
-                update.close();
+                executeRefreshSelect(update, name);
             } else {
                 update = dbConnection.prepareStatement("INSERT INTO INF122446.L_BIBLIOTEKI(Nazwa, Data_założenia,"
                         + "Typ, ADRES_BIURA, Imie_dyrektora, Nazwisko_dyrektora, Adres_www)"
                         + "VALUES (?, ?, ?, ?, ?, ?, ?)");
-                update.setString(1, name);
-                update.setDate(2, Date.valueOf(foundDate));
-                update.setString(3, type);
-                update.setString(4, address);
-                update.setString(5, bossForename);
-                update.setString(6, bossSurname);
-                update.setString(7, website);
-                update.executeUpdate();
-                onBranchTabSelected(null);
-                libraryTree.getSelectionModel().select(findItemByName(libraryTree, name));
-                update.close();
+                update = insertIntoUpdate(update, name, foundDate, type, address, bossForename, bossSurname, website);
+                executeRefreshSelect(update, name);
             }
             statement.close();
             resultSet.close();
@@ -522,6 +385,27 @@ public class AppController extends FxController {
         if (selectedItem.getValue().split(" ")[0].equals("Filia"))
             selectedItem = selectedItem.getParent();
         return selectedItem.getValue();
+    }
+
+    private PreparedStatement insertIntoUpdate(PreparedStatement update, String name, LocalDate foundDate, String type,
+                                               String address, String bossForename, String bossSurname, String website)
+            throws SQLException {
+        update.setString(1, name);
+        update.setDate(2, Date.valueOf(foundDate));
+        update.setString(3, type);
+        update.setString(4, address);
+        update.setString(5, bossForename);
+        update.setString(6, bossSurname);
+        update.setString(7, website);
+
+        return update;
+    }
+
+    private void executeRefreshSelect(PreparedStatement update, String selectionName) throws SQLException {
+        update.executeUpdate();
+        onBranchTabSelected(null);
+        libraryTree.getSelectionModel().select(findItemByName(libraryTree, selectionName));
+        update.close();
     }
 
     @Nullable
@@ -540,7 +424,143 @@ public class AppController extends FxController {
     }
 
     @FXML
+    void onAddBranchButtonPressed(ActionEvent event) {
+        String libName = getLibraryNameFromSelectedItem(libraryTree);
+        if (libName.equals("*Nowa Biblioteka")) {
+            //todo show user that they cannot do it
+            return;
+        }
+        TreeItem<String> library = findItemByName(libraryTree, libName);
+        if (library == null)
+            return;
+        TreeItem<String> newBranch = new TreeItem<>("*Nowa Filia");
+        library.getChildren().add(newBranch);
+        libraryTree.getSelectionModel().select(newBranch);
+        try {
+            setBranchData(null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        branchBox.setVisible(true);
+    }
+
+    @FXML
+    void onSaveBranchButtonPressed(ActionEvent event) {
+        Statement statement;
+        PreparedStatement update;
+        String libname = libraryName.getText();
+        int oldNumber;
+        try {
+            oldNumber = Integer.parseInt(libraryTree.getSelectionModel().getSelectedItem().getValue().split(" ")[2]);
+        } catch (@NotNull IndexOutOfBoundsException | NumberFormatException e) {
+            oldNumber = -1;
+        }
+        int number = Integer.parseInt(branchNumber.getText());
+        String address = branchAddress.getText();
+        String type = branchType.getText();
+
+        try {
+            statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT ID FROM INF122446.L_FILIE JOIN INF122446.L_BIBLIOTEKI "
+                    + "ON(BIBLIOTEKI_ID = ID) WHERE NUMER = " + oldNumber + " AND NAZWA = '" + libname + "'");
+            if (resultSet.next()) {
+                int ID = resultSet.getInt("ID");
+                statement.close();
+                update = dbConnection.prepareStatement("UPDATE INF122446.L_FILIE SET NUMER = ?, ADRES = ?, TYP = ?"
+                        + " WHERE BIBLIOTEKI_ID = ? AND NUMER = ?");
+                update.setInt(1, number);
+                update.setString(2, address);
+                update.setString(3, type);
+                update.setInt(4, ID);
+                update.setInt(5, oldNumber);
+                update.executeUpdate();
+                refresh(update, number, address);
+            } else {
+                statement.close();
+                statement = dbConnection.createStatement();
+                ResultSet subResult = statement.executeQuery("SELECT ID FROM INF122446.L_BIBLIOTEKI WHERE NAZWA = '"
+                        + libname + "'");
+                subResult.next();
+                update = dbConnection.prepareStatement("INSERT INTO INF122446.L_FILIE(NUMER, ADRES, TYP, BIBLIOTEKI_ID)"
+                        + "VALUES(?, ?, ?, ?)");
+                update.setInt(1, number);
+                update.setString(2, address);
+                update.setString(3, type);
+                update.setInt(4, subResult.getInt("ID"));
+                update.executeUpdate();
+                subResult.close();
+                statement.close();
+                refresh(update, number, address);
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            //todo show user what’s wrong
+        }
+
+    }
+
+    private void refresh(PreparedStatement update, int number, String address) throws SQLException {
+        update.close();
+        onBranchTabSelected(null);
+        libraryTree.getSelectionModel().select(findItemByName(libraryTree, composeBranchItemName(number, address)));
+    }
+
+    /*
+    ====================================================================================================================
+    Librarian/Post screen
+    */
+
+    @FXML
+    void onLibrarianTabSelected(Event event) {
+
+    }
+
+    @FXML
+    void onAddLibrarianButtonPressed(ActionEvent event) {
+
+    }
+
+    private void onLibrarianTreeItemSelected(TreeItem<String> newValue) {
+
+    }
+
+    @FXML
+    void onSaveLibrarianButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onAddPostButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
     void onSavePostButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void onReturnLibrarianLendButtonPressed(ActionEvent actionEvent) {
+
+    }
+
+    /*
+    ====================================================================================================================
+    Reader screen
+    */
+
+    @FXML
+    void onReaderTabSelected(Event event) {
+
+    }
+
+    @FXML
+    void onAddReaderButtonPressed(ActionEvent event) {
+
+    }
+
+    private void onReaderTableItemSelected(Reader reader) {
 
     }
 
@@ -550,23 +570,14 @@ public class AppController extends FxController {
     }
 
     @FXML
-    void onAddReaderButtonPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onReaderTabSelected(Event event) {
-
-    }
-
-    private void onReaderTableItemSelected(Reader reader) {
-
-    }
-
-    @FXML
     private void onReturnReaderBorrowButtonPressed(ActionEvent actionEvent) {
 
     }
+
+    /*
+    ====================================================================================================================
+    Initialiser
+    */
 
     @FXML
     void initialize() {

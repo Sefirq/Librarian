@@ -2,6 +2,7 @@ package ml.adamsprogs.librarian;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
 
@@ -28,7 +29,7 @@ public class Main extends Application {
     public void stop() {
         try {
             FxController.dbConnection.close();
-        } catch (SQLException | NullPointerException e) {
+        } catch (@NotNull SQLException | NullPointerException e) {
             e.printStackTrace();
         }
     }
