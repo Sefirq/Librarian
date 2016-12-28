@@ -16,212 +16,223 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<TabPane stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
+<TabPane stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS"
+         xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="ml.adamsprogs.librarian.AppController">
     <tabs>
         <Tab fx:id="branchTab" onSelectionChanged="#onBranchTabSelected" text="Filie">
-         <content>
-            <HBox alignment="CENTER">
-               <children>
-                  <VBox alignment="CENTER">
-                     <children>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <Button fx:id="addLibraryButton" mnemonicParsing="false" onAction="#onAddLibraryButtonPressed" text="Dodaj">
-                                 <HBox.margin>
-                                    <Insets right="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <padding>
-                              <Insets bottom="16.0" top="16.0" />
-                           </padding>
-                        </HBox>
-                        <TreeView fx:id="libraryTree" onMouseClicked="#onLibraryTreeClicked">
-                           <VBox.margin>
-                              <Insets bottom="16.0" />
-                           </VBox.margin>
-                        </TreeView>
-                     </children>
-                     <padding>
-                        <Insets left="16.0" right="16.0" />
-                     </padding>
-                  </VBox>
-                  <VBox fx:id="libraryBox" alignment="CENTER">
-                     <children>
-                        <Label text="Nazwa" />
-                        <TextField fx:id="libraryName" />
-                        <Label text="Data założenia" />
-                        <DatePicker fx:id="libraryFoundDate" />
-                        <Label text="Typ" />
-                        <TextField fx:id="libraryType" />
-                        <Label text="Adres biura" />
-                        <TextField fx:id="libraryAddress" />
-                        <Label text="Dyrektor" />
-                        <HBox alignment="CENTER">
-                           <children>
-                              <TextField fx:id="libraryBossForename">
-                                 <HBox.margin>
-                                    <Insets right="16.0" />
-                                 </HBox.margin>
-                              </TextField>
-                              <TextField fx:id="libraryBossSurname">
-                                 <HBox.margin>
-                                    <Insets left="16.0" />
-                                 </HBox.margin>
-                              </TextField>
-                           </children>
-                        </HBox>
-                        <Label text="Strona www" />
-                        <TextField fx:id="libraryWebsite" />
-                        <HBox alignment="CENTER">
-                           <VBox.margin>
-                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                           </VBox.margin>
-                           <children>
-                              <Button fx:id="saveLibraryButton" mnemonicParsing="false" onAction="#onSaveLibraryButtonPressed" text="Zapisz">
-                                 <HBox.margin>
-                                    <Insets right="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="addBranchButton" mnemonicParsing="false" onAction="#onAddBranchButtonPressed" text="Dodaj Filię">
-                                 <HBox.margin>
-                                    <Insets left="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets left="16.0" right="16.0" />
-                     </padding>
-                  </VBox>
-                  <VBox fx:id="branchBox" alignment="CENTER">
-                     <padding>
-                        <Insets left="16.0" right="16.0" />
-                     </padding>
-                     <children>
-                        <Label text="Numer" />
-                        <TextField fx:id="branchNumber" />
-                        <Label text="Adres" />
-                        <TextField fx:id="branchAddress" />
-                        <Label text="Typ" />
-                        <TextField fx:id="branchType" />
-                        <Button fx:id="saveBranchButton" mnemonicParsing="false" onAction="#onSaveBranchButtonPressed" text="Zapisz">
-                           <VBox.margin>
-                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </content>
+            <content>
+                <HBox alignment="CENTER">
+                    <children>
+                        <VBox alignment="CENTER">
+                            <children>
+                                <HBox alignment="CENTER">
+                                    <children>
+                                        <Button fx:id="addLibraryButton" mnemonicParsing="false"
+                                                onAction="#onAddLibraryButtonPressed" text="Dodaj">
+                                            <HBox.margin>
+                                                <Insets right="16.0"/>
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="16.0" top="16.0"/>
+                                    </padding>
+                                </HBox>
+                                <TreeView fx:id="libraryTree">
+                                    <VBox.margin>
+                                        <Insets bottom="16.0"/>
+                                    </VBox.margin>
+                                </TreeView>
+                            </children>
+                            <padding>
+                                <Insets left="16.0" right="16.0"/>
+                            </padding>
+                        </VBox>
+                        <VBox fx:id="libraryBox" alignment="CENTER">
+                            <children>
+                                <Label text="Nazwa"/>
+                                <TextField fx:id="libraryName"/>
+                                <Label text="Data założenia"/>
+                                <DatePicker fx:id="libraryFoundDate"/>
+                                <Label text="Typ"/>
+                                <TextField fx:id="libraryType"/>
+                                <Label text="Adres biura"/>
+                                <TextField fx:id="libraryAddress"/>
+                                <Label text="Dyrektor"/>
+                                <HBox alignment="CENTER">
+                                    <children>
+                                        <TextField fx:id="libraryBossForename">
+                                            <HBox.margin>
+                                                <Insets right="16.0"/>
+                                            </HBox.margin>
+                                        </TextField>
+                                        <TextField fx:id="libraryBossSurname">
+                                            <HBox.margin>
+                                                <Insets left="16.0"/>
+                                            </HBox.margin>
+                                        </TextField>
+                                    </children>
+                                </HBox>
+                                <Label text="Strona www"/>
+                                <TextField fx:id="libraryWebsite"/>
+                                <HBox alignment="CENTER">
+                                    <VBox.margin>
+                                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0"/>
+                                    </VBox.margin>
+                                    <children>
+                                        <Button fx:id="saveLibraryButton" mnemonicParsing="false"
+                                                onAction="#onSaveLibraryButtonPressed" text="Zapisz">
+                                            <HBox.margin>
+                                                <Insets right="16.0"/>
+                                            </HBox.margin>
+                                        </Button>
+                                        <Button fx:id="addBranchButton" mnemonicParsing="false"
+                                                onAction="#onAddBranchButtonPressed" text="Dodaj Filię">
+                                            <HBox.margin>
+                                                <Insets left="16.0"/>
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                            </children>
+                            <padding>
+                                <Insets left="16.0" right="16.0"/>
+                            </padding>
+                        </VBox>
+                        <VBox fx:id="branchBox" alignment="CENTER">
+                            <padding>
+                                <Insets left="16.0" right="16.0"/>
+                            </padding>
+                            <children>
+                                <Label text="Numer"/>
+                                <TextField fx:id="branchNumber"/>
+                                <Label text="Adres"/>
+                                <TextField fx:id="branchAddress"/>
+                                <Label text="Typ"/>
+                                <TextField fx:id="branchType"/>
+                                <Button fx:id="saveBranchButton" mnemonicParsing="false"
+                                        onAction="#onSaveBranchButtonPressed" text="Zapisz">
+                                    <VBox.margin>
+                                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0"/>
+                                    </VBox.margin>
+                                </Button>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </content>
         </Tab>
         <Tab fx:id="librarianTab" onSelectionChanged="#onLibrarianTabSelected" text="Bibliotekarze">
-         <content>
-            <HBox alignment="CENTER">
-               <children>
-                  <VBox alignment="CENTER">
-                     <children>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <Button fx:id="addLibrarianButton" mnemonicParsing="false" onAction="#onAddLibrarianButtonPressed" text="Dodaj">
-                                 <HBox.margin>
-                                    <Insets right="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <padding>
-                              <Insets bottom="16.0" top="16.0" />
-                           </padding>
-                        </HBox>
-                        <TreeView fx:id="librarianTree" onMouseClicked="#onLibrarianTreeClicked">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </TreeView>
-                     </children>
-                     <padding>
-                        <Insets left="16.0" right="16.0" />
-                     </padding>
-                  </VBox>
-                  <VBox fx:id="librarianBox" alignment="CENTER">
-                     <children>
-                        <Label text="Imię" />
-                        <TextField fx:id="librarianForename" />
-                        <Label text="Nazwisko" />
-                        <TextField fx:id="librariansSurname" />
-                        <HBox alignment="CENTER">
-                           <VBox.margin>
-                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                           </VBox.margin>
-                           <children>
-                              <Button fx:id="saveLibrarianButton" mnemonicParsing="false" onAction="#onSaveLibrarianButtonPressed" text="Zapisz">
-                                 <HBox.margin>
-                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="addPostButton" mnemonicParsing="false" onAction="#onAddPostButtonPressed" text="Dodaj etat">
-                                 <HBox.margin>
-                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets left="16.0" right="16.0" />
-                     </padding>
-                  </VBox>
-                  <VBox fx:id="positionBox" alignment="CENTER">
-                     <children>
-                        <Label text="Część etatu" />
-                        <TextField fx:id="postFraction" />
-                        <Label text="Pensja" />
-                        <TextField fx:id="postSalary" />
-                        <Label text="Biblioteka" />
-                        <Text fx:id="postLibrary" strokeType="OUTSIDE" strokeWidth="0.0" />
-                        <Label text="Filia" />
-                        <Text fx:id="postBranch" strokeType="OUTSIDE" strokeWidth="0.0" />
-                        <Button fx:id="savePostButton" mnemonicParsing="false" onAction="#onSavePostButtonPressed" text="Zapisz">
-                           <VBox.margin>
-                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                     <padding>
-                        <Insets left="16.0" right="16.0" />
-                     </padding>
-                  </VBox>
-                  <TableView fx:id="librarianLends">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="Tytuł" />
-                      <TableColumn prefWidth="75.0" text="Autor" />
-                        <TableColumn prefWidth="75.0" text="Sygnatura" />
-                        <TableColumn prefWidth="75.0" text="Biblioteka" />
-                        <TableColumn prefWidth="75.0" text="Filia" />
-                        <TableColumn prefWidth="75.0" text="Imię" />
-                        <TableColumn prefWidth="75.0" text="Nazwisko" />
-                        <TableColumn prefWidth="75.0" text="Pesel" />
-                        <TableColumn prefWidth="75.0" text="Od" />
-                        <TableColumn prefWidth="75.0" text="Do" />
-                    </columns>
-                     <HBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </HBox.margin>
-                  </TableView>
-               </children>
-            </HBox>
-         </content></Tab>
-      <Tab text="Czytelnicy">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-        </content>
-      </Tab>
-      <Tab text="Książki">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-        </content>
-      </Tab>
+            <content>
+                <HBox alignment="CENTER">
+                    <children>
+                        <VBox alignment="CENTER">
+                            <children>
+                                <HBox alignment="CENTER">
+                                    <children>
+                                        <Button fx:id="addLibrarianButton" mnemonicParsing="false"
+                                                onAction="#onAddLibrarianButtonPressed" text="Dodaj">
+                                            <HBox.margin>
+                                                <Insets right="16.0"/>
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="16.0" top="16.0"/>
+                                    </padding>
+                                </HBox>
+                                <TreeView fx:id="librarianTree">
+                                    <VBox.margin>
+                                        <Insets/>
+                                    </VBox.margin>
+                                </TreeView>
+                            </children>
+                            <padding>
+                                <Insets left="16.0" right="16.0"/>
+                            </padding>
+                        </VBox>
+                        <VBox fx:id="librarianBox" alignment="CENTER">
+                            <children>
+                                <Label text="Imię"/>
+                                <TextField fx:id="librarianForename"/>
+                                <Label text="Nazwisko"/>
+                                <TextField fx:id="librariansSurname"/>
+                                <HBox alignment="CENTER">
+                                    <VBox.margin>
+                                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0"/>
+                                    </VBox.margin>
+                                    <children>
+                                        <Button fx:id="saveLibrarianButton" mnemonicParsing="false"
+                                                onAction="#onSaveLibrarianButtonPressed" text="Zapisz">
+                                            <HBox.margin>
+                                                <Insets bottom="16.0" left="16.0" right="16.0" top="16.0"/>
+                                            </HBox.margin>
+                                        </Button>
+                                        <Button fx:id="addPostButton" mnemonicParsing="false"
+                                                onAction="#onAddPostButtonPressed" text="Dodaj etat">
+                                            <HBox.margin>
+                                                <Insets bottom="16.0" left="16.0" right="16.0" top="16.0"/>
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                            </children>
+                            <padding>
+                                <Insets left="16.0" right="16.0"/>
+                            </padding>
+                        </VBox>
+                        <VBox fx:id="positionBox" alignment="CENTER">
+                            <children>
+                                <Label text="Część etatu"/>
+                                <TextField fx:id="postFraction"/>
+                                <Label text="Pensja"/>
+                                <TextField fx:id="postSalary"/>
+                                <Label text="Biblioteka"/>
+                                <Text fx:id="postLibrary" strokeType="OUTSIDE" strokeWidth="0.0"/>
+                                <Label text="Filia"/>
+                                <Text fx:id="postBranch" strokeType="OUTSIDE" strokeWidth="0.0"/>
+                                <Button fx:id="savePostButton" mnemonicParsing="false"
+                                        onAction="#onSavePostButtonPressed" text="Zapisz">
+                                    <VBox.margin>
+                                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0"/>
+                                    </VBox.margin>
+                                </Button>
+                            </children>
+                            <padding>
+                                <Insets left="16.0" right="16.0"/>
+                            </padding>
+                        </VBox>
+                        <TableView fx:id="librarianLends">
+                            <columns>
+                                <TableColumn prefWidth="75.0" text="Tytuł"/>
+                                <TableColumn prefWidth="75.0" text="Autor"/>
+                                <TableColumn prefWidth="75.0" text="Sygnatura"/>
+                                <TableColumn prefWidth="75.0" text="Biblioteka"/>
+                                <TableColumn prefWidth="75.0" text="Filia"/>
+                                <TableColumn prefWidth="75.0" text="Imię"/>
+                                <TableColumn prefWidth="75.0" text="Nazwisko"/>
+                                <TableColumn prefWidth="75.0" text="Pesel"/>
+                                <TableColumn prefWidth="75.0" text="Od"/>
+                                <TableColumn prefWidth="75.0" text="Do"/>
+                            </columns>
+                            <HBox.margin>
+                                <Insets bottom="16.0" left="16.0" right="16.0" top="16.0"/>
+                            </HBox.margin>
+                        </TableView>
+                    </children>
+                </HBox>
+            </content>
+        </Tab>
+        <Tab text="Czytelnicy">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+            </content>
+        </Tab>
+        <Tab text="Książki">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+            </content>
+        </Tab>
     </tabs>
 </TabPane>
