@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.jetbrains.annotations.NotNull;
@@ -116,7 +117,94 @@ public class AppController extends FxController {
     private Button savePostButton;
 
     @FXML
-    private TableView<?> librarianLends;
+    private TableView<Lend> librarianLends;
+
+    @FXML
+    private Tab readerTab;
+
+    @FXML
+    private Button addReaderButton;
+
+    @FXML
+    private Button saveReaderButton;
+
+    @FXML
+    private TableView<Reader> readersTable;
+
+    @FXML
+    private TextField readerPESEL;
+
+    @FXML
+    private TableColumn<Reader, String> readerPeselColumn;
+
+    @FXML
+    private TextField readerForename;
+
+    @FXML
+    private TableColumn<Reader, String> readerForenameColumn;
+
+    @FXML
+    private TextField readerSurname;
+
+    @FXML
+    private TableColumn<Reader, String> readerSurnameColumn;
+
+    @FXML
+    private TableView<Lend> readerBorrowsTable;
+
+    @FXML
+    private TableColumn<Lend, String> readerBorrowTitle;
+
+    @FXML
+    private TableColumn<Lend, String> readerBorrowAuthor;
+
+    @FXML
+    private TableColumn<Lend, String> readerBorrowSince;
+
+    @FXML
+    private TableColumn<Lend, String> readerBorrowTill;
+
+    @FXML
+    private TableColumn<Lend, String> readerBorrowLibrary;
+
+    @FXML
+    private TableColumn<Lend, String> readerBorrowBranch;
+
+    @FXML
+    private TableColumn<Lend, String> readerBorrowSignature;
+
+    @FXML
+    private TableColumn<Lend, String> readerBorrowISBN;
+
+    @FXML
+    private TableColumn<Lend, String> readerBorrowLibrarian;
+
+    @FXML
+    private TableColumn<Lend, String> librarianLendTitle;
+
+    @FXML
+    private TableColumn<Lend, String> librarianLendAuthor;
+
+    @FXML
+    private TableColumn<Lend, String> librarianLendReader;
+
+    @FXML
+    private TableColumn<Lend, String> librarianLendSince;
+
+    @FXML
+    private TableColumn<Lend, String> librarianLendTill;
+
+    @FXML
+    private TableColumn<Lend, String> librarianLendLibrary;
+
+    @FXML
+    private TableColumn<Lend, String> librarianLendBranch;
+
+    @FXML
+    private TableColumn<Lend, String> librarianLendSignature;
+
+    @FXML
+    private TableColumn<Lend, String> librarianLendISBN;
 
     @FXML
     void onAddLibraryButtonPressed(ActionEvent event) {
@@ -135,7 +223,7 @@ public class AppController extends FxController {
     @FXML
     void onAddBranchButtonPressed(ActionEvent event) {
         String libName = getLibraryNameFromSelectedItem(libraryTree);
-        if(libName.equals("*Nowa Biblioteka")) {
+        if (libName.equals("*Nowa Biblioteka")) {
             //todo show user that they cannot do it
             return;
         }
@@ -209,6 +297,11 @@ public class AppController extends FxController {
     }
 
     private void onLibrarianTreeItemSelected(TreeItem<String> newValue) {
+
+    }
+
+    @FXML
+    private void onReturnLibrarianLendButtonPressed(ActionEvent actionEvent) {
 
     }
 
@@ -452,14 +545,108 @@ public class AppController extends FxController {
     }
 
     @FXML
+    void onSaveReaderButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onAddReaderButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onReaderTabSelected(Event event) {
+
+    }
+
+    private void onReaderTableItemSelected(Reader reader) {
+
+    }
+
+    @FXML
+    private void onReturnReaderBorrowButtonPressed(ActionEvent actionEvent) {
+
+    }
+
+    @FXML
     void initialize() {
         branchNumber.setTextFormatter(new TextFormatter<Integer>(change ->
                 change.getControlNewText().matches("[+-]?\\d*") ? change : null));
+
         libraryTree.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> onLibraryTreeItemSelected(newValue));
         librarianTree.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> onLibrarianTreeItemSelected(newValue));
+        readersTable.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> onReaderTableItemSelected(newValue));
+
+        readerForenameColumn.setCellValueFactory(
+                new PropertyValueFactory<>("forename")
+        );
+        readerSurnameColumn.setCellValueFactory(
+                new PropertyValueFactory<>("surname")
+        );
+        readerPeselColumn.setCellValueFactory(
+                new PropertyValueFactory<>("pesel")
+        );
+
+        readerBorrowTitle.setCellValueFactory(
+                new PropertyValueFactory<>("title")
+        );
+        readerBorrowAuthor.setCellValueFactory(
+                new PropertyValueFactory<>("author")
+        );
+        readerBorrowSince.setCellValueFactory(
+                new PropertyValueFactory<>("since")
+        );
+        readerBorrowTill.setCellValueFactory(
+                new PropertyValueFactory<>("till")
+        );
+        readerBorrowLibrary.setCellValueFactory(
+                new PropertyValueFactory<>("library")
+        );
+        readerBorrowBranch.setCellValueFactory(
+                new PropertyValueFactory<>("branch")
+        );
+        readerBorrowSignature.setCellValueFactory(
+                new PropertyValueFactory<>("signature")
+        );
+        readerBorrowISBN.setCellValueFactory(
+                new PropertyValueFactory<>("isbn")
+        );
+        readerBorrowLibrarian.setCellValueFactory(
+                new PropertyValueFactory<>("librarian")
+        );
+
+        librarianLendTitle.setCellValueFactory(
+                new PropertyValueFactory<>("title")
+        );
+        librarianLendAuthor.setCellValueFactory(
+                new PropertyValueFactory<>("author")
+        );
+        librarianLendReader.setCellValueFactory(
+                new PropertyValueFactory<>("reader")
+        );
+        librarianLendSince.setCellValueFactory(
+                new PropertyValueFactory<>("since")
+        );
+        librarianLendTill.setCellValueFactory(
+                new PropertyValueFactory<>("till")
+        );
+        librarianLendLibrary.setCellValueFactory(
+                new PropertyValueFactory<>("library")
+        );
+        librarianLendBranch.setCellValueFactory(
+                new PropertyValueFactory<>("branch")
+        );
+        librarianLendSignature.setCellValueFactory(
+                new PropertyValueFactory<>("signature")
+        );
+        librarianLendISBN.setCellValueFactory(
+                new PropertyValueFactory<>("isbn")
+        );
     }
 }
