@@ -193,6 +193,131 @@ public class AppController extends FxController {
 
     /*
     ====================================================================================================================
+    Books screen
+    */
+
+    @FXML
+    private TreeView<String> bookTree;
+
+    @FXML
+    private VBox bookBox;
+
+    @FXML
+    private TextField bookTitle;
+
+    @FXML
+    private DatePicker bookFinishDate;
+
+    @FXML
+    private TextField bookLanguage;
+
+    @FXML
+    private TextField bookGenre;
+
+    @FXML
+    private TextField bookStream;
+
+    @FXML
+    private TableView<Writer> bookAuthorshipTable;
+
+    @FXML
+    private TableColumn<Writer, String> authorshipForenameColumn;
+
+    @FXML
+    private TableColumn<Writer, String> authorshipSurnameColumn;
+
+    @FXML
+    private TableColumn<Writer, String> authorshipNationalityColumn;
+
+    @FXML
+    private VBox editionBox;
+
+    @FXML
+    private TextField editionIsbn;
+
+    @FXML
+    private TextField editionTitle;
+
+    @FXML
+    private TextField editionNumber;
+
+    @FXML
+    private DatePicker editionReleaseDate;
+
+    @FXML
+    private TextField editionLanguage;
+
+    @FXML
+    private ChoiceBox<String> editionPublisher;
+
+    @FXML
+    private TableView<Writer> editionTranslationTable;
+
+    @FXML
+    private TableColumn<Writer, String> translationForenameColumn;
+
+    @FXML
+    private TableColumn<Writer, String> translationSurnameColumn;
+
+    @FXML
+    private VBox copyBox;
+
+    @FXML
+    private TextField copySignature;
+
+    @FXML
+    private ChoiceBox<String> copyLibrary;
+
+    @FXML
+    private ChoiceBox<String> copyBranch;
+
+    @FXML
+    private TableView<Material> copyMaterialTable;
+
+    @FXML
+    private TableColumn<Material, String> copyMaterialTypeColumn;
+
+    @FXML
+    private TableColumn<Material, String> copyMaterialDescriptionColumn;
+
+    @FXML
+    private VBox bookBorrowBox;
+
+    @FXML
+    private TableView<Lend> bookBorrowsTable;
+
+    @FXML
+    private TableColumn<Lend, String> bookBorrowTitle;
+
+    @FXML
+    private TableColumn<Lend, String> bookBorrowAuthor;
+
+    @FXML
+    private TableColumn<Lend, String> bookBorrowReader;
+
+    @FXML
+    private TableColumn<Lend, String> bookBorrowSince;
+
+    @FXML
+    private TableColumn<Lend, String> bookBorrowTill;
+
+    @FXML
+    private TableColumn<Lend, String> bookBorrowLibrary;
+
+    @FXML
+    private TableColumn<Lend, String> bookBorrowBranch;
+
+    @FXML
+    private TableColumn<Lend, String> bookBorrowSignature;
+
+    @FXML
+    private TableColumn<Lend, String> bookBorrowISBN;
+
+    @FXML
+    private TableColumn<Lend, String> bookBorrowLibrarian;
+
+    /*
+    ====================================================================================================================
     ====================================================================================================================
     Library/Branch screen
     */
@@ -576,13 +701,112 @@ public class AppController extends FxController {
 
     /*
     ====================================================================================================================
+    Book screen
+    */
+
+    @FXML
+    private void onBookTabSelected(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onAddBookButtonPressed(ActionEvent event) {
+
+    }
+
+    private void onBookTreeItemSelected(TreeItem<String> selectedItem) {
+
+    }
+
+    @FXML
+    void onAddBookAuthorButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onRemoveBookAuthorButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onSaveBookButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onAddEditionButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onNewPublisherButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onAddEditionTranslatorButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onRemoveEditionTranslatorButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onSaveEditionButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onAddCopyButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onAddCopyMaterialButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onDeleteCopyMaterialButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onSaveCopyButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onLendButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onReturnBookBorrowButtonPressed(ActionEvent event) {
+
+    }
+
+    /*
+    ====================================================================================================================
     Initialiser
     */
 
     @FXML
     void initialize() {
         branchNumber.setTextFormatter(new TextFormatter<Integer>(change ->
-                change.getControlNewText().matches("[+-]?\\d*") ? change : null));
+                change.getControlNewText().matches("\\d*") ? change : null));
+        postFraction.setTextFormatter(new TextFormatter<Integer>(change ->
+                change.getControlNewText().matches("\\d*(/\\d*)?") ? change : null));
+        postSalary.setTextFormatter(new TextFormatter<Integer>(change ->
+                change.getControlNewText().matches("\\d*(,\\d{0,2})?") ? change : null));
+        readerPESEL.setTextFormatter(new TextFormatter<Integer>(change ->
+                change.getControlNewText().matches("\\d*") ? change : null));
+        editionIsbn.setTextFormatter(new TextFormatter<Integer>(change ->
+                change.getControlNewText().matches("[\\d-]*") ? change : null));
+        editionNumber.setTextFormatter(new TextFormatter<Integer>(change ->
+                change.getControlNewText().matches("\\d*") ? change : null));
 
         libraryTree.getSelectionModel()
                 .selectedItemProperty()
@@ -593,6 +817,9 @@ public class AppController extends FxController {
         readersTable.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> onReaderTableItemSelected(newValue));
+        bookTree.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> onBookTreeItemSelected(newValue));
 
         readerForenameColumn.setCellValueFactory(
                 new PropertyValueFactory<>("forename")
@@ -658,6 +885,23 @@ public class AppController extends FxController {
         );
         librarianLendISBN.setCellValueFactory(
                 new PropertyValueFactory<>("isbn")
+        );
+
+        authorshipForenameColumn.setCellValueFactory(
+                new PropertyValueFactory<>("forename")
+        );
+        authorshipSurnameColumn.setCellValueFactory(
+                new PropertyValueFactory<>("surname")
+        );
+        authorshipNationalityColumn.setCellValueFactory(
+                new PropertyValueFactory<>("nationality")
+        );
+
+        translationForenameColumn.setCellValueFactory(
+                new PropertyValueFactory<>("forename")
+        );
+        translationSurnameColumn.setCellValueFactory(
+                new PropertyValueFactory<>("surname")
         );
     }
 }

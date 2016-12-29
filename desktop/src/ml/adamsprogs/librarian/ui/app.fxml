@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
@@ -13,6 +14,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+
+<!--suppress JavaFxDefaultTag -->
 
 <TabPane stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
     <tabs>
@@ -195,15 +198,15 @@
                      <children>
                               <TableView fx:id="librarianLends">
                                   <columns>
-                                      <TableColumn fx:id="librarianLendTitle" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Tytuł" />
-                                      <TableColumn fx:id="librarianLendAuthor" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Autor" />
-                                      <TableColumn fx:id="librarianLendReader" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Czytelnik" />
-                                      <TableColumn fx:id="librarianLendSince" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Od" />
-                                      <TableColumn fx:id="librarianLendTill" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Do" />
-                                      <TableColumn fx:id="librarianLendLibrary" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Biblioteka" />
-                                      <TableColumn fx:id="librarianLendBranch" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Filia" />
-                                      <TableColumn fx:id="librarianLendSignature" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Sygnatura" />
-                              <TableColumn fx:id="librarianLendISBN" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="ISBN" />
+                                      <TableColumn fx:id="librarianLendTitle" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Tytuł" />
+                                      <TableColumn fx:id="librarianLendAuthor" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Autor" />
+                                      <TableColumn fx:id="librarianLendReader" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Czytelnik" />
+                                      <TableColumn fx:id="librarianLendSince" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Od" />
+                                      <TableColumn fx:id="librarianLendTill" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Do" />
+                                      <TableColumn fx:id="librarianLendLibrary" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Biblioteka" />
+                                      <TableColumn fx:id="librarianLendBranch" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Filia" />
+                                      <TableColumn fx:id="librarianLendSignature" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Sygnatura" />
+                              <TableColumn fx:id="librarianLendISBN" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="ISBN" />
                                   </columns>
                               </TableView>
                         <Button mnemonicParsing="false" onAction="#onReturnLibrarianLendButtonPressed" text="Oddaj zaznaczoną książkę">
@@ -229,9 +232,9 @@
                         <Button fx:id="addReaderButton" mnemonicParsing="false" onAction="#onAddReaderButtonPressed" text="Dodaj" />
                         <TableView fx:id="readersTable">
                           <columns>
-                            <TableColumn fx:id="readerForenameColumn" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Imię" />
-                            <TableColumn fx:id="readerSurnameColumn" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Nazwisko" />
-                              <TableColumn fx:id="readerPeselColumn" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="PESEL" />
+                            <TableColumn fx:id="readerForenameColumn" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Imię" />
+                            <TableColumn fx:id="readerSurnameColumn" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Nazwisko" />
+                              <TableColumn fx:id="readerPeselColumn" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="PESEL" />
                           </columns>
                         </TableView>
                      </children>
@@ -261,15 +264,15 @@
                      <children>
                         <TableView fx:id="readerBorrowsTable">
                           <columns>
-                            <TableColumn fx:id="readerBorrowTitle" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Tytuł" />
-                            <TableColumn fx:id="readerBorrowAuthor" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Autor" />
-                              <TableColumn fx:id="readerBorrowSince" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Od" />
-                              <TableColumn fx:id="readerBorrowTill" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Do" />
-                              <TableColumn fx:id="readerBorrowLibrary" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Biblioteka" />
-                              <TableColumn fx:id="readerBorrowBranch" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Filia" />
-                              <TableColumn fx:id="readerBorrowSignature" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Sygnatura" />
-                              <TableColumn fx:id="readerBorrowISBN" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="ISBN" />
-                              <TableColumn fx:id="readerBorrowLibrarian" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Bibliotekarz" />
+                            <TableColumn fx:id="readerBorrowTitle" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Tytuł" />
+                            <TableColumn fx:id="readerBorrowAuthor" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Autor" />
+                              <TableColumn fx:id="readerBorrowSince" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Od" />
+                              <TableColumn fx:id="readerBorrowTill" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Do" />
+                              <TableColumn fx:id="readerBorrowLibrary" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Biblioteka" />
+                              <TableColumn fx:id="readerBorrowBranch" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Filia" />
+                              <TableColumn fx:id="readerBorrowSignature" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Sygnatura" />
+                              <TableColumn fx:id="readerBorrowISBN" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="ISBN" />
+                              <TableColumn fx:id="readerBorrowLibrarian" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Bibliotekarz" />
                           </columns>
                         </TableView>
                         <Button mnemonicParsing="false" onAction="#onReturnReaderBorrowButtonPressed" text="Oddaj zaznaczoną książkę">
@@ -286,6 +289,210 @@
             </HBox>
          </content>
         </Tab>
-        <Tab text="Książki" />
+        <Tab fx:id="bookTab" onSelectionChanged="#onBookTabSelected" text="Książki">
+         <content>
+            <HBox alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#onAddBookButtonPressed" text="Dodaj">
+                           <VBox.margin>
+                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                           </VBox.margin>
+                        </Button>
+                        <TreeView fx:id="bookTree" />
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox fx:id="bookBox" alignment="CENTER">
+                     <children>
+                        <Label text="Tytuł" />
+                        <TextField fx:id="bookTitle" />
+                        <Label text="Data ukończenia" />
+                        <DatePicker fx:id="bookFinishDate" />
+                        <Label text="Język" />
+                        <TextField fx:id="bookLanguage" />
+                        <Label text="Gatunek" />
+                        <TextField fx:id="bookGenre" />
+                        <Label text="Nurt" />
+                        <TextField fx:id="bookStream" />
+                        <Label text="Autorzy" />
+                        <TableView fx:id="bookAuthorshipTable">
+                          <columns>
+                            <TableColumn fx:id="authorshipForenameColumn" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Imię" />
+                            <TableColumn fx:id="authorshipSurnameColumn" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Nazwisko" />
+                              <TableColumn fx:id="authorshipNationalityColumn" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Narodowość" />
+                          </columns>
+                        </TableView>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#onAddBookAuthorButtonPressed" text="Dodaj">
+                                 <HBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#onRemoveBookAuthorButtonPressed" text="Usuń">
+                                 <HBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#onSaveBookButtonPressed" text="Zapisz">
+                                 <HBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#onAddEditionButtonPressed" text="Dodaj wydanie">
+                                 <HBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox fx:id="editionBox" alignment="CENTER">
+                     <children>
+                        <Label text="ISBN" />
+                        <TextField fx:id="editionIsbn" />
+                        <Label layoutX="10.0" layoutY="10.0" text="Tytuł wydania" />
+                        <TextField fx:id="editionTitle" />
+                        <Label layoutX="10.0" layoutY="28.0" text="Numer wydania" />
+                        <TextField fx:id="editionNumber" />
+                        <Label layoutX="10.0" layoutY="46.0" text="Data wydania" />
+                        <DatePicker fx:id="editionReleaseDate" />
+                        <Label layoutX="10.0" layoutY="64.0" text="Język" />
+                        <TextField fx:id="editionLanguage" />
+                        <Label layoutX="10.0" layoutY="100.0" text="Wydawnictwo" />
+                        <HBox>
+                           <children>
+                              <ChoiceBox fx:id="editionPublisher" prefWidth="150.0">
+                                 <HBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </HBox.margin>
+                              </ChoiceBox>
+                              <Button mnemonicParsing="false" onAction="#onNewPublisherButtonPressed" text="Nowe">
+                                 <HBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Label layoutX="10.0" layoutY="136.0" text="Tłumacze" />
+                        <TableView fx:id="editionTranslationTable">
+                          <columns>
+                            <TableColumn fx:id="translationForenameColumn" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Imię" />
+                            <TableColumn fx:id="translationSurnameColumn" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Nazwisko" />
+                          </columns>
+                        </TableView>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#onAddEditionTranslatorButtonPressed" text="Dodaj">
+                                 <HBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#onRemoveEditionTranslatorButtonPressed" text="Usuń">
+                                 <HBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#onSaveEditionButtonPressed" text="Zapisz">
+                                 <HBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#onAddCopyButtonPressed" text="Dodaj kopię">
+                                 <HBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                     </HBox.margin></VBox>
+                  <VBox fx:id="copyBox" alignment="CENTER">
+                     <children>
+                        <Label text="Sygnatura" />
+                        <TextField fx:id="copySignature" />
+                        <Label layoutX="10.0" layoutY="10.0" text="Biblioteka" />
+                        <ChoiceBox fx:id="copyLibrary" prefWidth="150.0" />
+                        <Label layoutX="10.0" layoutY="28.0" text="Filia" />
+                        <ChoiceBox fx:id="copyBranch" prefWidth="150.0" />
+                        <Label layoutX="10.0" layoutY="46.0" text="Materiały dodatkowe" />
+                        <TableView fx:id="copyMaterialTable">
+                          <columns>
+                            <TableColumn fx:id="copyMaterialTypeColumn" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Typ" />
+                            <TableColumn fx:id="copyMaterialDescriptionColumn" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Opis" />
+                          </columns>
+                        </TableView>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#onAddCopyMaterialButtonPressed" text="Nowy">
+                                 <HBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#onDeleteCopyMaterialButtonPressed" text="Usuń">
+                                 <HBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Button mnemonicParsing="false" onAction="#onSaveCopyButtonPressed" text="Zapisz" />
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                     </HBox.margin></VBox>
+                  <VBox fx:id="bookBorrowBox" alignment="CENTER">
+                     <children>
+                        <TableView fx:id="bookBorrowsTable">
+                           <columns>
+                              <TableColumn fx:id="bookBorrowTitle" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Tytuł" />
+                              <TableColumn fx:id="bookBorrowAuthor" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Autor" />
+                              <TableColumn fx:id="bookBorrowReader" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Column X" />
+                              <TableColumn fx:id="bookBorrowSince" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Od" />
+                              <TableColumn fx:id="bookBorrowTill" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Do" />
+                              <TableColumn fx:id="bookBorrowLibrary" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Biblioteka" />
+                              <TableColumn fx:id="bookBorrowBranch" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Filia" />
+                              <TableColumn fx:id="bookBorrowSignature" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Sygnatura" />
+                              <TableColumn fx:id="bookBorrowISBN" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="ISBN" />
+                              <TableColumn fx:id="bookBorrowLibrarian" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Bibliotekarz" />
+                           </columns>
+                        </TableView>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#onLendButtonPressed" text="Wypożycz">
+                                 <HBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#onReturnBookBorrowButtonPressed" text="Oddaj">
+                                 <HBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </content></Tab>
     </tabs>
 </TabPane>
