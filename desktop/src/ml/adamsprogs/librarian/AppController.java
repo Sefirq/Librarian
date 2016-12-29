@@ -15,6 +15,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.prefs.Preferences;
 
 public class AppController extends FxController {
 
@@ -720,7 +721,11 @@ public class AppController extends FxController {
 
     @FXML
     void onAddBookAuthorButtonPressed(ActionEvent event) {
-
+        Preferences preferences = Preferences.userNodeForPackage(this.getClass());
+        preferences.put("callerRequest", "author");
+        preferences.put("callerScreenPath", "ui/app.fxml");
+        preferences.put("callerScreenTitle", "Librarian");
+        setScene("ui/picker.fxml", "Wybór autora");
     }
 
     @FXML

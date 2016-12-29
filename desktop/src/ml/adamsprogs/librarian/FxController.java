@@ -24,10 +24,6 @@ class FxController {
         this.stage = stage;
     }
 
-    private void setConnection(Connection connection) {
-        dbConnection = connection;
-    }
-
     void setScene(String scenePath, String windowTitle) {
         //ładowanie pliku z UI
         FXMLLoader loader;
