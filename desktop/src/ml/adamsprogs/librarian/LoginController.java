@@ -25,6 +25,15 @@ public class LoginController extends FxController {
     public void onProxyToggled(ActionEvent actionEvent) {
         proxyAddr.setDisable(!proxyAddr.isDisabled());
         proxyPort.setDisable(!proxyPort.isDisabled());
+        if(!proxyAddr.isDisabled()){
+            proxyAddr.setText("localhost");
+            proxyPort.setText("2048");
+        }
+        else{
+            proxyAddr.setText("");
+            proxyPort.setText("");
+        }
+
     }
 
     public void onLoginPressed(ActionEvent actionEvent) {

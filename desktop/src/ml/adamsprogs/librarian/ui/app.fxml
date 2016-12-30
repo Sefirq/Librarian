@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -17,7 +22,7 @@
 
 <!--suppress JavaFxDefaultTag -->
 
-<TabPane stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
+<TabPane stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
     <tabs>
         <Tab fx:id="branchTab" onSelectionChanged="#onBranchTabSelected" text="Filie">
             <content>
@@ -151,7 +156,7 @@
                                 <Label text="Imię" />
                                 <TextField fx:id="librarianForename" />
                                 <Label text="Nazwisko" />
-                                <TextField fx:id="librariansSurname" />
+                                <TextField fx:id="librarianSurname" />
                                 <HBox alignment="CENTER">
                                     <VBox.margin>
                                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
@@ -184,6 +189,16 @@
                                 <Text fx:id="postLibrary" strokeType="OUTSIDE" strokeWidth="0.0" />
                                 <Label text="Filia" />
                                 <Text fx:id="postBranch" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Button fx:id="previousPostButton" mnemonicParsing="false" onAction="#onPreviousPostButtonPressed" text="Poprzedni etat">
+                           <VBox.margin>
+                              <Insets bottom="8.0" left="16.0" right="16.0" top="16.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="nextPostButton" mnemonicParsing="false" onAction="#onNextPostButtonPressed" text="Następny etat">
+                           <VBox.margin>
+                              <Insets bottom="16.0" left="16.0" right="16.0" top="8.0" />
+                           </VBox.margin>
+                        </Button>
                                 <Button fx:id="savePostButton" mnemonicParsing="false" onAction="#onSavePostButtonPressed" text="Zapisz">
                                     <VBox.margin>
                                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

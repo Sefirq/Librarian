@@ -13,14 +13,17 @@ import org.jetbrains.annotations.Nullable;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.prefs.Preferences;
+import java.util.List;
 
 public class AppController extends FxController {
 
     //todo feedback
-
+    private List<String> posts = new ArrayList<>();
+    private int index;
     /*
     ====================================================================================================================
     Library/Branch screen
@@ -80,7 +83,7 @@ public class AppController extends FxController {
     private TextField librarianForename;
 
     @FXML
-    private TextField librariansSurname;
+    private TextField librarianSurname;
 
     @FXML
     private VBox postBox;
@@ -129,6 +132,12 @@ public class AppController extends FxController {
 
     @FXML
     private TableColumn<Lend, String> librarianLendISBN;
+
+    @FXML
+    private Button nextPostButton;
+
+    @FXML
+    private Button previousPostButton;
 
     /*
     ====================================================================================================================
@@ -395,7 +404,7 @@ public class AppController extends FxController {
         if (selectedItem == null || selectedItem.getValue() == null || selectedItem.getValue().charAt(0) == '*')
             return;
 
-        removeEmptyItems();
+        removeEmptyItems(libraryTree);
 
         String[] label = selectedItem.getValue().split(" ");
         if (label[0].equals("Filia")) {
@@ -446,21 +455,21 @@ public class AppController extends FxController {
         branchType.setText(data != null ? data.getString("Typ") : "");
     }
 
-    private void removeEmptyItems() {
-        TreeItem<String> root = libraryTree.getRoot();
+    private void removeEmptyItems(TreeView<String> tree) {
+        TreeItem<String> root = tree.getRoot();
         if (root == null)
             return;
         ObservableList<TreeItem<String>> libraries = root.getChildren();
         for (TreeItem<String> library : libraries) {
             if (library.getValue().equals("*Nowa Biblioteka") &&
-                    !libraryTree.getSelectionModel().getSelectedItem().equals(library))
+                    !tree.getSelectionModel().getSelectedItem().equals(library))
                 libraries.remove(library);
             else {
                 ObservableList<TreeItem<String>> branches = library.getChildren();
                 for (TreeItem<String> branch : branches) {
                     if (branch.getValue().equals("*Nowa Filia") &&
-                            !(libraryTree.getSelectionModel().getSelectedItem().equals(branch) ||
-                                    libraryTree.getSelectionModel().getSelectedItem().equals(branch.getParent())))
+                            !(tree.getSelectionModel().getSelectedItem().equals(branch) ||
+                                    tree.getSelectionModel().getSelectedItem().equals(branch.getParent())))
                         branches.remove(branch);
                 }
             }
@@ -639,7 +648,27 @@ public class AppController extends FxController {
 
     @FXML
     void onLibrarianTabSelected(Event event) {
+        clearTree(librarianTree);
+        librarianBox.setVisible(false);
+        postBox.setVisible(false);
 
+        TreeItem<String> rootItem = new TreeItem<>("Bibliotekarze");
+        rootItem.setExpanded(true);
+        try {
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT ID, imie, nazwisko FROM INF122446.L_BIBLIOTEKARZE");
+            while (resultSet.next()) {
+                TreeItem<String> librarianItem = new TreeItem<>(resultSet.getString("ID")
+                        + " " + resultSet.getString("imie")
+                        + " " + resultSet.getString("nazwisko"));
+                rootItem.getChildren().add(librarianItem);
+            }
+            resultSet.close();
+            statement.close();
+            librarianTree.setRoot(rootItem);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -647,8 +676,62 @@ public class AppController extends FxController {
 
     }
 
-    private void onLibrarianTreeItemSelected(TreeItem<String> newValue) {
+    private void onLibrarianTreeItemSelected(TreeItem<String> selectedItem) {
+        if (selectedItem == null || selectedItem.getValue() == null || selectedItem.getValue().charAt(0) == '*')
+            return;
+        posts.clear();
+        removeEmptyItems(librarianTree);
 
+        String[] label = selectedItem.getValue().split(" ");
+            int librarianID = Integer.parseInt(label[0]);
+            try {
+                Statement statement = dbConnection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446.L_BIBLIOTEKARZE WHERE ID = '" + librarianID + "'");
+                resultSet.next();
+                setLibrarianData(resultSet);
+                resultSet.close();
+                statement.close();
+                statement = dbConnection.createStatement();
+                resultSet = statement.executeQuery("SELECT * FROM INF122446.L_ETATY WHERE BIBLIOTEKARZE_ID = '" + librarianID + "'");
+                resultSetToArrayListOfPosts(resultSet);
+                index = 0;
+                if(posts.size() > 0){
+                    setPostData(index);
+                    if(posts.size() == 1){
+                        nextPostButton.setDisable(true);
+                    }
+                    else{
+                        nextPostButton.setDisable(false);
+                    }
+                }
+                librarianBox.setVisible(true);
+                postBox.setVisible(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+    }
+
+    private void setLibrarianData(@Nullable ResultSet data) throws SQLException{
+        librarianForename.setText(data != null ? data.getString("imie") : "");
+        librarianSurname.setText(data != null ? data.getString("nazwisko") : "");
+    }
+
+    private void resultSetToArrayListOfPosts(ResultSet resultSet) throws  SQLException{
+        ResultSetMetaData metadata = resultSet.getMetaData();
+        int columnCount = metadata.getColumnCount();
+        while(resultSet.next()){
+            String row = "";
+            for(int i = 1; i < columnCount; i++){
+                row += resultSet.getString(i) + " ";
+            }
+            posts.add(row);
+        }
+    }
+
+    private void setPostData(int index){
+       String[] arr  = posts.get(index).split(" ");
+       postFraction.setText(arr[0]);
+       postSalary.setText(arr[1]);
     }
 
     @FXML
@@ -669,6 +752,39 @@ public class AppController extends FxController {
     @FXML
     private void onReturnLibrarianLendButtonPressed(ActionEvent actionEvent) {
 
+    }
+
+    @FXML
+    private void onNextPostButtonPressed(ActionEvent actionEvent) {
+        if(index < posts.size()-1){
+            System.out.println(index);
+            System.out.println(posts.size());
+            index++;
+            if(index == 1){
+                previousPostButton.setDisable(false);
+            }
+            if(index == posts.size()-1) {
+                nextPostButton.setDisable(true);
+            }
+            setPostData(index);
+
+        }
+    }
+
+    @FXML
+    private void onPreviousPostButtonPressed(ActionEvent actionEvent) {
+        if(index > 0){
+            System.out.println(index);
+            System.out.println(posts.size());
+            index--;
+            if(index == posts.size() -2){
+                nextPostButton.setDisable(false);
+            }
+            if(index == 0){
+                previousPostButton.setDisable(true);
+            }
+            setPostData(index);
+        }
     }
 
     /*
