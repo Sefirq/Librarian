@@ -651,6 +651,7 @@ public class AppController extends FxController {
         clearTree(librarianTree);
         librarianBox.setVisible(false);
         postBox.setVisible(false);
+        librarianLendBox.setVisible(false);
 
         TreeItem<String> rootItem = new TreeItem<>("Bibliotekarze");
         rootItem.setExpanded(true);
@@ -694,6 +695,8 @@ public class AppController extends FxController {
                 statement = dbConnection.createStatement();
                 resultSet = statement.executeQuery("SELECT * FROM INF122446.L_ETATY WHERE BIBLIOTEKARZE_ID = '" + librarianID + "'");
                 resultSetToArrayListOfPosts(resultSet);
+                resultSet.close();
+                statement.close();
                 index = 0;
                 if(posts.size() > 0){
                     setPostData(index);
@@ -704,11 +707,77 @@ public class AppController extends FxController {
                         nextPostButton.setDisable(false);
                     }
                 }
+                statement = dbConnection.createStatement();
+                resultSet = statement.executeQuery("SELECT * FROM INF122446.L_WYPOŻYCZENIA WHERE BIBLIOTEKARZE_ID = '" + librarianID + "'");
+                while(resultSet.next()){
+                    Lend lendObject = makeLendObjectFromResultSet(resultSet);
+                    addLendToTableView(lendObject);
+                }
                 librarianBox.setVisible(true);
                 postBox.setVisible(true);
+                librarianLendBox.setVisible(true);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+    }
+
+    private Lend makeLendObjectFromResultSet(ResultSet resultSet) throws SQLException{
+        Statement statement = dbConnection.createStatement();
+        ResultSet rs = statement.executeQuery("SELECT Wydania_ISBN FROM inf122446.L_Kopie WHERE SYGNATURA = '" + resultSet.getString("Kopia_Sygnatura") + "'");
+        rs.next();
+        String Wydania_ISBN = rs.getString("Wydania_ISBN");
+        System.out.println(Wydania_ISBN);
+        statement.close();
+        rs.close();
+        statement = dbConnection.createStatement();
+        rs = statement.executeQuery("SELECT tytuł_tłumaczenia FROM inf122446.L_Kopie JOIN inf122446.L_Wydania ON '" + Wydania_ISBN + "' = inf122446.L_Wydania.ISBN");
+        rs.next();
+        String title = rs.getString("tytuł_tłumaczenia"); // from Kopie JOIN Wydania
+        statement.close();
+        rs.close();
+
+        statement = dbConnection.createStatement();
+        rs = statement.executeQuery("SELECT Książki_ID FROM Wydania WHERE ISBN = '" + Wydania_ISBN + "'");
+        rs.next();
+        int bookID = Integer.parseInt(rs.getString("Książki_ID"));
+        statement.close();
+        rs.close();
+        statement = dbConnection.createStatement();
+        rs = statement.executeQuery("SELECT Autorzy_ID FROM inf122446.L_autorstwa WHERE Książki_ID = " + bookID);
+        rs.next();
+        int authorID = Integer.parseInt(rs.getString("Autorzy_ID"));
+        statement.close();
+        rs.close();
+        statement = dbConnection.createStatement();
+        rs = statement.executeQuery("SELECT Imię, Nazwisko FROM inf122446.L_Autorzy WHERE ID = " + authorID);
+        rs.next();
+        String author = rs.getString("Imię") + " " + rs.getString("Nazwisko");
+        statement.close();
+        rs.close();
+
+        String reader = resultSet.getString("Czytelnicy_PESEL");
+        String since = resultSet.getString("DATA_WYPOZYCZENIA");
+        String till = resultSet.getString("DATA_ODDANIA");
+        statement = dbConnection.createStatement();
+        rs = statement.executeQuery("SELECT Biblioteki_ID, Filie_Numer FROM inf122446.L_Kopie WHERE Sygnatura = '" + resultSet.getString("Kopie_Sygnatura"));
+        rs.next();
+        String libraryID = rs.getString("Biblioteki_ID");
+        String branchNumber = rs.getString("Filie_Numer");
+        statement.close();
+        rs.close();
+        statement = dbConnection.createStatement();
+        rs = statement.executeQuery("SELECT nazwa FROM inf122446.L_Biblioteki WHERE ID = " + libraryID);
+        rs.next();
+        String library = rs.getString("nazwa"); // Library_ID from book JOIN Kopie and Biblioteki
+        statement.close();
+        rs.close();
+        String signature = resultSet.getString("KOPIE_SYGNATURA");
+        String librarian = resultSet.getString("Bibliotekarze_ID");
+        return new Lend(title, author, reader, since, till, library, branchNumber, signature, Wydania_ISBN, librarian);
+    }
+
+    private void addLendToTableView(Lend lendObject){
+
     }
 
     private void setLibrarianData(@Nullable ResultSet data) throws SQLException{
