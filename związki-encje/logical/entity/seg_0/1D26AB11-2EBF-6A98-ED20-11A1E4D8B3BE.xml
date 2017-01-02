@@ -14,7 +14,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<preferredAbbreviation>Książki</preferredAbbreviation>
+<preferredAbbreviation>L_Książki</preferredAbbreviation>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
 <Attribute name="ID" id="DFA70428-94E3-4B2B-7745-1A212A29CF11">
 <createdBy>adam</createdBy>
@@ -50,7 +50,7 @@
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT007</logicalDatatype>
+<logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="Gatunek" id="6D6193FF-A24E-72CE-C27A-691508384357">
@@ -99,8 +99,9 @@
 <createdBy>adam</createdBy>
 <createdTime>2016-11-21 10:44:45 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="false"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E92995DB-814E-CFC9-08C0-EB0A2925B502" name="Materiały_dodatkowe">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E92995DB-814E-CFC9-08C0-EB0A2925B502" name="L_Materiały_dodatkowe">
 <createdBy>adam</createdBy>
 <createdTime>2016-12-27 09:36:33 UTC</createdTime>
 <generatorID>449DD05E-0A56-597F-DB4E-B628C66C3A9A</generatorID>
@@ -56,8 +56,20 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="ED21C9D9-9A63-5183-E0B5-1CA3C9F52690" referredColumn="E74B18B4-1F2A-48CB-6412-913D6827A5C2"/>
+<colAssociation fkAssociation="9651EA58-EAC3-26C6-0E3B-021AC88DE3E6" referredColumn="E74B18B4-1F2A-48CB-6412-913D6827A5C2"/>
 </associations>
+</Column>
+<Column name="ISBN" id="53C2F0BD-933E-2AB6-9A8D-E310B8AC2E16">
+<createdBy>adam</createdBy>
+<createdTime>2017-01-02 14:05:42 UTC</createdTime>
+<generatorID>AC404DF8-D85F-0326-5503-83F840134E17</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
@@ -73,9 +85,10 @@
 <colUsage columnID="D8E4B3C7-3512-6495-E64E-87CDBE5DCAA2"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="1221AB49-38A6-8630-225A-9D7EB86864D6" name="Materiały_dodatkowe_Kopie_FK">
+<ind_PK_UK id="5AB43886-EEE8-CA00-8F9D-30FCD8E98098" name="L_Materiały_dodatkowe_L_Kopie_FK">
 <createdBy>adam</createdBy>
-<createdTime>2016-12-27 09:49:35 UTC</createdTime>
+<createdTime>2017-01-02 14:05:42 UTC</createdTime>
+<generatorID>03A82C05-5117-A529-5929-A67A41017797</generatorID>
 <ownerDesignName>związki-encje</ownerDesignName>
 <indexState>Foreign Key</indexState>
 <isSurrogateKey>false</isSurrogateKey>

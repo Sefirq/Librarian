@@ -14,7 +14,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<preferredAbbreviation>Kopie</preferredAbbreviation>
+<preferredAbbreviation>L_Kopie</preferredAbbreviation>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
 <Attribute name="Sygnatura" id="D89AEF6A-DD59-E610-15F2-63305FAC0384">
 <createdBy>adam</createdBy>
@@ -67,6 +67,7 @@
 <item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <referedAttribute>B9A93D37-CCAE-8D6B-1C54-8AB896C2B55A</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
@@ -77,8 +78,9 @@
 <createdBy>adam</createdBy>
 <createdTime>2016-11-20 17:06:25 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="false"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

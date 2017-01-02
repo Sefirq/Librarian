@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E744E3FB-8383-289C-2C45-40638344F34E" name="Etaty">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E744E3FB-8383-289C-2C45-40638344F34E" name="L_Etaty">
 <createdBy>adam</createdBy>
 <createdTime>2016-12-27 09:36:33 UTC</createdTime>
 <generatorID>D70F0E0C-B240-59B8-529A-1C6E46E69F2B</generatorID>
@@ -61,7 +61,7 @@
 <colAssociation fkAssociation="6BDD8CC6-4A8B-C3D1-8745-2E3034C9FB43" referredColumn="C807C194-086D-FB85-B3D3-F36127FE52B4"/>
 </associations>
 </Column>
-<Column name="Biblioteki_ID" id="FC690199-EA50-446A-5AA8-FF60214B10A6">
+<Column name="Filie_Biblioteki_ID" id="FC690199-EA50-446A-5AA8-FF60214B10A6">
 <createdBy>adam</createdBy>
 <createdTime>2016-12-27 09:36:33 UTC</createdTime>
 <generatorID>A0D8D4D7-16AF-11E5-E34E-62C393233D18</generatorID>
@@ -88,8 +88,8 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="8414645F-15A5-AF53-E97C-9E60DE70285A"/>
-<colUsage columnID="3A78A58F-79D4-2AA5-CA9A-4F79C2608427"/>
 <colUsage columnID="FC690199-EA50-446A-5AA8-FF60214B10A6"/>
+<colUsage columnID="3A78A58F-79D4-2AA5-CA9A-4F79C2608427"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="FB9A3C5E-2684-DC86-017C-BF2DDDB22F04" name="Etaty_Filie_FK">

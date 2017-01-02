@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="5D6BEFBC-2A17-9375-83A3-815E313D40A9" name="Kopie">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="5D6BEFBC-2A17-9375-83A3-815E313D40A9" name="L_Kopie">
 <createdBy>adam</createdBy>
 <createdTime>2016-12-27 09:36:33 UTC</createdTime>
 <generatorID>15F18B57-2C17-3E21-67EE-E8474ABA5DE7</generatorID>
@@ -44,14 +44,14 @@
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>13</dataTypeSize>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>13,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
 <colAssociation fkAssociation="DEE0208A-0437-B8AC-7A3D-18135D640E0F" referredColumn="2A80D94D-D57E-1168-6EFE-3DFA666D64B1"/>
 </associations>
 </Column>
-<Column name="Biblioteki_ID" id="8A0381FA-26A3-BA5B-43AF-7506D16BA9FA">
+<Column name="Filie_Biblioteki_ID" id="8A0381FA-26A3-BA5B-43AF-7506D16BA9FA">
 <createdBy>adam</createdBy>
 <createdTime>2016-12-27 09:36:33 UTC</createdTime>
 <generatorID>846EA9DB-B0DF-E19C-AED8-76B54D598F8D</generatorID>
