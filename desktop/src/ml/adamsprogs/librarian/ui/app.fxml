@@ -326,7 +326,7 @@
                         <Label text="Tytuł" />
                         <TextField fx:id="bookTitle" />
                         <Label text="Data ukończenia" />
-                        <DatePicker fx:id="bookFinishDate" />
+                        <TextField fx:id="bookFinishDate" />
                         <Label text="Język" />
                         <TextField fx:id="bookLanguage" />
                         <Label text="Gatunek" />

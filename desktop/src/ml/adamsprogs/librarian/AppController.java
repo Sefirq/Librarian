@@ -1,6 +1,7 @@
 package ml.adamsprogs.librarian;
 
 import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,6 +26,7 @@ public class AppController extends FxController {
     //todo feedback
     private List<String> posts = new ArrayList<>();
     private int index;
+    private ObservableList<Lend> lendsData = FXCollections.observableArrayList();
     /*
     ====================================================================================================================
     Library/Branch screen
@@ -139,6 +142,9 @@ public class AppController extends FxController {
     @FXML
     private Button previousPostButton;
 
+    @FXML
+    private Button addPostButton;
+
     /*
     ====================================================================================================================
     Reader screen
@@ -216,7 +222,7 @@ public class AppController extends FxController {
     private TextField bookTitle;
 
     @FXML
-    private DatePicker bookFinishDate;
+    private TextField bookFinishDate;
 
     @FXML
     private TextField bookLanguage;
@@ -384,6 +390,7 @@ public class AppController extends FxController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        libraryBox.setVisible(true);
         branchBox.setVisible(false);
     }
 
@@ -460,17 +467,24 @@ public class AppController extends FxController {
         if (root == null)
             return;
         ObservableList<TreeItem<String>> libraries = root.getChildren();
-        for (TreeItem<String> library : libraries) {
+        Iterator<TreeItem<String>> librariesIter = libraries.iterator();
+        while (librariesIter.hasNext()) {
+            TreeItem<String> library = librariesIter.next();
             if (library.getValue().equals("*Nowa Biblioteka") &&
                     !tree.getSelectionModel().getSelectedItem().equals(library))
-                libraries.remove(library);
+                librariesIter.remove();
+            else if(library.getValue().equals("*Nowy Bibliotekarz") &&
+                    !tree.getSelectionModel().getSelectedItem().equals(library))
+                librariesIter.remove();
             else {
                 ObservableList<TreeItem<String>> branches = library.getChildren();
-                for (TreeItem<String> branch : branches) {
+                Iterator<TreeItem<String>> branchesIter = branches.iterator();
+                while (branchesIter.hasNext()) {
+                    TreeItem<String> branch = branchesIter.next();
                     if (branch.getValue().equals("*Nowa Filia") &&
                             !(tree.getSelectionModel().getSelectedItem().equals(branch) ||
                                     tree.getSelectionModel().getSelectedItem().equals(branch.getParent())))
-                        branches.remove(branch);
+                        branchesIter.remove();
                 }
             }
         }
@@ -526,7 +540,7 @@ public class AppController extends FxController {
                                                String address, String bossForename, String bossSurname, String website)
             throws SQLException {
         update.setString(1, name);
-        update.setDate(2, Date.valueOf(foundDate));
+        update.setDate(2, java.sql.Date.valueOf(foundDate));
         update.setString(3, type);
         update.setString(4, address);
         update.setString(5, bossForename);
@@ -674,6 +688,24 @@ public class AppController extends FxController {
 
     @FXML
     void onAddLibrarianButtonPressed(ActionEvent event) {
+        //clearLibrarianTextBoxes();
+        postBox.setVisible(false);
+        librarianLendBox.setVisible(false);
+        addPostButton.setDisable(true);
+        TreeItem<String> root = librarianTree.getRoot();
+        TreeItem<String> newLibrarian = new TreeItem<>("*Nowy Bibliotekarz");
+        root.getChildren().add(newLibrarian);
+        libraryTree.getSelectionModel().select(newLibrarian);
+        try {
+            setLibrarianData(null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        librarianBox.setVisible(true);
+
+    }
+
+    private void clearLibrarianTextBoxes(){
 
     }
 
@@ -681,8 +713,9 @@ public class AppController extends FxController {
         if (selectedItem == null || selectedItem.getValue() == null || selectedItem.getValue().charAt(0) == '*')
             return;
         posts.clear();
+        addPostButton.setDisable(false);
         removeEmptyItems(librarianTree);
-
+        lendsData.clear();
         String[] label = selectedItem.getValue().split(" ");
             int librarianID = Integer.parseInt(label[0]);
             try {
@@ -710,9 +743,11 @@ public class AppController extends FxController {
                 statement = dbConnection.createStatement();
                 resultSet = statement.executeQuery("SELECT * FROM INF122446.L_WYPOŻYCZENIA WHERE BIBLIOTEKARZE_ID = '" + librarianID + "'");
                 while(resultSet.next()){
-                    Lend lendObject = makeLendObjectFromResultSet(resultSet);
-                    addLendToTableView(lendObject);
+                    lendsData.add(makeLendObjectFromResultSet(resultSet));
                 }
+                librarianLends.setItems(lendsData);
+                //librarianLends.getColumns().addAll(librarianLendTitle, librarianLendAuthor, librarianLendReader, librarianLendSince, librarianLendTill, librarianLendLibrary,
+                        //librarianLendBranch, librarianLendSignature, librarianLendISBN);
                 librarianBox.setVisible(true);
                 postBox.setVisible(true);
                 librarianLendBox.setVisible(true);
@@ -776,10 +811,6 @@ public class AppController extends FxController {
         return new Lend(title, author, reader, since, till, library, branchNumber, signature, Wydania_ISBN, librarian);
     }
 
-    private void addLendToTableView(Lend lendObject){
-
-    }
-
     private void setLibrarianData(@Nullable ResultSet data) throws SQLException{
         librarianForename.setText(data != null ? data.getString("imie") : "");
         librarianSurname.setText(data != null ? data.getString("nazwisko") : "");
@@ -805,7 +836,27 @@ public class AppController extends FxController {
 
     @FXML
     void onSaveLibrarianButtonPressed(ActionEvent event) {
+        Statement statement;
+        PreparedStatement update;
+        String oldName = getLibraryNameFromSelectedItem(libraryTree);
+        String name = libraryName.getText();
+        LocalDate foundDate = libraryFoundDate.getValue();
+        String type = libraryType.getText();
+        String address = libraryAddress.getText();
+        String bossForename = libraryBossForename.getText();
+        String bossSurname = libraryBossSurname.getText();
+        String website = libraryWebsite.getText();
 
+        try {
+                update = dbConnection.prepareStatement("INSERT INTO INF122446.L_BIBLIOTEKI(Nazwa, Data_założenia,"
+                        + "Typ, ADRES_BIURA, Imie_dyrektora, Nazwisko_dyrektora, Adres_www)"
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?)");
+                update = insertIntoUpdate(update, name, foundDate, type, address, bossForename, bossSurname, website);
+                executeRefreshSelect(update, name);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            //todo show user what’s wrong
+        }
     }
 
     @FXML
