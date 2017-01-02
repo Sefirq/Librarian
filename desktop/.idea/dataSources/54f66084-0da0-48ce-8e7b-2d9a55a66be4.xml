@@ -4,9 +4,9 @@
     <root id="1"/>
     <schema id="2" parent="1" name="INF122446">
       <ObjectId>927</ObjectId>
-      <IntrospectionTimestamp>2016-12-27.19:43:19</IntrospectionTimestamp>
+      <IntrospectionTimestamp>2017-01-02.15:58:25</IntrospectionTimestamp>
       <CreatedTimestamp>2016-09-12.20:45:33</CreatedTimestamp>
-      <ModifiedTimestamp>2016-12-27.12:01:47</ModifiedTimestamp>
+      <ModifiedTimestamp>2017-01-02.15:58:21</ModifiedTimestamp>
       <CommentsHash>19624727754136</CommentsHash>
       <Current>1</Current>
       <Visible>1</Visible>
@@ -3911,7 +3911,7 @@
     <table id="1259" parent="2" name="L_CZYTELNICY">
       <ObjectId>159570</ObjectId>
       <CreatedTimestamp>2016-12-27.11:32:18</CreatedTimestamp>
-      <ModifiedTimestamp>2016-12-27.12:01:46</ModifiedTimestamp>
+      <ModifiedTimestamp>2017-01-02.12:41:50</ModifiedTimestamp>
     </table>
     <table id="1260" parent="2" name="L_ETATY">
       <ObjectId>159571</ObjectId>
@@ -3931,7 +3931,7 @@
     <table id="1263" parent="2" name="L_KSIĄŻKI">
       <ObjectId>159575</ObjectId>
       <CreatedTimestamp>2016-12-27.11:32:19</CreatedTimestamp>
-      <ModifiedTimestamp>2016-12-27.12:01:46</ModifiedTimestamp>
+      <ModifiedTimestamp>2017-01-02.13:04:18</ModifiedTimestamp>
     </table>
     <table id="1264" parent="2" name="L_MATERIAŁY_DODATKOWE">
       <ObjectId>159576</ObjectId>
@@ -3951,7 +3951,7 @@
     <table id="1267" parent="2" name="L_WYDANIA">
       <ObjectId>159581</ObjectId>
       <CreatedTimestamp>2016-12-27.11:32:20</CreatedTimestamp>
-      <ModifiedTimestamp>2016-12-27.12:01:46</ModifiedTimestamp>
+      <ModifiedTimestamp>2017-01-02.15:58:21</ModifiedTimestamp>
     </table>
     <table id="1268" parent="2" name="L_WYDAWCY">
       <ObjectId>159582</ObjectId>
@@ -3961,7 +3961,7 @@
     <table id="1269" parent="2" name="L_WYPOŻYCZENIA">
       <ObjectId>159583</ObjectId>
       <CreatedTimestamp>2016-12-27.11:32:21</CreatedTimestamp>
-      <ModifiedTimestamp>2016-12-27.12:01:46</ModifiedTimestamp>
+      <ModifiedTimestamp>2017-01-02.12:42:15</ModifiedTimestamp>
     </table>
     <table id="1270" parent="2" name="OPT_ETATY">
       <ObjectId>152565</ObjectId>
@@ -6600,7 +6600,7 @@ CONTENT_TYPE</ColNames>
     </trigger>
     <column id="1797" parent="1259" name="PESEL">
       <Position>1</Position>
-      <DataType>NUMBER(*)|0</DataType>
+      <DataType>VARCHAR2(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="1798" parent="1259" name="IMIE">
@@ -6709,7 +6709,7 @@ BIBLIOTEKI_ID</ColNames>
     </column>
     <column id="1817" parent="1263" name="ROK_UKOŃCZENIA">
       <Position>3</Position>
-      <DataType>DATE|0</DataType>
+      <DataType>NUMBER(*)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="1818" parent="1263" name="GATUNEK">
@@ -6824,8 +6824,9 @@ BIBLIOTEKI_ID</ColNames>
     </column>
     <column id="1838" parent="1267" name="ROK_WYDANIA">
       <Position>4</Position>
-      <DataType>DATE|0</DataType>
+      <DataType>NUMBER(*)|0</DataType>
       <NotNull>1</NotNull>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="1839" parent="1267" name="JEZYK">
       <Position>5</Position>
@@ -6859,7 +6860,7 @@ BIBLIOTEKI_ID</ColNames>
     </column>
     <column id="1845" parent="1269" name="CZYTELNICY_PESEL">
       <Position>1</Position>
-      <DataType>NUMBER(*)|0</DataType>
+      <DataType>VARCHAR2(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="1846" parent="1269" name="ID">

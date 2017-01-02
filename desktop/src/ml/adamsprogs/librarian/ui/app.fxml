@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<!--suppress JavaFxDefaultTag -->
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -20,9 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<!--suppress JavaFxDefaultTag -->
-
-<TabPane stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
+<TabPane stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
     <tabs>
         <Tab fx:id="branchTab" onSelectionChanged="#onBranchTabSelected" text="Filie">
             <content>
@@ -326,7 +321,7 @@
                         <Label text="Tytuł" />
                         <TextField fx:id="bookTitle" />
                         <Label text="Data ukończenia" />
-                        <DatePicker fx:id="bookFinishDate" />
+                        <TextField fx:id="bookFinishDate" />
                         <Label text="Język" />
                         <TextField fx:id="bookLanguage" />
                         <Label text="Gatunek" />
@@ -383,7 +378,7 @@
                         <Label layoutX="10.0" layoutY="28.0" text="Numer wydania" />
                         <TextField fx:id="editionNumber" />
                         <Label layoutX="10.0" layoutY="46.0" text="Data wydania" />
-                        <DatePicker fx:id="editionReleaseDate" />
+                        <TextField fx:id="editionReleaseDate" />
                         <Label layoutX="10.0" layoutY="64.0" text="Język" />
                         <TextField fx:id="editionLanguage" />
                         <Label layoutX="10.0" layoutY="100.0" text="Wydawnictwo" />
