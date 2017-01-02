@@ -14,7 +14,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<preferredAbbreviation>Biblioteki</preferredAbbreviation>
+<preferredAbbreviation>L_Biblioteki</preferredAbbreviation>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
 <Attribute name="ID" id="5D84A753-4E70-8CF7-F4AD-3991FD7038EF">
 <createdBy>adam</createdBy>
@@ -125,8 +125,9 @@
 <createdBy>sefir</createdBy>
 <createdTime>2016-11-19 22:45:49 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="false"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

@@ -14,7 +14,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<preferredAbbreviation>Czytelnicy</preferredAbbreviation>
+<preferredAbbreviation>L_Czytelnicy</preferredAbbreviation>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
 <Attribute name="PESEL" id="C5973395-DEBF-54C4-DF13-9F9A8EF71D70">
 <createdBy>sefir</createdBy>
@@ -25,8 +25,9 @@
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>11</dataTypeSize>
+<ownDataTypeParameters>11,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="Imie" id="32394731-BDC0-1602-78C9-A742A04DDE17">
 <createdBy>sefir</createdBy>
@@ -60,8 +61,9 @@
 <createdBy>sefir</createdBy>
 <createdTime>2016-11-19 23:13:13 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="false"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

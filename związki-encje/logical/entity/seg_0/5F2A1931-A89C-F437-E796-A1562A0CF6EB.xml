@@ -14,22 +14,8 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<preferredAbbreviation>Wypożyczenia</preferredAbbreviation>
+<preferredAbbreviation>L_Wypożyczenia</preferredAbbreviation>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="PESEL" id="ED2B7512-F24B-2C71-FBF2-70373BD7C5ED">
-<createdBy>sefir</createdBy>
-<createdTime>2016-11-19 23:13:21 UTC</createdTime>
-<generatorID>8A45F426-A11B-B5C2-71F9-EEB0682B1FE3</generatorID>
-<ownerDesignName>związki-encje</ownerDesignName>
-<engineerTo>
-<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
-</engineerTo>
-<referedAttribute>C5973395-DEBF-54C4-DF13-9F9A8EF71D70</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
 <Attribute name="ID_2" id="F3BA835E-F12C-C607-FB52-34E404026870">
 <createdBy>sefir</createdBy>
 <createdTime>2016-11-19 23:15:35 UTC</createdTime>
@@ -69,7 +55,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>20</dataTypeSize>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="Data_wypozyczenia" id="1048CDA6-6E55-EBC7-B42F-06F5C72CD97D">
 <createdBy>adam</createdBy>
@@ -96,14 +82,30 @@
 <logicalDatatype>LOGDT008</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="PESEL" id="965BEB86-44B3-559A-7D90-DC603AB79EA2">
+<createdBy>adam</createdBy>
+<createdTime>2017-01-02 14:04:12 UTC</createdTime>
+<generatorID>8A45F426-A11B-B5C2-71F9-EEB0682B1FE3</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<engineerTo>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
+</engineerTo>
+<referedAttribute>C5973395-DEBF-54C4-DF13-9F9A8EF71D70</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>11</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="B56A9582-DF29-3384-4A36-2BEEC8029318" name="Wypożyczenie PK">
 <createdBy>sefir</createdBy>
 <createdTime>2016-11-19 23:04:20 UTC</createdTime>
 <ownerDesignName>związki-encje</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
+<item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="false"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

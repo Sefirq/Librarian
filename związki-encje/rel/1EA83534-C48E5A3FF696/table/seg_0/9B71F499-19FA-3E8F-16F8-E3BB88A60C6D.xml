@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="9B71F499-19FA-3E8F-16F8-E3BB88A60C6D" name="Wypożyczenia">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="9B71F499-19FA-3E8F-16F8-E3BB88A60C6D" name="L_Wypożyczenia">
 <createdBy>adam</createdBy>
 <createdTime>2016-12-27 09:36:33 UTC</createdTime>
 <generatorID>5F2A1931-A89C-F437-E796-A1562A0CF6EB</generatorID>
@@ -16,7 +16,8 @@
 <ownerDesignName>związki-encje</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>11</dataTypeSize>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -89,6 +90,18 @@
 <use>1</use>
 <logicalDatatype>LOGDT008</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PESEL" id="5C992169-16DA-6258-4825-F0A93A8DBF46">
+<createdBy>adam</createdBy>
+<createdTime>2017-01-02 14:05:42 UTC</createdTime>
+<generatorID>965BEB86-44B3-559A-7D90-DC603AB79EA2</generatorID>
+<ownerDesignName>związki-encje</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>

@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,7 +39,7 @@ public class PickerController extends FxController {
     private TextField publisherName;
 
     @FXML
-    private DatePicker publisherFoundDate;
+    private TextField publisherFoundDate;
 
     @FXML
     private VBox translatorBox;
@@ -120,13 +121,16 @@ public class PickerController extends FxController {
 
     @FXML
     void initialize() {
+        publisherFoundDate.setTextFormatter(new TextFormatter<Integer>(change ->
+                change.getControlNewText().matches("\\d{0,4}") ? change : null));
+
         searchBar.textProperty().addListener((observable, oldValue, newValue) -> onSearchTextChanged(newValue));
         preferences = Preferences.userNodeForPackage(this.getClass());
 
         String request = preferences.get("callerRequest", "");
 
         if (request.equals("")) {
-            preferences.put("ERROR", "No request received");
+            preferences.put("error", "No request received");
         }
 
         HashMap<String, String> relations = new HashMap<>();

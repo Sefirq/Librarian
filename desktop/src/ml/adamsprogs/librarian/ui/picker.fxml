@@ -36,8 +36,8 @@
             <TextField fx:id="nip" />
             <Label text="Nazwa" />
             <TextField fx:id="publisherName" />
-            <Label text="Data założenia" />
-            <DatePicker fx:id="publisherFoundDate" />
+            <Label text="Rok założenia" />
+            <TextField fx:id="publisherFoundDate" />
             <Button mnemonicParsing="false" onAction="#onSavePublisherButtonPressed" text="Zapisz">
                <VBox.margin>
                   <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

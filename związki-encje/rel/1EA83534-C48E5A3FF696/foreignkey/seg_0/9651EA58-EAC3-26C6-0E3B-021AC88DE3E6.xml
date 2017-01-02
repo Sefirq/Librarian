@@ -1,7 +1,8 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="ED21C9D9-9A63-5183-E0B5-1CA3C9F52690" containerWithKeyObject="E92995DB-814E-CFC9-08C0-EB0A2925B502" localFKIndex="1221AB49-38A6-8630-225A-9D7EB86864D6" name="Materiały_dodatkowe_Kopie_FK">
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="9651EA58-EAC3-26C6-0E3B-021AC88DE3E6" containerWithKeyObject="E92995DB-814E-CFC9-08C0-EB0A2925B502" localFKIndex="5AB43886-EEE8-CA00-8F9D-30FCD8E98098" name="L_Materiały_dodatkowe_L_Kopie_FK">
 <createdBy>adam</createdBy>
-<createdTime>2016-12-27 09:49:35 UTC</createdTime>
+<createdTime>2017-01-02 14:05:42 UTC</createdTime>
+<generatorID>03A82C05-5117-A529-5929-A67A41017797</generatorID>
 <ownerDesignName>związki-encje</ownerDesignName>
 <deleteRule>NO ACTION</deleteRule>
 <referredTableID>5D6BEFBC-2A17-9375-83A3-815E313D40A9</referredTableID>

@@ -14,7 +14,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<preferredAbbreviation>Etaty</preferredAbbreviation>
+<preferredAbbreviation>L_Etaty</preferredAbbreviation>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
 <Attribute name="Część_etatu" id="FF422B45-D7FD-DFAB-A202-C67F8B888468">
 <createdBy>adam</createdBy>
@@ -78,6 +78,7 @@
 <item key="1EA83534-543F-EBCA-D037-C48E5A3FF696" value="true"/>
 </engineerTo>
 <referedAttribute>B9A93D37-CCAE-8D6B-1C54-8AB896C2B55A</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
@@ -94,8 +95,8 @@
 <pk>true</pk>
 <usedAttributes>
 <attributeRef>C92AFAF5-4302-26AD-3137-96F5C109D1B8</attributeRef>
-<attributeRef>42CA6142-2BE8-D97B-77F5-C9F8ABB03F28</attributeRef>
 <attributeRef>A0D8D4D7-16AF-11E5-E34E-62C393233D18</attributeRef>
+<attributeRef>42CA6142-2BE8-D97B-77F5-C9F8ABB03F28</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>
