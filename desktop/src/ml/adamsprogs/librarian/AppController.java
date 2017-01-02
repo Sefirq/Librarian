@@ -836,23 +836,19 @@ public class AppController extends FxController {
 
     @FXML
     void onSaveLibrarianButtonPressed(ActionEvent event) {
-        Statement statement;
         PreparedStatement update;
-        String oldName = getLibraryNameFromSelectedItem(libraryTree);
-        String name = libraryName.getText();
-        LocalDate foundDate = libraryFoundDate.getValue();
-        String type = libraryType.getText();
-        String address = libraryAddress.getText();
-        String bossForename = libraryBossForename.getText();
-        String bossSurname = libraryBossSurname.getText();
-        String website = libraryWebsite.getText();
+        String name = librarianForename.getText();
+        String surname = librarianSurname.getText();
 
         try {
-                update = dbConnection.prepareStatement("INSERT INTO INF122446.L_BIBLIOTEKI(Nazwa, Data_założenia,"
-                        + "Typ, ADRES_BIURA, Imie_dyrektora, Nazwisko_dyrektora, Adres_www)"
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?)");
-                update = insertIntoUpdate(update, name, foundDate, type, address, bossForename, bossSurname, website);
-                executeRefreshSelect(update, name);
+                update = dbConnection.prepareStatement("INSERT INTO inf122446.L_Bibliotekarze(Imie, Nazwisko)"
+                        + "VALUES(?, ?)");
+                update.setString(1, name);
+                update.setString(2, surname);
+                int how_many = update.executeUpdate();
+                onLibrarianTabSelected(null);
+                librarianTree.getSelectionModel().select(findItemByName(libraryTree, name));
+                update.close();
         } catch (SQLException e) {
             e.printStackTrace();
             //todo show user what’s wrong
