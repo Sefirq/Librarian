@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 
 class FxController {
     static Connection dbConnection;
+    protected int currentLibrarian;
+    protected String currentBranch;
     private Stage stage;
 
     Logger logger;
@@ -22,6 +24,14 @@ class FxController {
 
     void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    void setCurrentLibrarian(int librarian) {
+        currentLibrarian = librarian;
+    }
+
+    void setCurrentBranch(String branch) {
+        currentBranch = branch;
     }
 
     void setScene(String scenePath, String windowTitle) {
@@ -39,6 +49,8 @@ class FxController {
 
         FxController controller = loader.getController();
         controller.setStage(stage);
+        controller.setCurrentLibrarian(currentLibrarian);
+        controller.setCurrentBranch(currentBranch);
 
         //tytuł okna
         stage.setTitle(windowTitle);
