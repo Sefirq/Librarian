@@ -2,6 +2,11 @@
 
 <!--suppress JavaFxDefaultTag -->
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -17,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<TabPane stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
+<TabPane stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
     <tabs>
         <Tab fx:id="branchTab" onSelectionChanged="#onBranchTabSelected" text="Filie">
             <content>
@@ -180,10 +185,8 @@
                                 <TextField fx:id="postFraction" />
                                 <Label text="Pensja" />
                                 <TextField fx:id="postSalary" />
-                                <Label text="Biblioteka" />
-                                <Text fx:id="postLibrary" strokeType="OUTSIDE" strokeWidth="0.0" />
-                                <Label text="Filia" />
-                                <Text fx:id="postBranch" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <ChoiceBox fx:id="postLibraryChoiceBox" prefWidth="150.0" />
+                        <ChoiceBox fx:id="postBranchChoiceBox" prefWidth="150.0" />
                         <Button fx:id="previousPostButton" mnemonicParsing="false" onAction="#onPreviousPostButtonPressed" text="Poprzedni etat">
                            <VBox.margin>
                               <Insets bottom="8.0" left="16.0" right="16.0" top="16.0" />

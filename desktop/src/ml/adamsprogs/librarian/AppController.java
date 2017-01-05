@@ -1,5 +1,7 @@
 package ml.adamsprogs.librarian;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +15,9 @@ import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javafx.beans.value.ChangeListener;
+
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,11 +26,14 @@ import java.util.GregorianCalendar;
 import java.util.prefs.Preferences;
 import java.util.List;
 
+
 public class AppController extends FxController {
 
     //todo feedback
     private List<String> posts = new ArrayList<>();
     private int index;
+    private int selectedLibrarianID;
+    private int branchFromAPost = -1;
     private ObservableList<Lend> lendsData = FXCollections.observableArrayList();
 
     private Preferences preferences;
@@ -100,10 +108,10 @@ public class AppController extends FxController {
     private TextField postSalary;
 
     @FXML
-    private Text postLibrary;
+    private ChoiceBox<String> postLibraryChoiceBox;
 
     @FXML
-    private Text postBranch;
+    private ChoiceBox<String> postBranchChoiceBox;
 
     @FXML
     private VBox librarianLendBox;
@@ -673,7 +681,9 @@ public class AppController extends FxController {
         librarianBox.setVisible(false);
         postBox.setVisible(false);
         librarianLendBox.setVisible(false);
-
+        postBranchChoiceBox.setDisable(true);
+        postLibraryChoiceBox.setDisable(true);
+        setPostLibraryChoiceBox();
         TreeItem<String> rootItem = new TreeItem<>("Bibliotekarze");
         rootItem.setExpanded(true);
         try {
@@ -693,12 +703,29 @@ public class AppController extends FxController {
         }
     }
 
+    private void setPostLibraryChoiceBox(){
+        ObservableList<String> choices = FXCollections.observableArrayList();
+        try {
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT nazwa FROM INF122446.L_BIBLIOTEKI");
+            while(resultSet.next()) {
+                choices.add(resultSet.getString("nazwa"));
+            }
+            postLibraryChoiceBox.setItems(choices);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @FXML
     void onAddLibrarianButtonPressed(ActionEvent event) {
         //clearLibrarianTextBoxes();
         postBox.setVisible(false);
         librarianLendBox.setVisible(false);
         addPostButton.setDisable(true);
+        postSalary.setDisable(true);
+        postFraction.setDisable(true);
         TreeItem<String> root = librarianTree.getRoot();
         TreeItem<String> newLibrarian = new TreeItem<>("*Nowy Bibliotekarz");
         root.getChildren().add(newLibrarian);
@@ -709,36 +736,48 @@ public class AppController extends FxController {
             e.printStackTrace();
         }
         librarianBox.setVisible(true);
-
     }
 
     private void clearLibrarianTextBoxes(){
 
     }
-
+    private void clearPostBoxes(){
+        postLibraryChoiceBox.getSelectionModel().clearSelection();
+        postLibraryChoiceBox.setValue(null);
+        postBranchChoiceBox.getSelectionModel().clearSelection();
+        postBranchChoiceBox.setValue(null);
+        postFraction.setText("");
+        postSalary.setText("");
+    }
     private void onLibrarianTreeItemSelected(TreeItem<String> selectedItem) {
         if (selectedItem == null || selectedItem.getValue() == null || selectedItem.getValue().charAt(0) == '*')
             return;
         posts.clear();
         addPostButton.setDisable(false);
+        clearPostBoxes();
         removeEmptyItems(librarianTree);
         lendsData.clear();
+        postFraction.setDisable(true);
+        postSalary.setDisable(true);
+        postLibraryChoiceBox.setDisable(true);
+        postBranchChoiceBox.setDisable(true);
         String[] label = selectedItem.getValue().split(" ");
-            int librarianID = Integer.parseInt(label[0]);
+            selectedLibrarianID = Integer.parseInt(label[0]);
             try {
                 Statement statement = dbConnection.createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446.L_BIBLIOTEKARZE WHERE ID = '" + librarianID + "'");
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446.L_BIBLIOTEKARZE WHERE ID = '" + selectedLibrarianID + "'");
                 resultSet.next();
                 setLibrarianData(resultSet);
                 resultSet.close();
                 statement.close();
                 statement = dbConnection.createStatement();
-                resultSet = statement.executeQuery("SELECT * FROM INF122446.L_ETATY WHERE BIBLIOTEKARZE_ID = '" + librarianID + "'");
+                resultSet = statement.executeQuery("SELECT * FROM INF122446.L_ETATY WHERE BIBLIOTEKARZE_ID = '" + selectedLibrarianID + "'");
                 resultSetToArrayListOfPosts(resultSet);
                 resultSet.close();
                 statement.close();
                 index = 0;
                 if(posts.size() > 0){
+                    previousPostButton.setDisable(true);
                     setPostData(index);
                     if(posts.size() == 1){
                         nextPostButton.setDisable(true);
@@ -748,7 +787,7 @@ public class AppController extends FxController {
                     }
                 }
                 statement = dbConnection.createStatement();
-                resultSet = statement.executeQuery("SELECT * FROM INF122446.L_WYPOŻYCZENIA WHERE BIBLIOTEKARZE_ID = '" + librarianID + "'");
+                resultSet = statement.executeQuery("SELECT * FROM INF122446.L_WYPOŻYCZENIA WHERE BIBLIOTEKARZE_ID = '" + selectedLibrarianID + "'");
                 while(resultSet.next()){
                     lendsData.add(makeLendObjectFromResultSet(resultSet));
                 }
@@ -828,7 +867,7 @@ public class AppController extends FxController {
         int columnCount = metadata.getColumnCount();
         while (resultSet.next()) {
             String row = "";
-            for (int i = 1; i < columnCount; i++) {
+            for (int i = 1; i <= columnCount; i++) {
                 row += resultSet.getString(i) + " ";
             }
             posts.add(row);
@@ -839,6 +878,18 @@ public class AppController extends FxController {
         String[] arr = posts.get(index).split(" ");
         postFraction.setText(arr[0]);
         postSalary.setText(arr[1]);
+        try {
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT nazwa FROM INF122446.L_BIBLIOTEKI WHERE ID = " + Integer.parseInt(arr[4]));
+            resultSet.next();
+            setPostBranchChoiceBox(resultSet.getString("nazwa"));
+            postLibraryChoiceBox.setValue(resultSet.getString("nazwa"));
+            postBranchChoiceBox.setValue(arr[2]);
+            statement.close();
+            resultSet.close();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -864,12 +915,84 @@ public class AppController extends FxController {
 
     @FXML
     void onAddPostButtonPressed(ActionEvent event) {
+        clearPostBoxes();
+        addPostButton.setDisable(true);
+        postSalary.setDisable(false);
+        postFraction.setDisable(false);
+        postFraction.requestFocus();
+        postLibraryChoiceBox.setDisable(false);
+        postBranchChoiceBox.setDisable(true);
+        postLibraryChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                        if(newValue.intValue() != -1) {
+                            postBranchChoiceBox.setDisable(false);
+                            String LibraryName = postLibraryChoiceBox.getItems().subList(newValue.intValue(), newValue.intValue() + 1).get(0);
+                            setPostBranchChoiceBox(LibraryName);
+                        }
+                    }
+                });
+        /*TreeItem<String> root = librarianTree.getRoot();
+        TreeItem<String> newLibrarian = new TreeItem<>("*Nowy Bibliotekarz");
+        root.getChildren().add(newLibrarian);
+        libraryTree.getSelectionModel().select(newLibrarian);
+        try {
+            setLibrarianData(null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        librarianBox.setVisible(true);*/
+    }
 
+    private void setPostBranchChoiceBox(String LibName){
+        postBranchChoiceBox.getSelectionModel().clearSelection();
+        postBranchChoiceBox.setValue(null);
+        ObservableList<String> choices = FXCollections.observableArrayList();
+        try {
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT numer FROM INF122446.L_FILIE WHERE Biblioteki_ID = (SELECT ID FROM INF122446.L_Biblioteki WHERE Nazwa = '" + LibName + "')");
+            while(resultSet.next()) {
+                choices.add(resultSet.getString("numer"));
+            }
+            postBranchChoiceBox.setItems(choices);
+            //if(branchFromAPost != -1){
+               // System.out.println("ljhwkfhwjhfkw " + Integer.toString(branchFromAPost));
+              //  postBranchChoiceBox.setValue(Integer.toString(branchFromAPost));
+             //   branchFromAPost = -1;
+            //}
+            statement.close();
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void onSavePostButtonPressed(ActionEvent event) {
-
+        PreparedStatement update;
+        String postFrac = postFraction.getText();
+        int postSalar = Integer.parseInt(postSalary.getText());
+        int branchNumber = Integer.parseInt(postBranchChoiceBox.getSelectionModel().getSelectedItem());
+        try {
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT ID FROM INF122446.L_BIBLIOTEKI WHERE nazwa = '" + postLibraryChoiceBox.getSelectionModel().getSelectedItem() + "'");
+            resultSet.next();
+            int libraryID = Integer.parseInt(resultSet.getString("ID"));
+            update = dbConnection.prepareStatement("INSERT INTO inf122446.L_Etaty(Część_etatu, Pensja, Filie_Numer," +
+                    "Bibliotekarze_ID, Biblioteki_ID)"
+                    + "VALUES(?, ?, ?, ?, ?)");
+            update.setString(1, postFrac);
+            update.setInt(2, postSalar);
+            update.setInt(3, branchNumber);
+            update.setInt(4, selectedLibrarianID);
+            update.setInt(5, libraryID);
+            selectedLibrarianID = -1;
+            int how_many = update.executeUpdate();
+            onLibrarianTabSelected(null);
+            update.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            //todo show user what’s wrong
+        }
     }
 
     @FXML
@@ -879,9 +1002,8 @@ public class AppController extends FxController {
 
     @FXML
     private void onNextPostButtonPressed(ActionEvent actionEvent) {
+        clearPostBoxes();
         if (index < posts.size() - 1) {
-            System.out.println(index);
-            System.out.println(posts.size());
             index++;
             if (index == 1) {
                 previousPostButton.setDisable(false);
@@ -896,9 +1018,8 @@ public class AppController extends FxController {
 
     @FXML
     private void onPreviousPostButtonPressed(ActionEvent actionEvent) {
+        clearPostBoxes();
         if (index > 0) {
-            System.out.println(index);
-            System.out.println(posts.size());
             index--;
             if (index == posts.size() - 2) {
                 nextPostButton.setDisable(false);
