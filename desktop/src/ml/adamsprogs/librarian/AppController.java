@@ -11,20 +11,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javafx.beans.value.ChangeListener;
-
-import javax.swing.plaf.nimbus.State;
+import java.sql.Date;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.*;
 import java.util.prefs.Preferences;
-import java.util.List;
 
 
 public class AppController extends FxController {
@@ -33,7 +27,6 @@ public class AppController extends FxController {
     private List<String> posts = new ArrayList<>();
     private int index;
     private int selectedLibrarianID;
-    private int branchFromAPost = -1;
     private ObservableList<Lend> lendsData = FXCollections.observableArrayList();
 
     private Preferences preferences;
@@ -476,25 +469,29 @@ public class AppController extends FxController {
         TreeItem<String> root = tree.getRoot();
         if (root == null)
             return;
-        ObservableList<TreeItem<String>> libraries = root.getChildren();
-        Iterator<TreeItem<String>> librariesIter = libraries.iterator();
-        while (librariesIter.hasNext()) {
-            TreeItem<String> library = librariesIter.next();
-            if (library.getValue().equals("*Nowa Biblioteka") &&
-                    !tree.getSelectionModel().getSelectedItem().equals(library))
-                librariesIter.remove();
-            else if(library.getValue().equals("*Nowy Bibliotekarz") &&
-                    !tree.getSelectionModel().getSelectedItem().equals(library))
-                librariesIter.remove();
+        ObservableList<TreeItem<String>> firstLevel = root.getChildren();
+        Iterator<TreeItem<String>> firstLevelIterator = firstLevel.iterator();
+        while (firstLevelIterator.hasNext()) {
+            TreeItem<String> firstLevelItem = firstLevelIterator.next();
+            if (firstLevelItem.getValue().charAt(0) == '*' &&
+                    !tree.getSelectionModel().getSelectedItem().equals(firstLevelItem))
+                firstLevelIterator.remove();
             else {
-                ObservableList<TreeItem<String>> branches = library.getChildren();
-                Iterator<TreeItem<String>> branchesIter = branches.iterator();
-                while (branchesIter.hasNext()) {
-                    TreeItem<String> branch = branchesIter.next();
-                    if (branch.getValue().equals("*Nowa Filia") &&
-                            !(tree.getSelectionModel().getSelectedItem().equals(branch) ||
-                                    tree.getSelectionModel().getSelectedItem().equals(branch.getParent())))
-                        branchesIter.remove();
+                ObservableList<TreeItem<String>> secondLevel = firstLevelItem.getChildren();
+                Iterator<TreeItem<String>> secondLevelIterator = secondLevel.iterator();
+                while (secondLevelIterator.hasNext()) {
+                    TreeItem<String> secondLevelItem = secondLevelIterator.next();
+                    if (secondLevelItem.getValue().charAt(0) == '*' &&
+                            !(tree.getSelectionModel().getSelectedItem().equals(secondLevelItem) ||
+                                    tree.getSelectionModel().getSelectedItem().equals(secondLevelItem.getParent())))
+                        secondLevelIterator.remove();
+                    else {
+                        ObservableList<TreeItem<String>> thirdLevel = secondLevelItem.getChildren();
+                        thirdLevel.removeIf(thirdLevelItem -> thirdLevelItem.getValue().charAt(0) == '*' &&
+                                !(tree.getSelectionModel().getSelectedItem().equals(thirdLevelItem) ||
+                                        tree.getSelectionModel().getSelectedItem().equals(thirdLevelItem.getParent()) ||
+                                        tree.getSelectionModel().getSelectedItem().equals(thirdLevelItem.getParent().getParent())));
+                    }
                 }
             }
         }
@@ -738,7 +735,7 @@ public class AppController extends FxController {
         librarianBox.setVisible(true);
     }
 
-    private void clearLibrarianTextBoxes(){
+    private void clearLibrarianTextBoxes() {
 
     }
     private void clearPostBoxes(){
@@ -776,24 +773,23 @@ public class AppController extends FxController {
                 resultSet.close();
                 statement.close();
                 index = 0;
-                if(posts.size() > 0){
+                if (posts.size() > 0) {
                     previousPostButton.setDisable(true);
                     setPostData(index);
-                    if(posts.size() == 1){
+                    if (posts.size() == 1) {
                         nextPostButton.setDisable(true);
-                    }
-                    else{
+                    } else {
                         nextPostButton.setDisable(false);
                     }
                 }
                 statement = dbConnection.createStatement();
                 resultSet = statement.executeQuery("SELECT * FROM INF122446.L_WYPOŻYCZENIA WHERE BIBLIOTEKARZE_ID = '" + selectedLibrarianID + "'");
-                while(resultSet.next()){
+                while (resultSet.next()) {
                     lendsData.add(makeLendObjectFromResultSet(resultSet));
                 }
                 librarianLends.setItems(lendsData);
                 //librarianLends.getColumns().addAll(librarianLendTitle, librarianLendAuthor, librarianLendReader, librarianLendSince, librarianLendTill, librarianLendLibrary,
-                        //librarianLendBranch, librarianLendSignature, librarianLendISBN);
+                //librarianLendBranch, librarianLendSignature, librarianLendISBN);
                 librarianBox.setVisible(true);
                 postBox.setVisible(true);
                 librarianLendBox.setVisible(true);
@@ -804,7 +800,7 @@ public class AppController extends FxController {
 
     private Lend makeLendObjectFromResultSet(ResultSet resultSet) throws SQLException {
         Statement statement = dbConnection.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT Wydania_ISBN FROM inf122446.L_Kopie WHERE SYGNATURA = '" + resultSet.getString("Kopia_Sygnatura") + "'");
+        ResultSet rs = statement.executeQuery("SELECT Wydania_ISBN FROM inf122446.L_Kopie WHERE SYGNATURA = '" + resultSet.getString("Kopie_Sygnatura") + "'");
         rs.next();
         String Wydania_ISBN = rs.getString("Wydania_ISBN");
         System.out.println(Wydania_ISBN);
@@ -840,7 +836,7 @@ public class AppController extends FxController {
         String since = resultSet.getString("DATA_WYPOZYCZENIA");
         String till = resultSet.getString("DATA_ODDANIA");
         statement = dbConnection.createStatement();
-        rs = statement.executeQuery("SELECT Biblioteki_ID, Filie_Numer FROM inf122446.L_Kopie WHERE Sygnatura = '" + resultSet.getString("Kopie_Sygnatura"));
+        rs = statement.executeQuery("SELECT Biblioteki_ID, Filie_Numer FROM inf122446.L_Kopie WHERE Sygnatura = '" + resultSet.getString("Kopie_Sygnatura") + "'");
         rs.next();
         String libraryID = rs.getString("Biblioteki_ID");
         String branchNumber = rs.getString("Filie_Numer");
@@ -857,7 +853,7 @@ public class AppController extends FxController {
         return new Lend(title, author, reader, since, till, library, branchNumber, signature, Wydania_ISBN, librarian);
     }
 
-    private void setLibrarianData(@Nullable ResultSet data) throws SQLException{
+    private void setLibrarianData(@Nullable ResultSet data) throws SQLException {
         librarianForename.setText(data != null ? data.getString("imie") : "");
         librarianSurname.setText(data != null ? data.getString("nazwisko") : "");
     }
@@ -899,14 +895,14 @@ public class AppController extends FxController {
         String surname = librarianSurname.getText();
 
         try {
-                update = dbConnection.prepareStatement("INSERT INTO inf122446.L_Bibliotekarze(Imie, Nazwisko)"
-                        + "VALUES(?, ?)");
-                update.setString(1, name);
-                update.setString(2, surname);
-                int how_many = update.executeUpdate();
-                onLibrarianTabSelected(null);
-                librarianTree.getSelectionModel().select(findItemByName(libraryTree, name));
-                update.close();
+            update = dbConnection.prepareStatement("INSERT INTO inf122446.L_Bibliotekarze(Imie, Nazwisko)"
+                    + "VALUES(?, ?)");
+            update.setString(1, name);
+            update.setString(2, surname);
+            update.executeUpdate();
+            onLibrarianTabSelected(null);
+            librarianTree.getSelectionModel().select(findItemByName(libraryTree, name));
+            update.close();
         } catch (SQLException e) {
             e.printStackTrace();
             //todo show user what’s wrong
@@ -1107,8 +1103,28 @@ public class AppController extends FxController {
                     editionPublisher.setItems(publishers);
                     editionPublisher.getSelectionModel().select(preferences.get("publisherR", ""));
                     break;
+                case "reader":
+                    String pesel = preferences.get("pesel", "");
+                    String signature = preferences.get("signature", "");
+                    try {
+                        PreparedStatement statement = dbConnection.prepareStatement("INSERT INTO INF122446.L_WYPOŻYCZENIA" +
+                                "(CZYTELNICY_PESEL, BIBLIOTEKARZE_ID, KOPIE_SYGNATURA, DATA_WYPOZYCZENIA) " +
+                                "VALUES (?, ?, ?, ?)");
+                        statement.setString(1, pesel);
+                        statement.setInt(2, currentLibrarian);
+                        statement.setString(3, signature);
+                        statement.setDate(4, (Date) GregorianCalendar.getInstance().getTime());
+                        statement.execute();
+                        statement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    TreeItem<String> selectedItem = findItemByName(bookTree, signature);
+                    bookTree.getSelectionModel().select(selectedItem);
+                    break;
             }
         }
+        preferences.put("error", "");
 
         TreeItem<String> rootItem = new TreeItem<>("Książki");
         rootItem.setExpanded(true);
@@ -1116,7 +1132,7 @@ public class AppController extends FxController {
             Statement statement = dbConnection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT ID, TYTUŁ FROM INF122446.L_KSIĄŻKI");
             while (resultSet.next()) {
-                String itemString = resultSet.getString("TYTUŁ") + "( ";
+                String itemString = resultSet.getString("TYTUŁ") + " (";
                 Statement authorship = dbConnection.createStatement();
                 ResultSet authorshipResults = authorship.executeQuery("SELECT IMIĘ, NAZWISKO FROM L_KSIĄŻKI JOIN " +
                         "L_AUTORSTWA ON(ID = KSIĄŻKI_ID) JOIN L_AUTORZY ON(L_AUTORZY.ID=AUTORZY_ID)");
@@ -1225,10 +1241,158 @@ public class AppController extends FxController {
         bookGenre.setText(data != null ? data.getString("Gatunek") : "");
         bookLanguage.setText(data != null ? data.getString("Język") : "");
         bookStream.setText(data != null ? data.getString("Nurt") : "");
+
+        if (data != null) {
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT IMIĘ, NAZWISKO, NARODOWOŚĆ FROM INF122446.L_KSIĄŻKI " +
+                    "JOIN INF122446.L_AUTORSTWA ON(ID = KSIĄŻKI_ID) JOIN INF122446.L_AUTORZY " +
+                    "ON(INF122446.L_AUTORZY.ID = AUTORZY_ID) WHERE INF122446.L_KSIĄŻKI.ID = " + data.getInt("ID"));
+            ObservableList<Writer> items = FXCollections.observableArrayList();
+            while (resultSet.next()) {
+                items.add(new Writer(resultSet.getString("IMIĘ"), resultSet.getString("NAZWISKO"),
+                        resultSet.getString("NARODOWOŚĆ")));
+            }
+            bookAuthorshipTable.setItems(items);
+        }
     }
 
     private void onBookTreeItemSelected(TreeItem<String> selectedItem) {
+        if (selectedItem == null || selectedItem.getValue() == null || selectedItem.getValue().charAt(0) == '*')
+            return;
 
+        String label = selectedItem.getValue();
+        if (label.matches("(.*)\\(\\d*\\)")) {
+            String isbn = label.split("\\(")[1].split("\\)")[0];
+            try {
+                Statement statement = dbConnection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446.L_KSIĄŻKI JOIN INF122446.L_WYDANIA" +
+                        " ON(KSIĄŻKI_ID=ID) WHERE ISBN = '" + isbn + "'");
+                resultSet.next();
+                setBookData(resultSet);
+                setEditionData(resultSet);
+                resultSet.close();
+                statement.close();
+                bookBox.setVisible(true);
+                editionBox.setVisible(true);
+                copyBox.setVisible(false);
+                bookBorrowBox.setVisible(false);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else if (label.contains("(")) {
+            String title = label.split("\\( ")[0];
+            String author = label.split("\\(")[1].split(",")[0];
+            String authorName = author.split(" ")[0];
+            String authorSurname = author.split(" ")[1];
+            try {
+                Statement statement = dbConnection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446.L_KSIĄŻKI JOIN " +
+                        "INF122446.L_AUTORSTWA ON(KSIĄŻKI_ID = ID) JOIN INF122446.L_AUTORZY ON(AUTORZY_ID = " +
+                        "INF122446.L_AUTORZY.ID) WHERE TYTUŁ = '" + title + "' AND IMIĘ = '" + authorName + "' AND " +
+                        "L_AUTORZY.NAZWISKO = '" + authorSurname + "'");
+                resultSet.next();
+                setBookData(resultSet);
+                resultSet.close();
+                statement.close();
+                bookBox.setVisible(true);
+                editionBox.setVisible(false);
+                copyBox.setVisible(false);
+                bookBorrowBox.setVisible(false);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                Statement statement = dbConnection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446.L_KSIĄŻKI JOIN " +
+                        "INF122446.L_WYDANIA ON(ID = KSIĄŻKI_ID) JOIN INF122446.L_KOPIE ON(ISBN = WYDANIA_ISBN) WHERE " +
+                        "SYGNATURA = '" + label + "'");
+                resultSet.next();
+                setBookData(resultSet);
+                setEditionData(resultSet);
+                setCopyData(resultSet);
+                resultSet.close();
+                statement.close();
+                bookBox.setVisible(true);
+                editionBox.setVisible(true);
+                copyBox.setVisible(true);
+                bookBorrowBox.setVisible(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        removeEmptyItems(bookTree);
+    }
+
+    private void setCopyData(ResultSet data) throws SQLException {
+        copySignature.setText(data != null ? data.getString("sygnatura") : "");
+
+        Statement statement = dbConnection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT TYP, OPIS FROM INF122446.L_KOPIE JOIN " +
+                "INF122446.L_MATERIAŁY_DODATKOWE ON(SYGNATURA = KOPIE_SYGNATURA) WHERE SYGNATURA = '" +
+                copySignature.getText() + "'");
+        ObservableList<Material> materials = FXCollections.observableArrayList();
+        while (resultSet.next()) {
+            materials.add(new Material(resultSet.getString("TYP"), resultSet.getString("OPIS")));
+        }
+        copyMaterialTable.setItems(materials);
+        resultSet.close();
+        statement.close();
+
+        statement = dbConnection.createStatement();
+        resultSet = statement.executeQuery("SELECT * FROM INF122446.L_KOPIE JOIN INF122446.L_WYPOŻYCZENIA " +
+                "ON(SYGNATURA = KOPIE_SYGNATURA) WHERE SYGNATURA = '" + copySignature.getText() + "'");
+        ObservableList<Lend> borrows = FXCollections.observableArrayList();
+        while (resultSet.next()) {
+            borrows.add(makeLendObjectFromResultSet(resultSet));
+        }
+        bookBorrowsTable.setItems(borrows);
+        resultSet.close();
+        statement.close();
+
+        statement = dbConnection.createStatement();
+        resultSet = statement.executeQuery("SELECT NAZWA FROM INF122446.L_BIBLIOTEKI");
+        ObservableList<String> items = FXCollections.observableArrayList();
+        while (resultSet.next()) {
+            items.add(resultSet.getString("Nazwa"));
+        }
+        copyLibrary.setItems(items);
+        resultSet.close();
+        statement.close();
+
+        statement = dbConnection.createStatement();
+        resultSet = statement.executeQuery("SELECT NAZWA FROM INF122446.L_BIBLIOTEKI JOIN INF122446.L_KOPIE " +
+                "ON(BIBLIOTEKI_ID = ID) WHERE SYGNATURA = '" + copySignature.getText() + "'");
+        resultSet.next();
+        copyLibrary.getSelectionModel().select(resultSet.getString("NAZWA"));
+        resultSet.close();
+        statement.close();
+    }
+
+    private void onCopyLibrarySelected(String selectedItem) {
+        try {
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446.L_BIBLIOTEKI JOIN " +
+                    "INF122446.L_FILIE ON(ID = BIBLIOTEKI_ID) WHERE NAZWA = '" + selectedItem + "'");
+            ObservableList<String> branches = FXCollections.observableArrayList();
+            while (resultSet.next()) {
+                branches.add("Filia nr " + resultSet.getInt("Numer") + " (" + resultSet.getString("Adres") + ")");
+            }
+            copyBranch.setItems(branches);
+            resultSet.close();
+            statement.close();
+
+            statement = dbConnection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM INF122446.L_BIBLIOTEKI JOIN INF122446.L_FILIE " +
+                    "ON(ID = BIBLIOTEKI_ID) JOIN INF122446.L_KOPIE ON(INF122446.L_KOPIE.BIBLIOTEKI_ID = ID) " +
+                    "WHERE SYGNATURA = '" + copySignature.getText() + "'");
+            resultSet.next();
+            copyBranch.getSelectionModel().select("Filia nr " + resultSet.getInt("Numer") + " (" +
+                    resultSet.getString("Adres") + ")");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -1265,7 +1429,90 @@ public class AppController extends FxController {
 
     @FXML
     void onSaveBookButtonPressed(ActionEvent event) {
+        String selectedBook = getBookNameFromSelectedItem(bookTree);
+        String title;
+        String authorForename;
+        String authorSurname;
+        try {
+            title = selectedBook.split("\\(")[0];
+            authorForename = selectedBook.split("\\(")[1].split(",")[0].split(" ")[0];
+            authorSurname = selectedBook.split("\\(")[1].split(",")[0].split(" ")[1];
+        } catch (IndexOutOfBoundsException ignored) {
+            title = "";
+            authorForename = "";
+            authorSurname = "";
+        }
 
+        try {
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT INF122446.L_KSIĄŻKI.ID FROM INF122446.L_KSIĄŻKI JOIN INF122446.L_AUTORSTWA " +
+                    "ON(ID = KSIĄŻKI_ID) JOIN INF122446.L_AUTORZY ON(INF122446.L_AUTORZY.ID = AUTORZY_ID) " +
+                    "WHERE TYTUŁ = '" + title + "' AND IMIĘ = '" + authorForename + "' " +
+                    "AND L_AUTORZY.NAZWISKO = '" + authorSurname + "'");
+            if (resultSet.next()) {
+                PreparedStatement update = dbConnection.prepareStatement("UPDATE INF122446.L_KSIĄŻKI SET TYTUŁ = ?, " +
+                        "GATUNEK = ?, ROK_UKOŃCZENIA = ?, JĘZYK = ?, NURT = ? " +
+                        "WHERE ID = ?");
+                update.setString(1, bookTitle.getText());
+                update.setString(2, bookGenre.getText());
+                update.setInt(3, Integer.parseInt(bookFinishDate.getText()));
+                update.setString(4, bookLanguage.getText());
+                update.setString(5, bookStream.getText());
+                update.setInt(6, resultSet.getInt("ID"));
+                update.execute();
+                update.close();
+            } else {
+                PreparedStatement update = dbConnection.prepareStatement("INSERT INTO INF122446.L_KSIĄŻKI(TYTUŁ, " +
+                        "GATUNEK, ROK_UKOŃCZENIA, JĘZYK, NURT) VALUES(?, ?, ?, ?, ?)");
+                update.setString(1, bookTitle.getText());
+                update.setString(2, bookGenre.getText());
+                update.setInt(3, Integer.parseInt(bookFinishDate.getText()));
+                update.setString(4, bookLanguage.getText());
+                update.setString(5, bookStream.getText());
+                update.execute();
+                update.close();
+            }
+            resultSet.close();
+            statement.close();
+
+            PreparedStatement ps = dbConnection.prepareStatement("SELECT ID FROM INF122446.L_KSIĄŻKI " +
+                    "WHERE TYTUŁ = ? AND GATUNEK = ? AND L_KSIĄŻKI.ROK_UKOŃCZENIA = ? AND JĘZYK = ?");
+            ps.setString(1, bookTitle.getText());
+            ps.setString(2, bookGenre.getText());
+            ps.setInt(3, Integer.parseInt(bookFinishDate.getText()));
+            ps.setString(4, bookLanguage.getText());
+            resultSet = ps.executeQuery();
+            resultSet.next();
+            int bookID = resultSet.getInt("ID");
+            ps.close();
+            resultSet.close();
+
+            statement = dbConnection.createStatement();
+            statement.execute("DELETE FROM INF122446.L_AUTORSTWA WHERE KSIĄŻKI_ID = " + bookID);
+            statement.close();
+
+            for (Writer w : bookAuthorshipTable.getItems()) {
+                Statement s = dbConnection.createStatement();
+                ResultSet r = s.executeQuery("SELECT ID FROM INF122446.L_AUTORZY WHERE IMIĘ = '" + w.getForename() + "' " +
+                        "AND NAZWISKO ='" + w.getSurname() + "' AND NARODOWOŚĆ = '" + w.getNationality() + "'");
+                r.next();
+                int authorID = r.getInt("ID");
+                r.close();
+                s.close();
+
+                PreparedStatement update = dbConnection.prepareStatement("INSERT INTO INF122446.L_AUTORSTWA" +
+                        "(KSIĄŻKI_ID, AUTORZY_ID) VALUES (?, ?)");
+                update.setInt(1, bookID);
+                update.setInt(2, authorID);
+                update.execute();
+                update.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        onBookTabSelected(null);
+        bookTree.getSelectionModel().select(findItemByName(bookTree, selectedBook));
     }
 
     @FXML
@@ -1293,12 +1540,36 @@ public class AppController extends FxController {
     }
 
     private void setEditionData(ResultSet data) throws SQLException {
+        ObservableList<String> publishers = FXCollections.observableArrayList();
+        Statement statement = dbConnection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT NAZWA FROM INF122446.L_WYDAWCY");
+        while (resultSet.next()) {
+            publishers.add(resultSet.getString("Nazwa"));
+        }
+        editionPublisher.setItems(publishers);
+        resultSet.close();
+        statement.close();
+
         editionNumber.setText(data != null ? data.getString("Numer") : "");
         editionPublisher.getSelectionModel().select(data != null ? data.getString("Nazwa") : "");
         editionIsbn.setText(data != null ? data.getString("ISBN") : "");
         editionLanguage.setText(data != null ? data.getString("Język") : "");
         editionReleaseDate.setText(data != null ? data.getString("Rok_wydania") : "");
         editionTitle.setText(data != null ? data.getString("Tytuł_tłumaczenia") : "");
+
+        if (data != null) {
+            statement = dbConnection.createStatement();
+            resultSet = statement.executeQuery("SELECT IMIE, NAZWISKO FROM INF122446.L_WYDANIA " +
+                    "JOIN INF122446.L_TŁUMACZENIA ON(ISBN = WYDANIA_ISBN) JOIN INF122446.L_TŁUMACZE " +
+                    "ON(INF122446.L_TŁUMACZE.ID = TŁUMACZE_ID) WHERE INF122446.L_WYDANIA.ISBN = " + data.getInt("ISBN"));
+            ObservableList<Writer> items = FXCollections.observableArrayList();
+            while (resultSet.next()) {
+                items.add(new Writer(resultSet.getString("IMIE"), resultSet.getString("NAZWISKO"), ""));
+            }
+            editionTranslationTable.setItems(items);
+            resultSet.close();
+            statement.close();
+        }
     }
 
     private String getBookNameFromSelectedItem(@NotNull TreeView<String> tree) {
@@ -1355,7 +1626,98 @@ public class AppController extends FxController {
 
     @FXML
     void onSaveEditionButtonPressed(ActionEvent event) {
+        String selectedBook = getBookNameFromSelectedItem(bookTree);
+        String title;
+        String authorForename;
+        String authorSurname;
+        String selectedEdition = getEditionNameFromSelectedItem(bookTree);
+        String isbn;
+        try {
+            title = selectedBook.split("\\(")[0];
+            authorForename = selectedBook.split("\\(")[1].split(",")[0].split(" ")[0];
+            authorSurname = selectedBook.split("\\(")[1].split(",")[0].split(" ")[1];
+            isbn = selectedEdition.split("\\(")[1].split("\\)")[0];
+        } catch (IndexOutOfBoundsException ignored) {
+            title = "";
+            authorForename = "";
+            authorSurname = "";
+            isbn = "";
+        }
+        int publisherId;
+        int bookId;
+        try {
+            Statement s = dbConnection.createStatement();
+            ResultSet r = s.executeQuery("SELECT VAT_ID FROM INF122446.L_WYDAWCY WHERE NAZWA = '" + editionPublisher.getValue() + "'");
+            r.next();
+            publisherId = r.getInt("VAT_ID");
+            r.close();
+            s.close();
+            s = dbConnection.createStatement();
+            r = s.executeQuery("SELECT INF122446.L_KSIĄŻKI.ID FROM INF122446.L_KSIĄŻKI JOIN INF122446.L_AUTORSTWA " +
+                    "ON(ID = KSIĄŻKI_ID) JOIN INF122446.L_AUTORZY ON(INF122446.L_AUTORZY.ID = AUTORZY_ID) " +
+                    "WHERE TYTUŁ = '" + title + "' AND IMIĘ = '" + authorForename + "' " +
+                    "AND L_AUTORZY.NAZWISKO = '" + authorSurname + "'");
+            r.next();
+            bookId = r.getInt("ID");
+            r.close();
+            s.close();
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446.L_WYDANIA " +
+                    "WHERE ISBN = '" + isbn + "'");
+            if (resultSet.next()) {
+                PreparedStatement update = dbConnection.prepareStatement("UPDATE INF122446.L_WYDANIA SET TYTUŁ_TŁUMACZENIA = ?, " +
+                        "ISBN = ?, NUMER = ?, ROK_WYDANIA = ?, JEZYK = ?, WYDAWCY_VAT_ID = ? WHERE ISBN = ?");
+                update.setString(1, editionTitle.getText());
+                update.setString(2, editionIsbn.getText());
+                update.setInt(3, Integer.parseInt(editionNumber.getText()));
+                update.setInt(4, Integer.parseInt(editionReleaseDate.getText()));
+                update.setString(5, editionLanguage.getText());
+                update.setInt(6, publisherId);
+                update.setString(7, editionIsbn.getText());
+                update.execute();
+                update.close();
+            } else {
+                PreparedStatement update = dbConnection.prepareStatement("INSERT INTO INF122446.L_WYDANIA(TYTUŁ_TŁUMACZENIA, " +
+                        "ISBN, NUMER, ROK_WYDANIA, JEZYK, WYDAWCY_VAT_ID, KSIĄŻKI_ID) VALUES(?, ?, ?, ?, ?, ?, ?)");
+                update.setString(1, editionTitle.getText());
+                update.setString(2, editionIsbn.getText());
+                update.setInt(3, Integer.parseInt(editionNumber.getText()));
+                update.setInt(4, Integer.parseInt(editionReleaseDate.getText()));
+                update.setString(5, editionLanguage.getText());
+                update.setInt(6, publisherId);
+                update.setInt(7, bookId);
+                update.execute();
+                update.close();
+            }
+            resultSet.close();
+            statement.close();
 
+            statement = dbConnection.createStatement();
+            statement.execute("DELETE FROM INF122446.L_TŁUMACZENIA WHERE WYDANIA_ISBN = " + isbn);
+            statement.close();
+
+            for (Writer w : editionTranslationTable.getItems()) {
+                s = dbConnection.createStatement();
+                r = s.executeQuery("SELECT ID FROM INF122446.L_TŁUMACZE WHERE IMIE = '" + w.getForename() + "' " +
+                        "AND NAZWISKO ='" + w.getSurname() + "'");
+                r.next();
+                int translatorID = r.getInt("ID");
+                r.close();
+                s.close();
+
+                PreparedStatement update = dbConnection.prepareStatement("INSERT INTO INF122446.L_TŁUMACZENIA" +
+                        "(WYDANIA_ISBN, TŁUMACZE_ID) VALUES (?, ?)");
+                update.setString(1, isbn);
+                update.setInt(2, translatorID);
+                update.execute();
+                update.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        onBookTabSelected(null);
+        bookTree.getSelectionModel().select(findItemByName(bookTree, selectedEdition));
     }
 
     @FXML
@@ -1372,7 +1734,7 @@ public class AppController extends FxController {
         selectedEdition.getChildren().add(newCopy);
         bookTree.getSelectionModel().select(newCopy);
         try {
-            setEditionData(null);
+            setCopyData(null);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -1394,6 +1756,17 @@ public class AppController extends FxController {
         ObservableList<Material> materials = copyMaterialTable.getItems();
         materials.add(new Material("*Nowy", "Pusty materiał"));
         copyMaterialTable.setItems(materials);
+        try {
+            PreparedStatement s = dbConnection.prepareStatement("INSERT INTO INF122446.L_MATERIAŁY_DODATKOWE" +
+                    "(TYP, OPIS, KOPIE_SYGNATURA) VALUES(?, ?, ?)");
+            s.setString(1, "*Nowy");
+            s.setString(2, "Pusty materiał");
+            s.setString(3, copySignature.getText());
+            s.execute();
+            s.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -1402,21 +1775,99 @@ public class AppController extends FxController {
         ObservableList<Material> materials = copyMaterialTable.getItems();
         materials.removeAll(selectedMaterial);
         copyMaterialTable.setItems(materials);
+        try {
+            PreparedStatement s = dbConnection.prepareStatement("DELETE FROM INF122446.L_MATERIAŁY_DODATKOWE " +
+                    "WHERE TYP = ? AND OPIS = ? AND KOPIE_SYGNATURA = ?");
+            s.setString(1, selectedMaterial.getType());
+            s.setString(2, selectedMaterial.getDescription());
+            s.setString(3, copySignature.getText());
+            s.execute();
+            s.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void onSaveCopyButtonPressed(ActionEvent event) {
+        String selectedEdition = getEditionNameFromSelectedItem(bookTree);
+        String isbn = selectedEdition.split("\\(")[1].split("\\)")[0];
+        String signature = copySignature.getText();
 
+        try {
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446.L_KOPIE " +
+                    "WHERE SYGNATURA = '" + signature + "'");
+            if (resultSet.next()) {
+                PreparedStatement update = dbConnection.prepareStatement("UPDATE INF122446.L_KOPIE " +
+                        "SET SYGNATURA = ?, BIBLIOTEKI_ID = ?, FILIE_NUMER = ?, WYDANIA_ISBN = ? " +
+                        "WHERE SYGNATURA = ?");
+                update.setString(1, signature);
+                update.setString(2, copyLibrary.getValue());
+                update.setInt(3, Integer.parseInt(copyBranch.getValue().split(" ")[2]));
+                update.setString(4, isbn);
+                update.setString(5, signature);
+                update.execute();
+                update.close();
+            } else {
+                PreparedStatement update = dbConnection.prepareStatement("INSERT INTO INF122446.L_KOPIE(SYGNATURA, " +
+                        "BIBLIOTEKI_ID, FILIE_NUMER, WYDANIA_ISBN) VALUES(?, ?, ?, ?)");
+                update.setString(1, signature);
+                update.setString(2, copyLibrary.getValue());
+                update.setInt(3, Integer.parseInt(copyBranch.getValue().split(" ")[2]));
+                update.setString(4, isbn);
+                update.execute();
+                update.close();
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        onBookTabSelected(null);
+        bookTree.getSelectionModel().select(findItemByName(bookTree, signature));
     }
 
     @FXML
     void onLendButtonPressed(ActionEvent event) {
+        if (bookTree.getSelectionModel().getSelectedItem().getValue().charAt(0) == '*') {
+            //todo show user that they cannot
+            return;
+        }
+        preferences.put("signature", bookTree.getSelectionModel().getSelectedItem().getValue());
+        preferences.put("callerRequest", "reader");
+        preferences.put("callerScreenPath", "ui/app.fxml");
+        preferences.put("callerScreenTitle", "Librarian");
 
+        setScene("ui/readerPicker.fxml", "Wybór czytelnika");
     }
 
     @FXML
     void onReturnBookBorrowButtonPressed(ActionEvent event) {
-
+        Lend selected = bookBorrowsTable.getSelectionModel().getSelectedItem();
+        try {
+            int selectedLibraryID;
+            String selectedBranchID = selected.getBranch();
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT ID FROM INF122446.L_BIBLIOTEKI WHERE NAZWA = '" +
+                    selected.getLibrary() + "'");
+            resultSet.next();
+            selectedLibraryID = resultSet.getInt("ID");
+            resultSet.close();
+            statement.close();
+            if (Integer.parseInt(currentBranch.split(":")[0]) == selectedLibraryID &&
+                    currentBranch.split(":")[1].equals(selectedBranchID)) {
+                PreparedStatement update = dbConnection.prepareStatement("UPDATE INF122446.L_WYPOŻYCZENIA " +
+                        "SET DATA_ODDANIA = ?");
+                update.setDate(1, (Date) GregorianCalendar.getInstance().getTime());
+                update.execute();
+                update.close();
+                bookTree.getSelectionModel().select(bookTree.getSelectionModel().getSelectedItem());
+            } else throw new InputMismatchException("Current library and branch does not correspond to that of borrow");
+        } catch (SQLException | InputMismatchException e) {
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -1455,6 +1906,44 @@ public class AppController extends FxController {
         bookTree.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> onBookTreeItemSelected(newValue));
+
+        copyLibrary.getSelectionModel()
+                .selectedItemProperty()
+                .addListener(((observable, oldValue, newValue) -> onCopyLibrarySelected(newValue)));
+
+        copyMaterialTypeColumn.setOnEditCommit((t -> {
+            String signature = copySignature.getText();
+            String description = t.getTableView().getItems().get(t.getTablePosition().getRow()).getDescription();
+            try {
+                Statement s = dbConnection.createStatement();
+                s.executeUpdate("UPDATE INF122446.L_MATERIAŁY_DODATKOWE SET TYP = '" + t.getNewValue() + "' " +
+                        "WHERE TYP = '" + t.getOldValue() + "' AND OPIS = '" + description + "' " +
+                        "AND KOPIE_SYGNATURA = '" + signature + "'");
+                s.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            TreeItem<String> selected = bookTree.getSelectionModel().getSelectedItem();
+            onBookTabSelected(null);
+            bookTree.getSelectionModel().select(selected);
+        }));
+
+        copyMaterialDescriptionColumn.setOnEditCommit((t -> {
+            String signature = copySignature.getText();
+            String type = t.getTableView().getItems().get(t.getTablePosition().getRow()).getType();
+            try {
+                Statement s = dbConnection.createStatement();
+                s.executeUpdate("UPDATE INF122446.L_MATERIAŁY_DODATKOWE SET OPIS = '" + t.getNewValue() + "' " +
+                        "WHERE TYP = '" + type + "' AND OPIS = '" + t.getOldValue() + "' " +
+                        "AND KOPIE_SYGNATURA = '" + signature + "'");
+                s.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            TreeItem<String> selected = bookTree.getSelectionModel().getSelectedItem();
+            onBookTabSelected(null);
+            bookTree.getSelectionModel().select(selected);
+        }));
 
         readerForenameColumn.setCellValueFactory(
                 new PropertyValueFactory<>("forename")

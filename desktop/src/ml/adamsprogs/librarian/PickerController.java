@@ -152,18 +152,11 @@ public class PickerController extends FxController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        try {
-            preferences.clear();
-        } catch (BackingStoreException e) {
-            e.printStackTrace();
-        }
-
     }
 
     private void populateList(@Nullable String filter) throws SQLException {
         Statement statement = dbConnection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM " + relation);
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446." + relation);
         String listItem;
         ObservableList<String> listItems = FXCollections.observableArrayList();
         while (resultSet.next()) {
