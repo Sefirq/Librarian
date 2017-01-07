@@ -1,6 +1,6 @@
 package ml.adamsprogs.librarian;
 
-class Writer {
+public class Writer {
     private String forename;
     private String surname;
     private String nationality;

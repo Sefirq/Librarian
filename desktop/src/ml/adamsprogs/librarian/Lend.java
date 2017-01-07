@@ -1,6 +1,6 @@
 package ml.adamsprogs.librarian;
 
-class Lend {
+public class Lend {
 
     private String title;
     private String author;

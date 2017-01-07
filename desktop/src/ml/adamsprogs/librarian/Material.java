@@ -1,6 +1,6 @@
 package ml.adamsprogs.librarian;
 
-class Material {
+public class Material {
     private String type;
     private String description;
 

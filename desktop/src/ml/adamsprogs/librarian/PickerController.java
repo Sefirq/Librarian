@@ -84,6 +84,7 @@ public class PickerController extends FxController {
     private void returnToPreviousScreen() {
         String previousScreenPath = preferences.get("callerScreenPath", "");
         String previousScreenTitle = preferences.get("callerScreenTitle", "");
+        preferences.put("error", "OK");
 
         setScene(previousScreenPath, previousScreenTitle);
     }

@@ -81,7 +81,7 @@ public class LoginController extends FxController {
     private void populateBranches() throws SQLException {
         Statement statement = dbConnection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT NAZWA, NUMER, '(' || L_FILIE.ADRES || ')'" +
-                "AS ADRES_FILII FROM INF122446.L_FILIE JOIN INF122446.L_BIBLIOTEKI ON(INF122446.BIBLIOTEKI_ID = ID)" +
+                "AS ADRES_FILII FROM INF122446.L_FILIE JOIN INF122446.L_BIBLIOTEKI ON(INF122446.L_FILIE.BIBLIOTEKI_ID = ID)" +
                 "JOIN INF122446.L_ETATY ON(INF122446.L_ETATY.BIBLIOTEKI_ID = ID AND INF122446.L_ETATY.FILIE_NUMER = " +
                 "NUMER) JOIN INF122446.L_BIBLIOTEKARZE ON(BIBLIOTEKARZE_ID = INF122446.L_BIBLIOTEKARZE.ID) " +
                 "WHERE BIBLIOTEKARZE_ID = " + currentLibrarian);
