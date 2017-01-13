@@ -109,9 +109,13 @@ public class PickerController extends FxController {
             String selectedItem = pickerList.getSelectionModel().getSelectedItem();
             PreparedStatement update;
             PreparedStatement select = dbConnection.prepareStatement("SELECT ID FROM INF122446.L_AUTORZY " +
-                    "WHERE IMIĘ = ? AND NAZWISKO = ? AND NARODOWOŚĆ = ?");
+                    "WHERE IMIĘ = ? AND NAZWISKO = ?");
             select.setString(1, selectedItem.split(" ")[0]);
-            select.setString(2, selectedItem.split(" ")[1]);
+            try {
+                select.setString(2, selectedItem.split(" ")[1]);
+            } catch (IndexOutOfBoundsException e) {
+                select.setString(2, "");
+            }
             ResultSet result = select.executeQuery();
             if (result.next()) {
                 update = dbConnection.prepareStatement("UPDATE INF122446.L_AUTORZY SET IMIĘ = ?, " +
@@ -176,7 +180,7 @@ public class PickerController extends FxController {
             PreparedStatement select = dbConnection.prepareStatement("SELECT ID FROM INF122446.L_TŁUMACZE " +
                     "WHERE IMIE = ? AND NAZWISKO = ?");
             select.setString(1, selectedItem.split(" ")[0]);
-            select.setString(1, selectedItem.split(" ")[1]);
+            select.setString(2, selectedItem.split(" ")[1]);
             ResultSet result = select.executeQuery();
             if (result.next()) {
                 update = dbConnection.prepareStatement("UPDATE INF122446.L_TŁUMACZE SET ID = ?, IMIE = ?, " +
@@ -250,31 +254,48 @@ public class PickerController extends FxController {
             PreparedStatement statement = null;
             ResultSet resultSet = null;
             switch (relation) {
-                case "L_WYDAWCY":
+                case "INF122446.L_WYDAWCY":
                     //noinspection SqlResolve
-                    statement = dbConnection.prepareStatement("SELECT * FROM INF122446." + relation + " WHERE " +
+                    statement = dbConnection.prepareStatement("SELECT * FROM " + relation + " WHERE " +
                             "NAZWA = ?");
                     statement.setString(1, newValue);
                     resultSet = statement.executeQuery();
-                    resultSet.next();
-                    publisherFoundDate.setText(resultSet.getString("ROK_ZALOZENIA"));
-                    publisherName.setText(resultSet.getString("NAZWA"));
+                    if (resultSet.next()) {
+                        publisherFoundDate.setText(resultSet.getString("ROK_ZALOZENIA"));
+                        publisherName.setText(resultSet.getString("NAZWA"));
+                    } else {
+                        publisherFoundDate.setText("");
+                        publisherName.setText("");
+                    }
                     break;
-                case "L_AUTORZY":
+                case "INF122446.L_AUTORZY":
                     //noinspection SqlResolve
-                    statement = dbConnection.prepareStatement("SELECT * FROM INF122446." + relation + " WHERE " +
+                    statement = dbConnection.prepareStatement("SELECT * FROM " + relation + " WHERE " +
                             "IMIĘ = ? AND NAZWISKO = ?");
                     statement.setString(1, newValue.split(" ")[0]);
-                    statement.setString(1, newValue.split(" ")[1]);
+                    try {
+                        statement.setString(2, newValue.split(" ")[1]);
+                    } catch (IndexOutOfBoundsException e) {
+                        statement.setString(2, "");
+                    }
                     resultSet = statement.executeQuery();
-                    resultSet.next();
-                    authorForename.setText(resultSet.getString("IMIĘ"));
-                    authorSurname.setText(resultSet.getString("NAZWISKO"));
-                    authorNationality.setText(resultSet.getString("NARODOWOŚĆ"));
+                    if (resultSet.next()) {
+                        authorForename.setText(resultSet.getString("IMIĘ"));
+                        authorSurname.setText(resultSet.getString("NAZWISKO"));
+                        authorNationality.setText(resultSet.getString("NARODOWOŚĆ"));
+                    } else {
+                        authorForename.setText("");
+                        authorSurname.setText("");
+                        authorNationality.setText("");
+                    }
                     break;
-                case "L_TŁUMACZE":
+                case "INF122446.L_TŁUMACZE":
                     translatorForename.setText(newValue.split(" ")[0]);
-                    translatorSurname.setText(newValue.split(" ")[1]);
+                    try {
+                        translatorSurname.setText(newValue.split(" ")[1]);
+                    } catch (IndexOutOfBoundsException e) {
+                        translatorSurname.setText("");
+                    }
                     break;
             }
             if (statement != null) statement.close();
@@ -286,14 +307,24 @@ public class PickerController extends FxController {
 
     private void populateList(@Nullable String filter) throws SQLException {
         Statement statement = dbConnection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446." + relation);
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM " + relation);
         String listItem;
         ObservableList<String> listItems = FXCollections.observableArrayList();
         while (resultSet.next()) {
-            if (relation.equals("L_WYDAWCY"))
-                listItem = resultSet.getString("Nazwa");
-            else
-                listItem = resultSet.getString("Imie") + " " + resultSet.getString("Nazwisko");
+            switch (relation) {
+                case "INF122446.L_WYDAWCY":
+                    listItem = resultSet.getString("Nazwa");
+                    break;
+                case "INF122446.L_TŁUMACZE":
+                    listItem = resultSet.getString("Imie") + " " + resultSet.getString("Nazwisko");
+                    break;
+                case "INF122446.L_AUTORZY":
+                    listItem = resultSet.getString("Imię") + " " + resultSet.getString("Nazwisko");
+                    break;
+                default:
+                    listItem = "";
+                    break;
+            }
             if (filter == null || listItem.contains(filter))
                 listItems.add(listItem);
         }
