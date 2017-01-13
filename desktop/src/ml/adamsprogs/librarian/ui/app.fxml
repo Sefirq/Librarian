@@ -2,9 +2,11 @@
 
 <!--suppress JavaFxDefaultTag -->
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <TabPane stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
     <tabs>
         <Tab fx:id="branchTab" onSelectionChanged="#onBranchTabSelected" text="Filie">
@@ -20,6 +22,8 @@
                                                 <Insets right="16.0" />
                                             </HBox.margin>
                                         </Button>
+                              <CheckBox fx:id="editLibraryToggle" mnemonicParsing="false" onAction="#onEditLibraryToggled" stylesheets="@materialfx-toggleswitch.css" text="Edytuj" />
+                              <Button fx:id="deletePositionFromLibraryTreeButton" mnemonicParsing="false" onAction="#onDeletePositionFromLibraryTreeButtonPressed" text="Usuń" />
                                     </children>
                                     <padding>
                                         <Insets bottom="16.0" top="16.0" />

@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.swing.*;
 import java.sql.Date;
 import java.sql.*;
 import java.time.LocalDate;
@@ -38,6 +39,9 @@ public class AppController extends FxController {
 
     @FXML
     private TreeView<String> libraryTree;
+
+    @FXML
+    private CheckBox editLibraryToggler;
 
     @FXML
     private VBox libraryBox;
@@ -662,6 +666,11 @@ public class AppController extends FxController {
 
     }
 
+    @FXML
+    void onDeletePositionFromLibraryTreeButtonPressed(){
+
+    }
+
     private void refresh(PreparedStatement update, int number, String address) throws SQLException {
         update.close();
         onBranchTabSelected(null);
@@ -1028,6 +1037,11 @@ public class AppController extends FxController {
             }
             setPostData(index);
         }
+    }
+
+    @FXML
+    private void onEditLibraryToggled(ActionEvent actionEvent){
+
     }
 
     /*
