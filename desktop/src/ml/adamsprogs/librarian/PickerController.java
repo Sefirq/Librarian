@@ -180,7 +180,11 @@ public class PickerController extends FxController {
             PreparedStatement select = dbConnection.prepareStatement("SELECT ID FROM INF122446.L_TŁUMACZE " +
                     "WHERE IMIE = ? AND NAZWISKO = ?");
             select.setString(1, selectedItem.split(" ")[0]);
-            select.setString(2, selectedItem.split(" ")[1]);
+            try {
+                select.setString(2, selectedItem.split(" ")[1]);
+            } catch(IndexOutOfBoundsException e) {
+                select.setString(2, "");
+            }
             ResultSet result = select.executeQuery();
             if (result.next()) {
                 update = dbConnection.prepareStatement("UPDATE INF122446.L_TŁUMACZE SET ID = ?, IMIE = ?, " +
