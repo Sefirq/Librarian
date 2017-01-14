@@ -1,5 +1,7 @@
 package ml.adamsprogs.librarian;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,7 +30,9 @@ public class AppController extends FxController {
     private int index;
     private int selectedLibrarianID;
     private ObservableList<Lend> lendsData = FXCollections.observableArrayList();
-
+    private ObservableList<Lend> borrowsData = FXCollections.observableArrayList();
+    private ObservableList<Reader> readersData = FXCollections.observableArrayList();
+    private ObservableList<Reader> filteredData = FXCollections.observableArrayList();
     private Preferences preferences;
 
     @FXML
@@ -59,6 +63,9 @@ public class AppController extends FxController {
 
     @FXML
     private TextField libraryAddress;
+
+    @FXML
+    private TextField searchLibrariesBar;
 
     @FXML
     private TextField libraryBossForename;
@@ -109,6 +116,9 @@ public class AppController extends FxController {
 
     @FXML
     private TextField postSalary;
+
+    @FXML
+    private TextField searchLibrarianBar;
 
     @FXML
     private ChoiceBox<String> postLibraryChoiceBox;
@@ -167,13 +177,13 @@ public class AppController extends FxController {
     private TableView<Reader> readersTable;
 
     @FXML
-    private TableColumn<Reader, String> readerPeselColumn;
-
-    @FXML
     private TableColumn<Reader, String> readerForenameColumn;
 
     @FXML
     private TableColumn<Reader, String> readerSurnameColumn;
+
+    @FXML
+    private TableColumn<Reader, String> readerPeselColumn;
 
     @FXML
     private VBox readerBox;
@@ -186,6 +196,9 @@ public class AppController extends FxController {
 
     @FXML
     private TextField readerSurname;
+
+    @FXML
+    private TextField searchBar;
 
     @FXML
     private VBox readerBorrowBox;
@@ -364,6 +377,30 @@ public class AppController extends FxController {
         libraryWebsite.setDisable(true);
     }
 
+    private TreeItem<String> updateFilteredTree(TreeItem<String> oldRoot, String filterText){
+        if(filterText == null || filterText.isEmpty())
+            return oldRoot;
+        TreeItem<String> newRoot = new TreeItem<>("Biblioteki");
+        for(TreeItem<String> child : oldRoot.getChildren()){
+            TreeItem<String> newChild = new TreeItem<>(child.getValue());
+            boolean ifToBeAdded = false;
+            for(TreeItem<String> grandchild : child.getChildren()){
+                if(grandchild.getValue().contains(filterText)){
+                    newChild.getChildren().add(grandchild);
+                    ifToBeAdded = true;
+                }
+            }
+            if(child.getValue().contains(filterText)){
+                System.out.println(filterText+ " " + child.getValue());
+                newRoot.getChildren().add(child);
+            }
+            if(ifToBeAdded){
+                newRoot.getChildren().add(newChild);
+            }
+        }
+        return newRoot;
+    }
+
     @FXML
     void onBranchTabSelected(Event event) {
         clearTree(libraryTree);
@@ -392,9 +429,23 @@ public class AppController extends FxController {
             resultSet.close();
             statement.close();
             libraryTree.setRoot(rootItem);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        searchLibrariesBar.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+                TreeItem<String> newRoot = updateFilteredTree(rootItem, searchLibrariesBar.getText());
+                newRoot.setExpanded(true);
+                for(TreeItem<String> child : newRoot.getChildren()){
+                    child.setExpanded(true);
+                }
+                libraryTree.setRoot(newRoot);
+
+            }
+        });
     }
 
     private void clearTree(@NotNull TreeView<String> tree) {
@@ -746,6 +797,15 @@ public class AppController extends FxController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        searchLibrarianBar.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+                TreeItem<String> newRoot = updateFilteredTree(rootItem, searchLibrarianBar.getText());
+                newRoot.setExpanded(true);
+                librarianTree.setRoot(newRoot);
+            }
+        });
     }
 
     private void setPostLibraryChoiceBox() {
@@ -1081,27 +1141,97 @@ public class AppController extends FxController {
     Reader screen
     */
 
+    private boolean matchesFilter(Reader reader){
+        String filterString = searchBar.getText();
+        return (filterString == null || filterString.isEmpty() || reader.getForename().contains(filterString) || reader.getSurname().contains(filterString)
+                || reader.getPesel().contains(filterString));
+    }
+
+    private void updateFilteredData(){
+        filteredData.clear();
+        for (Reader r : readersData) {
+            if (matchesFilter(r)) {
+                filteredData.add(r);
+            }
+        }
+    }
+
     @FXML
     void onReaderTabSelected(Event event) {
+        filteredData.addAll(readersData);
+        readerBox.setVisible(false);
+        readerBorrowBox.setVisible(false);
+        readersData.clear();
+        searchBar.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+                updateFilteredData();
+                readersTable.setItems(filteredData);
+            }
+        });
+        try {
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT PESEL, imie, nazwisko FROM INF122446.L_CZYTELNICY");
+            while (resultSet.next()) {
+                Reader reader = new Reader(resultSet.getString("imie"),
+                        resultSet.getString("nazwisko"), resultSet.getString("PESEL"));
+                readersData.add(reader);
+                System.out.println(reader.getForename() + " " +  reader.getSurname() + " " + reader.getPesel());
+            }
+            resultSet.close();
+            statement.close();
+            readersTable.setItems(readersData);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void clearReaderBoxes(){
+        readerForename.setText("");
+        readerSurname.setText("");
+        readerPESEL.setText("");
+    }
+    @FXML
+    void onAddReaderButtonPressed(ActionEvent event) {//todo
+        readerPESEL.setDisable(false);
+        readerSurname.setDisable(false);
+        readerForename.setDisable(false);
+        readerBox.setVisible(true);
+        clearReaderBoxes();
+    }
+
+    private void onReaderTableItemSelected(Reader reader) {//todo
+        readerForename.setDisable(true);
+        readerSurname.setDisable(true);
+        readerPESEL.setDisable(true);
+        readerBorrowBox.setVisible(true);
+        readerBox.setVisible(true);
+        readerForename.setText(reader.getForename());
+        readerSurname.setText(reader.getSurname());
+        readerPESEL.setText(reader.getPesel());
+        try {
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446.L_Wypożyczenia WHERE Czytelnicy_PESEL = '"
+                    + reader.getPesel() + "'");
+            while(resultSet.next()){
+                borrowsData.add(makeLendObjectFromResultSet(resultSet));
+            }
+            readerBorrowsTable.setItems(borrowsData);
+            resultSet.close();
+            statement.close();
+        } catch(SQLException e){
+            e.printStackTrace(); // todo show user what's wrong
+        }
+    }
+
+    @FXML
+    void onSaveReaderButtonPressed(ActionEvent event) {//todo
 
     }
 
     @FXML
-    void onAddReaderButtonPressed(ActionEvent event) {
-
-    }
-
-    private void onReaderTableItemSelected(Reader reader) {
-
-    }
-
-    @FXML
-    void onSaveReaderButtonPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void onReturnReaderBorrowButtonPressed(ActionEvent actionEvent) {
+    private void onReturnReaderBorrowButtonPressed(ActionEvent actionEvent) {//todo
 
     }
 
@@ -1268,8 +1398,8 @@ public class AppController extends FxController {
         editionBox.setVisible(true);
     }
 
-    private String composeEditionName(String tytuł_tłumaczenia, String nazwa, String isbn) {
-        return tytuł_tłumaczenia + ", " + nazwa + " (" + isbn + ")";
+    private String composeEditionName(String tytul_tlumaczenia, String nazwa, String isbn) {
+        return tytul_tlumaczenia + ", " + nazwa + " (" + isbn + ")";
     }
 
     @FXML
