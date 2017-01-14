@@ -2,6 +2,7 @@
 
 <!--suppress JavaFxDefaultTag -->
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -20,6 +21,8 @@
                                                 <Insets right="16.0" />
                                             </HBox.margin>
                                         </Button>
+                              <CheckBox fx:id="editLibraryToggle" mnemonicParsing="false" onAction="#onEditLibraryToggled" stylesheets="@materialfx-toggleswitch.css" text="Edytuj" />
+                              <Button fx:id="deletePositionFromLibraryTreeButton" mnemonicParsing="false" onAction="#onDeletePositionFromLibraryTreeButtonPressed" text="Usuń" />
                                     </children>
                                     <padding>
                                         <Insets bottom="16.0" top="16.0" />

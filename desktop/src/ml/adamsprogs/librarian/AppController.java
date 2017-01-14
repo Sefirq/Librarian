@@ -42,6 +42,9 @@ public class AppController extends FxController {
     private TreeView<String> libraryTree;
 
     @FXML
+    private CheckBox editLibraryToggle;
+
+    @FXML
     private VBox libraryBox;
 
     @FXML
@@ -76,6 +79,9 @@ public class AppController extends FxController {
 
     @FXML
     private TextField branchType;
+
+    @FXML
+    private Button saveLibraryButton;
 
     /*
     ====================================================================================================================
@@ -347,10 +353,21 @@ public class AppController extends FxController {
     Library/Branch screen
     */
 
+    private void makeTextBoxesDisabled(){
+        libraryName.setDisable(true);
+        libraryFoundDate.setDisable(true);
+        libraryType.setDisable(true);
+        libraryAddress.setDisable(true);
+        libraryBossForename.setDisable(true);
+        libraryBossSurname.setDisable(true);
+        libraryWebsite.setDisable(true);
+    }
+
     @FXML
     void onBranchTabSelected(Event event) {
         clearTree(libraryTree);
-
+        makeTextBoxesDisabled();
+        editLibraryToggle.setDisable(true);
         libraryBox.setVisible(false);
         branchBox.setVisible(false);
         TreeItem<String> rootItem = new TreeItem<>("Biblioteki");
@@ -419,7 +436,7 @@ public class AppController extends FxController {
     private void onLibraryTreeItemSelected(@Nullable TreeItem<String> selectedItem) {
         if (selectedItem == null || selectedItem.getValue() == null || selectedItem.getValue().charAt(0) == '*')
             return;
-
+        editLibraryToggle.setDisable(false);
         String[] label = selectedItem.getValue().split(" ");
         if (label[0].equals("Filia")) {
             int branchNumber = Integer.parseInt(label[2]);
@@ -630,19 +647,22 @@ public class AppController extends FxController {
             statement = dbConnection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT ID FROM INF122446.L_FILIE JOIN INF122446.L_BIBLIOTEKI "
                     + "ON(BIBLIOTEKI_ID = ID) WHERE NUMER = " + oldNumber + " AND NAZWA = '" + libname + "'");
-            if (resultSet.next()) {
-                int ID = resultSet.getInt("ID");
-                statement.close();
-                update = dbConnection.prepareStatement("UPDATE INF122446.L_FILIE SET NUMER = ?, ADRES = ?, TYP = ?"
-                        + " WHERE BIBLIOTEKI_ID = ? AND NUMER = ?");
-                update.setInt(1, number);
-                update.setString(2, address);
-                update.setString(3, type);
-                update.setInt(4, ID);
-                update.setInt(5, oldNumber);
-                update.executeUpdate();
-                refresh(update, number, address);
-            } else {
+            if(editLibraryToggle.isSelected()) {
+                if(resultSet.next()) {
+                    int ID = resultSet.getInt("ID");
+                    statement.close();
+                    update = dbConnection.prepareStatement("UPDATE INF122446.L_FILIE SET NUMER = ?, ADRES = ?, TYP = ?"
+                            + " WHERE BIBLIOTEKI_ID = ? AND NUMER = ?");
+                    update.setInt(1, number);
+                    update.setString(2, address);
+                    update.setString(3, type);
+                    update.setInt(4, ID);
+                    update.setInt(5, oldNumber);
+                    update.executeUpdate();
+                    refresh(update, number, address);
+                }
+            }
+            else { //if not in edit mode
                 statement.close();
                 statement = dbConnection.createStatement();
                 ResultSet subResult = statement.executeQuery("SELECT ID FROM INF122446.L_BIBLIOTEKI WHERE NAZWA = '"
@@ -664,6 +684,29 @@ public class AppController extends FxController {
             e.printStackTrace();
             //todo show user what’s wrong
         }
+
+    }
+
+    @FXML
+    private void onEditLibraryToggled(ActionEvent actionEvent){
+        System.out.println(!editLibraryToggle.isSelected());
+        libraryName.setDisable(!editLibraryToggle.isSelected());
+        libraryFoundDate.setDisable(!editLibraryToggle.isSelected());
+        libraryType.setDisable(!editLibraryToggle.isSelected());
+        libraryAddress.setDisable(!editLibraryToggle.isSelected());
+        libraryBossForename.setDisable(!editLibraryToggle.isSelected());
+        libraryBossSurname.setDisable(!editLibraryToggle.isSelected());
+        libraryWebsite.setDisable(!editLibraryToggle.isSelected());
+        if(editLibraryToggle.isSelected()) {
+            saveLibraryButton.setText("Edytuj");
+        }
+        else{
+            saveLibraryButton.setText("Zapisz");
+        }
+    }
+
+    @FXML
+    void onDeletePositionFromLibraryTreeButtonPressed(){
 
     }
 
@@ -1033,6 +1076,7 @@ public class AppController extends FxController {
         }
     }
 
+
     /*
     ====================================================================================================================
     Reader screen
@@ -1082,9 +1126,9 @@ public class AppController extends FxController {
             while (resultSet.next()) {
                 String itemString = resultSet.getString("TYTUŁ") + " (";
                 Statement authorship = dbConnection.createStatement();
-                ResultSet authorshipResults = authorship.executeQuery("SELECT IMIĘ, NAZWISKO FROM INF12246.L_KSIĄŻKI JOIN " +
-                        "INF122446.L_AUTORSTWA ON(ID = KSIĄŻKI_ID) JOIN INF122446.L_AUTORZY ON(INF122446.L_AUTORZY.ID=AUTORZY_ID) " +
-                        "WHERE INF122446.L_KSIĄŻKI.ID = " + resultSet.getInt("ID"));
+                ResultSet authorshipResults = authorship.executeQuery("SELECT IMIĘ, NAZWISKO FROM INF122446.L_KSIĄŻKI JOIN " +
+                        "L_AUTORSTWA ON(ID = KSIĄŻKI_ID) JOIN L_AUTORZY ON(L_AUTORZY.ID=AUTORZY_ID) " +
+                        "WHERE L_KSIĄŻKI.ID = " + resultSet.getInt("ID"));
                 while (authorshipResults.next())
                     itemString += authorshipResults.getString("IMIĘ") + " " +
                             authorshipResults.getString("NAZWISKO") + ", ";
