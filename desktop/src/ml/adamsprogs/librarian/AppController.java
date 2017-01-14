@@ -13,8 +13,6 @@ import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
-import javax.xml.soap.Text;
 import java.sql.Date;
 import java.sql.*;
 import java.time.LocalDate;
@@ -1449,7 +1447,7 @@ public class AppController extends FxController {
             try {
                 Statement statement = dbConnection.createStatement();
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446.L_KSIĄŻKI JOIN INF122446.L_WYDANIA" +
-                        " ON(KSIĄŻKI_ID=ID) JOIN L_WYDAWCY ON(WYDAWCY_VAT_ID = VAT_ID) WHERE ISBN = '" + isbn + "'");
+                        " ON(KSIĄŻKI_ID=ID) JOIN INF122446.L_WYDAWCY ON(WYDAWCY_VAT_ID = VAT_ID) WHERE ISBN = '" + isbn + "'");
                 resultSet.next();
                 setBookData(resultSet);
                 setEditionData(resultSet);
@@ -1472,7 +1470,7 @@ public class AppController extends FxController {
                 PreparedStatement statement = dbConnection.prepareStatement("SELECT * FROM INF122446.L_KSIĄŻKI JOIN " +
                         "INF122446.L_AUTORSTWA ON(KSIĄŻKI_ID = ID) JOIN INF122446.L_AUTORZY ON(AUTORZY_ID = " +
                         "INF122446.L_AUTORZY.ID) WHERE TYTUŁ = ? AND IMIĘ = ? AND " +
-                        "L_AUTORZY.NAZWISKO = ?"); //check when book has no authors it fails (check if book w/o author can be saved – then it shouldn’t happen)
+                        "INF122446.L_AUTORZY.NAZWISKO = ?"); //check when book has no authors it fails (check if book w/o author can be saved – then it shouldn’t happen)
                 statement.setString(1, title);
                 statement.setString(2, authorName);
                 statement.setString(3, authorSurname);
@@ -1493,7 +1491,7 @@ public class AppController extends FxController {
                 Statement statement = dbConnection.createStatement();
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446.L_KSIĄŻKI JOIN " +
                         "INF122446.L_WYDANIA ON(ID = KSIĄŻKI_ID) JOIN INF122446.L_KOPIE ON(ISBN = WYDANIA_ISBN) " +
-                        "JOIN L_WYDAWCY ON(WYDAWCY_VAT_ID = VAT_ID) WHERE " +
+                        "JOIN INF122446.L_WYDAWCY ON(WYDAWCY_VAT_ID = VAT_ID) WHERE " +
                         "SYGNATURA = '" + label + "'");
                 resultSet.next();
                 setBookData(resultSet);
@@ -1649,7 +1647,7 @@ public class AppController extends FxController {
             ResultSet resultSet = statement.executeQuery("SELECT INF122446.L_KSIĄŻKI.ID FROM INF122446.L_KSIĄŻKI JOIN INF122446.L_AUTORSTWA " +
                     "ON(ID = KSIĄŻKI_ID) JOIN INF122446.L_AUTORZY ON(INF122446.L_AUTORZY.ID = AUTORZY_ID) " +
                     "WHERE TYTUŁ = '" + title + "' AND IMIĘ = '" + authorForename + "' " +
-                    "AND L_AUTORZY.NAZWISKO = '" + authorSurname + "'");
+                    "AND INF122446.L_AUTORZY.NAZWISKO = '" + authorSurname + "'");
             if (resultSet.next()) {
                 PreparedStatement update = dbConnection.prepareStatement("UPDATE INF122446.L_KSIĄŻKI SET TYTUŁ = ?, " +
                         "GATUNEK = ?, ROK_UKOŃCZENIA = ?, JĘZYK = ?, NURT = ? " +
@@ -1677,7 +1675,7 @@ public class AppController extends FxController {
             statement.close();
 
             PreparedStatement ps = dbConnection.prepareStatement("SELECT ID FROM INF122446.L_KSIĄŻKI " +
-                    "WHERE TYTUŁ = ? AND GATUNEK = ? AND L_KSIĄŻKI.ROK_UKOŃCZENIA = ? AND JĘZYK = ?");
+                    "WHERE TYTUŁ = ? AND GATUNEK = ? AND INF122446.L_KSIĄŻKI.ROK_UKOŃCZENIA = ? AND JĘZYK = ?");
             ps.setString(1, bookTitle.getText());
             ps.setString(2, bookGenre.getText());
             ps.setInt(3, Integer.parseInt(bookFinishDate.getText()));
@@ -1863,7 +1861,7 @@ public class AppController extends FxController {
             s.close();
             PreparedStatement ps = dbConnection.prepareStatement("SELECT INF122446.L_KSIĄŻKI.ID " +
                     "FROM INF122446.L_KSIĄŻKI JOIN INF122446.L_AUTORSTWA ON(ID = KSIĄŻKI_ID) JOIN INF122446.L_AUTORZY " +
-                    "ON(INF122446.L_AUTORZY.ID = AUTORZY_ID) WHERE TYTUŁ = ? AND IMIĘ = ? AND L_AUTORZY.NAZWISKO = ?");
+                    "ON(INF122446.L_AUTORZY.ID = AUTORZY_ID) WHERE TYTUŁ = ? AND IMIĘ = ? AND INF122446.L_AUTORZY.NAZWISKO = ?");
             ps.setString(1, title);
             ps.setString(2, authorForename);
             ps.setString(3, authorSurname);
