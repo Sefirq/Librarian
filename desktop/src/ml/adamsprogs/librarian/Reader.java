@@ -1,6 +1,6 @@
 package ml.adamsprogs.librarian;
 
-class Reader {
+public class Reader {
     private String forename;
     private String surname;
     private String pesel;

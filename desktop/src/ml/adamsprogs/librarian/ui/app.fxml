@@ -2,10 +2,12 @@
 
 <!--suppress JavaFxDefaultTag -->
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <TabPane fx:id="tabs" stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
     <tabs>
         <Tab fx:id="branchTab" onSelectionChanged="#onBranchTabSelected" text="Filie">
@@ -14,6 +16,7 @@
                     <children>
                         <VBox alignment="CENTER">
                             <children>
+                        <TextField fx:id="searchLibrariesBar" promptText="Szukaj" />
                                 <HBox alignment="CENTER">
                                     <children>
                                         <Button fx:id="addLibraryButton" mnemonicParsing="false" onAction="#onAddLibraryButtonPressed" text="Dodaj">
@@ -21,7 +24,7 @@
                                                 <Insets right="16.0" />
                                             </HBox.margin>
                                         </Button>
-                              <CheckBox fx:id="editLibraryToggle" mnemonicParsing="false" onAction="#onEditLibraryToggled" stylesheets="@materialfx-toggleswitch.css" text="Edytuj" />
+                              <CheckBox fx:id="editLibraryToggle" mnemonicParsing="false" onAction="#onEditLibraryToggled" prefHeight="20.0" prefWidth="96.0" stylesheets="@materialfx-toggleswitch.css" text="Edytuj" />
                               <Button fx:id="deletePositionFromLibraryTreeButton" mnemonicParsing="false" onAction="#onDeletePositionFromLibraryTreeButtonPressed" text="Usuń" />
                                     </children>
                                     <padding>
@@ -115,6 +118,7 @@
                     <children>
                         <VBox alignment="CENTER">
                             <children>
+                        <TextField fx:id="searchLibrarianBar" promptText="Szukaj" />
                                 <HBox alignment="CENTER">
                                     <children>
                                         <Button fx:id="addLibrarianButton" mnemonicParsing="false" onAction="#onAddLibrarianButtonPressed" text="Dodaj">
@@ -228,8 +232,9 @@
                <children>
                   <VBox alignment="CENTER">
                      <children>
+                        <TextField fx:id="searchBar" promptText="Szukaj" />
                         <Button fx:id="addReaderButton" mnemonicParsing="false" onAction="#onAddReaderButtonPressed" text="Dodaj" />
-                        <TableView fx:id="readersTable">
+                        <TableView fx:id="readersTable" prefHeight="400.0" prefWidth="342.0">
                           <columns>
                             <TableColumn fx:id="readerForenameColumn" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Imię" />
                             <TableColumn fx:id="readerSurnameColumn" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Nazwisko" />
