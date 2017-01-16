@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
 public class LoginController extends FxController {
 
@@ -75,6 +77,14 @@ public class LoginController extends FxController {
 
         } catch (SQLException e) {
             errorText.setText(e.getMessage());
+            e.printStackTrace();
+        }
+
+        Preferences preferences = Preferences.userNodeForPackage(this.getClass());
+        try {
+            preferences.clear();
+        } catch (BackingStoreException e) {
+            e.printStackTrace();
         }
     }
 
