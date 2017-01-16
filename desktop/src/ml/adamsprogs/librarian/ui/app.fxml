@@ -233,7 +233,16 @@
                   <VBox alignment="CENTER">
                      <children>
                         <TextField fx:id="searchBar" promptText="Szukaj" />
-                        <Button fx:id="addReaderButton" mnemonicParsing="false" onAction="#onAddReaderButtonPressed" text="Dodaj" />
+                        <HBox alignment="CENTER" prefHeight="36.0" prefWidth="281.0">
+                           <children>
+                              <Button fx:id="addReaderButton" mnemonicParsing="false" onAction="#onAddReaderButtonPressed" text="Dodaj">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <CheckBox fx:id="editReaderToggle" mnemonicParsing="false" onAction="#onEditReaderToggled" prefHeight="34.0" prefWidth="106.0" stylesheets="@materialfx-toggleswitch.css" text="Edytuj" />
+                           </children>
+                        </HBox>
                         <TableView fx:id="readersTable" prefHeight="400.0" prefWidth="342.0">
                           <columns>
                             <TableColumn fx:id="readerForenameColumn" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Imię" />
