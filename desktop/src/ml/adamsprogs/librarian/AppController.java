@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -171,6 +172,12 @@ public class AppController extends FxController {
     ====================================================================================================================
     Reader screen
     */
+
+    @FXML
+
+    private Button saveReaderButton;
+    @FXML
+    private CheckBox editReaderToggle;
 
     @FXML
     private TableView<Reader> readersTable;
@@ -354,14 +361,14 @@ public class AppController extends FxController {
     Library/Branch screen
     */
 
-    private void makeTextBoxesDisabled() {
-        libraryName.setDisable(true);
-        libraryFoundDate.setDisable(true);
-        libraryType.setDisable(true);
-        libraryAddress.setDisable(true);
-        libraryBossForename.setDisable(true);
-        libraryBossSurname.setDisable(true);
-        libraryWebsite.setDisable(true);
+    private void makeLibraryTextBoxesDisabledOrEnabled(boolean value) {
+        libraryName.setDisable(value);
+        libraryFoundDate.setDisable(value);
+        libraryType.setDisable(value);
+        libraryAddress.setDisable(value);
+        libraryBossForename.setDisable(value);
+        libraryBossSurname.setDisable(value);
+        libraryWebsite.setDisable(value);
     }
 
     private TreeItem<String> updateFilteredTree(TreeItem<String> oldRoot, String filterText) {
@@ -391,7 +398,7 @@ public class AppController extends FxController {
     @FXML
     void onBranchTabSelected(Event event) {
         clearTree(libraryTree);
-        makeTextBoxesDisabled();
+        makeLibraryTextBoxesDisabledOrEnabled(true);
         editLibraryToggle.setDisable(true);
         libraryBox.setVisible(false);
         branchBox.setVisible(false);
@@ -444,6 +451,7 @@ public class AppController extends FxController {
     void onAddLibraryButtonPressed(ActionEvent event) {
         TreeItem<String> root = libraryTree.getRoot();
         TreeItem<String> newLibrary = new TreeItem<>("*Nowa Biblioteka");
+        makeLibraryTextBoxesDisabledOrEnabled(false);
         root.getChildren().add(newLibrary);
         libraryTree.getSelectionModel().select(newLibrary);
         try {
@@ -646,7 +654,11 @@ public class AppController extends FxController {
     void onAddBranchButtonPressed(ActionEvent event) {
         String libName = getLibraryNameFromSelectedItem(libraryTree);
         if (libName.equals("*Nowa Biblioteka")) {
-            //todo show user that they cannot do it
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Nie możesz dodać filii do tej biblioteki!", ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
             return;
         }
         TreeItem<String> library = findItemByName(libraryTree, libName);
@@ -724,14 +736,8 @@ public class AppController extends FxController {
     @FXML
     private void onEditLibraryToggled(ActionEvent actionEvent) {
         System.out.println(!editLibraryToggle.isSelected());
-        libraryName.setDisable(!editLibraryToggle.isSelected());
-        libraryFoundDate.setDisable(!editLibraryToggle.isSelected());
-        libraryType.setDisable(!editLibraryToggle.isSelected());
-        libraryAddress.setDisable(!editLibraryToggle.isSelected());
-        libraryBossForename.setDisable(!editLibraryToggle.isSelected());
-        libraryBossSurname.setDisable(!editLibraryToggle.isSelected());
-        libraryWebsite.setDisable(!editLibraryToggle.isSelected());
-        if (editLibraryToggle.isSelected()) {
+        makeLibraryTextBoxesDisabledOrEnabled(!editLibraryToggle.isSelected());
+        if(editLibraryToggle.isSelected()) {
             saveLibraryButton.setText("Edytuj");
         } else {
             saveLibraryButton.setText("Zapisz");
@@ -877,8 +883,6 @@ public class AppController extends FxController {
                 lendsData.add(makeLendObjectFromResultSet(resultSet));
             }
             librarianLends.setItems(lendsData);
-            //librarianLends.getColumns().addAll(librarianLendTitle, librarianLendAuthor, librarianLendReader, librarianLendSince, librarianLendTill, librarianLendLibrary,
-            //librarianLendBranch, librarianLendSignature, librarianLendISBN);
             librarianBox.setVisible(true);
             postBox.setVisible(true);
             librarianLendBox.setVisible(true);
@@ -1014,16 +1018,6 @@ public class AppController extends FxController {
                 setPostBranchChoiceBox(LibraryName);
             }
         });
-        /*TreeItem<String> root = librarianTree.getRoot();
-        TreeItem<String> newLibrarian = new TreeItem<>("*Nowy Bibliotekarz");
-        root.getChildren().add(newLibrarian);
-        libraryTree.getSelectionModel().select(newLibrarian);
-        try {
-            setLibrarianData(null);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        librarianBox.setVisible(true);*/
     }
 
     private void setPostBranchChoiceBox(String LibName) {
@@ -1140,6 +1134,7 @@ public class AppController extends FxController {
         filteredData.addAll(readersData);
         readerBox.setVisible(false);
         readerBorrowBox.setVisible(false);
+        editReaderToggle.setDisable(true);
         readersData.clear();
         searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
             updateFilteredData();
@@ -1177,12 +1172,16 @@ public class AppController extends FxController {
         clearReaderBoxes();
     }
 
+    private void makeReaderTextBoxesDisabledOrEnabled(boolean value){
+        readerForename.setDisable(value);
+        readerSurname.setDisable(value);
+        readerPESEL.setDisable(value);
+    }
     private void onReaderTableItemSelected(Reader reader) {//todo
-        readerForename.setDisable(true);
-        readerSurname.setDisable(true);
-        readerPESEL.setDisable(true);
+        makeReaderTextBoxesDisabledOrEnabled(true);
         readerBorrowBox.setVisible(true);
         readerBox.setVisible(true);
+        editReaderToggle.setDisable(false);
         readerForename.setText(reader.getForename());
         readerSurname.setText(reader.getSurname());
         readerPESEL.setText(reader.getPesel());
@@ -1202,8 +1201,36 @@ public class AppController extends FxController {
     }
 
     @FXML
-    void onSaveReaderButtonPressed(ActionEvent event) {//todo
+    void onSaveReaderButtonPressed(ActionEvent event) {
+        PreparedStatement update;
+        String readersPESEL = readerPESEL.getText();
+        String readersName = readerForename.getText();
+        String readersSurname = readerSurname.getText();
+        try {
+            update = dbConnection.prepareStatement("INSERT INTO inf122446.L_Czytelnicy(PESEL, Imie, Nazwisko)"
+                    + "VALUES(?, ?, ?)");
+            update.setString(1, readersPESEL);
+            update.setString(2, readersName);
+            update.setString(3, readersSurname);
+            update.executeUpdate();
+            onReaderTabSelected(null);
+            update.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            //todo show user what’s wrong
+        }
+    }
 
+    @FXML
+    private void onEditReaderToggled(ActionEvent actionEvent){
+        System.out.println(!editLibraryToggle.isSelected());
+        makeReaderTextBoxesDisabledOrEnabled(!editReaderToggle.isSelected());
+        if(editReaderToggle.isSelected()) {
+            saveReaderButton.setText("Edytuj");
+        }
+        else{
+            saveReaderButton.setText("Zapisz");
+        }
     }
 
     @FXML
