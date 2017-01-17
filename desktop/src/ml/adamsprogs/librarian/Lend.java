@@ -100,11 +100,10 @@ public class Lend {
         this.isbn = isbn;
     }
 
-    //public String getLibrarian() {
-        //return librarian;
-    //}
-
-    //public void setLibrarian(String librarian) {
-        //this.librarian = librarian;
-    //}
+    public String getLibrarian() {
+        return librarian;
+    }
+    public void setLibrarian(String librarian) {
+        this.librarian = librarian;
+    }
 }

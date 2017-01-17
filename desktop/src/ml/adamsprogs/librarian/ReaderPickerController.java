@@ -8,9 +8,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import org.jetbrains.annotations.Nullable;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.logging.Level;
 import java.util.prefs.Preferences;
 
 public class ReaderPickerController extends FxController {
@@ -26,7 +26,21 @@ public class ReaderPickerController extends FxController {
     void onChooseReaderButtonPressed(ActionEvent actionEvent) {
         String selectedItem = readerList.getSelectionModel().getSelectedItem();
         String pesel = selectedItem.split("\\(")[1].split("\\)")[0];
-        preferences.put("pesel", pesel);
+        String signature = preferences.get("signature", "");
+        try {
+            PreparedStatement statement = dbConnection.prepareStatement("INSERT INTO INF122446.L_WYPOŻYCZENIA" +
+                    "(CZYTELNICY_PESEL, BIBLIOTEKARZE_ID, KOPIE_SYGNATURA, DATA_WYPOZYCZENIA) " +
+                    "VALUES (?, ?, ?, ?)");
+            logger.log(Level.INFO, "Lent by " + currentLibrarian);
+            statement.setString(1, pesel);
+            statement.setInt(2, currentLibrarian);
+            statement.setString(3, signature);
+            statement.setDate(4, Date.valueOf(LocalDate.now()));
+            statement.execute();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         preferences.put("error", "OK");
 
         String previousScreenPath = preferences.get("callerScreenPath", "");
@@ -39,6 +53,11 @@ public class ReaderPickerController extends FxController {
     void initialize() {
         preferences = Preferences.userNodeForPackage(this.getClass());
         searchBar.textProperty().addListener((observable, oldValue, newValue) -> onSearchTextChanged(newValue));
+        try {
+            populateList(null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void onSearchTextChanged(String searchText) {

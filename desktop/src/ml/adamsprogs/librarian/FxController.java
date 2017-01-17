@@ -28,6 +28,7 @@ class FxController {
 
     void setCurrentLibrarian(int librarian) {
         currentLibrarian = librarian;
+        logger.log(Level.INFO, "Setting current Librarian to " + librarian + ". Is " + currentLibrarian);
     }
 
     void setCurrentBranch(String branch) {

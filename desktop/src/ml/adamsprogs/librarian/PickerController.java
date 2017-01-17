@@ -130,7 +130,6 @@ public class PickerController extends FxController {
             update.setString(3, authorNationality.getText());
             update.executeUpdate();
             String newLabel = authorForename.getText() + " " + authorSurname.getText();
-            searchBar.setText("");
             pickerList.getSelectionModel().select(newLabel);
             update.close();
             select.close();

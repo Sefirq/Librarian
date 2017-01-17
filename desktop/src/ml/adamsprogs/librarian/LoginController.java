@@ -48,6 +48,7 @@ public class LoginController extends FxController {
 
     @FXML
     void onLoginPressed(ActionEvent actionEvent) {
+        errorText.setText("Logowanie. Proszę czekać…");
         try {
             //ustawienie proxy, ponieważ baza jest dostępna tylko z sieci PUT
             if (!proxyAddr.getText().equals("") && !proxyPort.getText().equals("")) {
@@ -74,6 +75,7 @@ public class LoginController extends FxController {
             proxyAddr.setDisable(true);
             proxyPort.setDisable(true);
             loginButton.setDisable(true);
+            errorText.setText("");
 
         } catch (SQLException e) {
             errorText.setText(e.getMessage());
@@ -122,6 +124,7 @@ public class LoginController extends FxController {
         }
 
         logger.log(Level.INFO, "Entered into " + currentBranch);
+        logger.log(Level.INFO, "As " + currentLibrarian);
 
 
         setScene("ui/app.fxml", "Librarian");
