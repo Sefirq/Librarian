@@ -103,7 +103,14 @@ public class Lend {
     public String getLibrarian() {
         return librarian;
     }
+
     public void setLibrarian(String librarian) {
         this.librarian = librarian;
+    }
+
+    @Override
+    public String toString() {
+        return title + " by " + author + " lent to " + reader + " since " + since + " till " + till + " in " +
+                library + " : " + branch + " copy: " + signature + " ISBN: " + isbn + " by " + librarian;
     }
 }
