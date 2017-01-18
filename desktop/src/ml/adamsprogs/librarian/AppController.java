@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -654,7 +653,8 @@ public class AppController extends FxController {
     void onAddBranchButtonPressed(ActionEvent event) {
         String libName = getLibraryNameFromSelectedItem(libraryTree);
         if (libName.equals("*Nowa Biblioteka")) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Nie możesz dodać filii do tej biblioteki!", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Nie można dodać filii do tej biblioteki!",
+                    ButtonType.OK);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
                 alert.close();
@@ -737,7 +737,7 @@ public class AppController extends FxController {
     private void onEditLibraryToggled(ActionEvent actionEvent) {
         System.out.println(!editLibraryToggle.isSelected());
         makeLibraryTextBoxesDisabledOrEnabled(!editLibraryToggle.isSelected());
-        if(editLibraryToggle.isSelected()) {
+        if (editLibraryToggle.isSelected()) {
             saveLibraryButton.setText("Edytuj");
         } else {
             saveLibraryButton.setText("Zapisz");
@@ -1172,11 +1172,12 @@ public class AppController extends FxController {
         clearReaderBoxes();
     }
 
-    private void makeReaderTextBoxesDisabledOrEnabled(boolean value){
+    private void makeReaderTextBoxesDisabledOrEnabled(boolean value) {
         readerForename.setDisable(value);
         readerSurname.setDisable(value);
         readerPESEL.setDisable(value);
     }
+
     private void onReaderTableItemSelected(Reader reader) {//todo
         makeReaderTextBoxesDisabledOrEnabled(true);
         readerBorrowBox.setVisible(true);
@@ -1222,13 +1223,12 @@ public class AppController extends FxController {
     }
 
     @FXML
-    private void onEditReaderToggled(ActionEvent actionEvent){
+    private void onEditReaderToggled(ActionEvent actionEvent) {
         System.out.println(!editLibraryToggle.isSelected());
         makeReaderTextBoxesDisabledOrEnabled(!editReaderToggle.isSelected());
-        if(editReaderToggle.isSelected()) {
+        if (editReaderToggle.isSelected()) {
             saveReaderButton.setText("Edytuj");
-        }
-        else{
+        } else {
             saveReaderButton.setText("Zapisz");
         }
     }
@@ -1649,7 +1649,12 @@ public class AppController extends FxController {
     @FXML
     void onSaveBookButtonPressed(ActionEvent event) {
         if (bookAuthorshipTable.getItems() == null || bookAuthorshipTable.getItems().isEmpty()) {
-            //todo show user that they cannot
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Nie można zapisać książki bez autorów",
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
             return;
         }
         String selectedBook = getBookNameFromSelectedItem(bookTree);
@@ -1752,7 +1757,12 @@ public class AppController extends FxController {
     void onAddEditionButtonPressed(ActionEvent event) {
         String selectedBookName = getBookNameFromSelectedItem(bookTree);
         if (selectedBookName.equals("*Nowa Książka")) {
-            //todo show user they cannot do it
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Nie można dodać wydania do nieistniejącej książki",
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
             return;
         }
         TreeItem<String> selectedBook = findItemByName(bookTree, selectedBookName);
@@ -1976,7 +1986,12 @@ public class AppController extends FxController {
     void onAddCopyButtonPressed(ActionEvent event) {
         String selectedEditionName = getEditionNameFromSelectedItem(bookTree);
         if (selectedEditionName.equals("*Nowe Wydanie")) {
-            //todo show user they cannot do it
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Nie można dodać kopii do nieistniejącego wdania",
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
             return;
         }
         TreeItem<String> selectedEdition = findItemByName(bookTree, selectedEditionName);
@@ -1998,14 +2013,22 @@ public class AppController extends FxController {
 
     private String getEditionNameFromSelectedItem(TreeView<String> tree) {
         TreeItem<String> selectedItem = tree.getSelectionModel().getSelectedItem();
-        if (!selectedItem.getValue().matches("(.*)\\((.*)")) //todo signature cannot contain (
+        if (!selectedItem.getValue().matches("(.*)\\((.*)")) //assumption signature cannot contain (
             selectedItem = selectedItem.getParent();
         return selectedItem.getValue();
     }
 
     @FXML
     void onAddCopyMaterialButtonPressed(ActionEvent event) {
-        //todo if copySignature is not set -> show user they cannot
+        if(copySignature.getText() == null || Objects.equals(copySignature.getText(), "")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Musisz najpierw wpisać sygnaturę",
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
+            return;
+        }
         ObservableList<Material> materials = copyMaterialTable.getItems();
         materials.add(new Material("*Nowy", "Pusty materiał"));
         copyMaterialTable.setItems(materials);
@@ -2099,7 +2122,11 @@ public class AppController extends FxController {
             e.printStackTrace();
         } catch (IllegalStateException e) {
             logger.log(Level.SEVERE, e.getMessage());
-            //todo show user message
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
         }
 
         onBookTabSelected(null);
@@ -2108,9 +2135,24 @@ public class AppController extends FxController {
 
     @FXML
     void onLendButtonPressed(ActionEvent event) {
-        //todo check if the copy is not already lent (& not returned) [since is not null and till is null]
-        //todo check if copy is selected on tree
+        if (bookTree.getSelectionModel().getSelectedItem().getValue().contains("*") ||
+                bookTree.getSelectionModel().getSelectedItem().getValue().contains("(")) { //assumption signature cannot contain *
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Musisz najpierw wybrać istniejącą kopię",
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
+            return;
+        }
         try {
+            PreparedStatement s = dbConnection.prepareStatement("SELECT * FROM INF122446.L_WYPOŻYCZENIA " +
+                    "WHERE KOPIE_SYGNATURA = ? AND DATA_WYPOZYCZENIA IS NOT NULL AND " +
+                    "DATA_ODDANIA IS NULL");
+            s.setString(1, copySignature.getText());
+            ResultSet r = s.executeQuery();
+            if (r.next())
+                throw new IllegalStateException("Ta kopia jest już wypożyczona");
             PreparedStatement library = dbConnection.prepareStatement("SELECT ID FROM INF122446.L_BIBLIOTEKI WHERE " +
                     "NAZWA = ?");
             library.setString(1, copyLibrary.getValue());
@@ -2124,11 +2166,11 @@ public class AppController extends FxController {
         } catch (SQLException ignored) {
         } catch (IllegalStateException e) {
             logger.log(Level.SEVERE, e.getMessage());
-            //todo show user message
-            return;
-        }
-        if (bookTree.getSelectionModel().getSelectedItem().getValue().charAt(0) == '*') {
-            //todo show user that they cannot
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
             return;
         }
         preferences.put("signature", bookTree.getSelectionModel().getSelectedItem().getValue());
@@ -2142,6 +2184,8 @@ public class AppController extends FxController {
     @FXML
     void onReturnBookBorrowButtonPressed(ActionEvent event) {
         Lend selected = bookBorrowsTable.getSelectionModel().getSelectedItem();
+        if (selected == null)
+            return;
         try {
             PreparedStatement library = dbConnection.prepareStatement("SELECT NAZWA FROM INF122446.L_BIBLIOTEKI WHERE " +
                     "ID = ?");
@@ -2151,34 +2195,21 @@ public class AppController extends FxController {
             if (!selected.getBranch().equals(currentBranch.split(":")[1]) ||
                     !selected.getLibrary().equals(libraryResult.getString("Nazwa")))
                 throw new IllegalStateException("Nie można oddać kopii w filli, w której nie była wypożyczona");
+            PreparedStatement update = dbConnection.prepareStatement("UPDATE INF122446.L_WYPOŻYCZENIA " +
+                    "SET DATA_ODDANIA = ? WHERE KOPIE_SYGNATURA = ?");
+            update.setDate(1, Date.valueOf(LocalDate.now()));
+            update.setString(1, selected.getSignature());
+            update.execute();
+            update.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IllegalStateException e) {
-            //todo show user message
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
             return;
-        }
-        try {
-            int selectedLibraryID;
-            String selectedBranchID = selected.getBranch();
-            Statement statement = dbConnection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT ID FROM INF122446.L_BIBLIOTEKI WHERE NAZWA = '" +
-                    selected.getLibrary() + "'");
-            resultSet.next();
-            selectedLibraryID = resultSet.getInt("ID");
-            resultSet.close();
-            statement.close();
-            if (Integer.parseInt(currentBranch.split(":")[0]) == selectedLibraryID &&
-                    currentBranch.split(":")[1].equals(selectedBranchID)) {
-                PreparedStatement update = dbConnection.prepareStatement("UPDATE INF122446.L_WYPOŻYCZENIA " +
-                        "SET DATA_ODDANIA = ? WHERE KOPIE_SYGNATURA = ?");
-                update.setDate(1, Date.valueOf(LocalDate.now()));
-                update.setString(1, selected.getSignature());
-                update.execute();
-                update.close();
-                bookTree.getSelectionModel().select(bookTree.getSelectionModel().getSelectedItem());
-            } else throw new InputMismatchException("Current library and branch does not correspond to that of borrow");
-        } catch (SQLException | InputMismatchException e) {
-            e.printStackTrace();
         }
 
         bookTree.getSelectionModel().select(bookTree.getSelectionModel().getSelectedItem());
