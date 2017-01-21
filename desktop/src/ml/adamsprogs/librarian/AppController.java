@@ -2352,613 +2352,227 @@ public class AppController extends FxController {
                 new PropertyValueFactory<>("forename")
         );
 
-        readerForenameColumn.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Reader, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        TableCell<Reader, String> cellReader = new TableCell<Reader, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(item);
+                setTooltip(new Tooltip(item));
+            }
+        };
+
+        TableCell<Lend, String> cellLend = new TableCell<Lend, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(item);
+                setTooltip(new Tooltip(item));
+            }
+        };
+
+        TableCell<Writer, String> cellWriter = new TableCell<Writer, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(item);
+                setTooltip(new Tooltip(item));
+            }
+        };
+
+        readerForenameColumn.setCellFactory(column -> cellReader);
 
         readerSurnameColumn.setCellValueFactory(
                 new PropertyValueFactory<>("surname")
         );
 
-        readerSurnameColumn.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Reader, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        readerSurnameColumn.setCellFactory(column -> cellReader);
 
         readerPeselColumn.setCellValueFactory(
                 new PropertyValueFactory<>("pesel")
         );
 
-        readerPeselColumn.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Reader, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        readerPeselColumn.setCellFactory(column -> cellReader);
 
         readerBorrowTitle.setCellValueFactory(
                 new PropertyValueFactory<>("title")
         );
 
-        readerBorrowTitle.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        readerBorrowTitle.setCellFactory(column -> cellLend);
 
         readerBorrowAuthor.setCellValueFactory(
                 new PropertyValueFactory<>("author")
         );
 
-        readerBorrowAuthor.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        readerBorrowAuthor.setCellFactory(column -> cellLend);
 
         readerBorrowSince.setCellValueFactory(
                 new PropertyValueFactory<>("since")
         );
 
-        readerBorrowSince.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        readerBorrowSince.setCellFactory(column -> cellLend);
 
         readerBorrowTill.setCellValueFactory(
                 new PropertyValueFactory<>("till")
         );
 
-        readerBorrowTill.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        readerBorrowTill.setCellFactory(column -> cellLend);
 
         readerBorrowLibrary.setCellValueFactory(
                 new PropertyValueFactory<>("library")
         );
 
-        readerBorrowLibrary.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        readerBorrowLibrary.setCellFactory(column -> cellLend);
 
         readerBorrowBranch.setCellValueFactory(
                 new PropertyValueFactory<>("branch")
         );
 
-        readerBorrowBranch.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        readerBorrowBranch.setCellFactory(column -> cellLend);
 
         readerBorrowSignature.setCellValueFactory(
                 new PropertyValueFactory<>("signature")
         );
 
-        readerBorrowSignature.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        readerBorrowSignature.setCellFactory(column -> cellLend);
 
         readerBorrowISBN.setCellValueFactory(
                 new PropertyValueFactory<>("isbn")
         );
 
-        readerBorrowISBN.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        readerBorrowISBN.setCellFactory(column -> cellLend);
 
         readerBorrowLibrarian.setCellValueFactory(
                 new PropertyValueFactory<>("librarian")
         );
 
         readerBorrowLibrarian.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    try {
-                                        Statement statement = dbConnection.createStatement();
-                                        ResultSet resultSet = statement.executeQuery("SELECT imie, nazwisko FROM " +
-                                                "INF122446.L_Bibliotekarze WHERE ID = " + item);
-                                        resultSet.next();
-                                        setTooltip(new Tooltip(resultSet.getString("imie") + " " + resultSet.getString("nazwisko")));
-                                        resultSet.close();
-                                        statement.close();
-                                    }
-                                    catch(SQLException e){
-                                        e.printStackTrace();
-                                    }
-
+                (column ->
+                        new TableCell<Lend, String>() {
+                            @Override
+                            protected void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+                                setText(item);
+                                try {
+                                    Statement statement = dbConnection.createStatement();
+                                    ResultSet resultSet = statement.executeQuery("SELECT imie, nazwisko FROM " +
+                                            "INF122446.L_Bibliotekarze WHERE ID = " + item);
+                                    resultSet.next();
+                                    setTooltip(new Tooltip(resultSet.getString("imie") + " " + resultSet.getString("nazwisko")));
+                                    resultSet.close();
+                                    statement.close();
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
                                 }
-                            };
+                            }
                         });
 
         librarianLendTitle.setCellValueFactory(
                 new PropertyValueFactory<>("title")
         );
 
-        librarianLendTitle.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        librarianLendTitle.setCellFactory(column -> cellLend);
 
         librarianLendAuthor.setCellValueFactory(
                 new PropertyValueFactory<>("author")
         );
 
-        librarianLendAuthor.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        librarianLendAuthor.setCellFactory(column -> cellLend);
 
         librarianLendReader.setCellValueFactory(
                 new PropertyValueFactory<>("reader")
         );
 
-        librarianLendReader.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        librarianLendReader.setCellFactory(column -> cellLend);
 
         librarianLendSince.setCellValueFactory(
                 new PropertyValueFactory<>("since")
         );
 
-        librarianLendSince.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        librarianLendSince.setCellFactory(column -> cellLend);
 
         librarianLendTill.setCellValueFactory(
                 new PropertyValueFactory<>("till")
         );
 
-        librarianLendTill.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        librarianLendTill.setCellFactory(column -> cellLend);
 
         librarianLendLibrary.setCellValueFactory(
                 new PropertyValueFactory<>("library")
         );
 
-        librarianLendLibrary.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        librarianLendLibrary.setCellFactory(column -> cellLend);
 
         librarianLendBranch.setCellValueFactory(
                 new PropertyValueFactory<>("branch")
         );
 
-        librarianLendBranch.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        librarianLendBranch.setCellFactory(column -> cellLend);
 
         librarianLendSignature.setCellValueFactory(
                 new PropertyValueFactory<>("signature")
         );
 
-        librarianLendSignature.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        librarianLendSignature.setCellFactory(column -> cellLend);
 
         librarianLendISBN.setCellValueFactory(
                 new PropertyValueFactory<>("isbn")
         );
 
-        librarianLendISBN.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        librarianLendISBN.setCellFactory(column -> cellLend);
 
         bookBorrowReader.setCellValueFactory(
                 new PropertyValueFactory<>("reader")
         );
 
-        bookBorrowReader.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        bookBorrowReader.setCellFactory(column -> cellLend);
 
         bookBorrowSince.setCellValueFactory(
                 new PropertyValueFactory<>("since")
         );
 
-        bookBorrowSince.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        bookBorrowSince.setCellFactory(column -> cellLend);
 
         bookBorrowTill.setCellValueFactory(
                 new PropertyValueFactory<>("till")
         );
 
-        bookBorrowTill.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        bookBorrowTill.setCellFactory(column -> cellLend);
 
         bookBorrowSignature.setCellValueFactory(
                 new PropertyValueFactory<>("signature")
         );
 
-        bookBorrowSignature.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        bookBorrowSignature.setCellFactory(column -> cellLend);
 
         bookBorrowISBN.setCellValueFactory(
                 new PropertyValueFactory<>("isbn")
         );
 
-        bookBorrowISBN.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        bookBorrowISBN.setCellFactory(column -> cellLend);
 
         bookBorrowLibrarian.setCellValueFactory(
                 new PropertyValueFactory<>("librarian")
         );
 
-        bookBorrowLibrarian.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Lend, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        bookBorrowLibrarian.setCellFactory(column -> cellLend);
 
         authorshipForenameColumn.setCellValueFactory(
                 new PropertyValueFactory<>("forename")
         );
 
-        authorshipForenameColumn.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Writer, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        authorshipForenameColumn.setCellFactory(column -> cellWriter);
 
         authorshipSurnameColumn.setCellValueFactory(
                 new PropertyValueFactory<>("surname")
         );
 
-        authorshipSurnameColumn.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Writer, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        authorshipSurnameColumn.setCellFactory(column -> cellWriter);
 
         authorshipNationalityColumn.setCellValueFactory(
                 new PropertyValueFactory<>("nationality")
         );
 
-        authorshipNationalityColumn.setCellFactory
-                (
-                        column ->
-                        {
-                            return new TableCell<Writer, String>()
-                            {
-                                @Override
-                                protected void updateItem(String item, boolean empty)
-                                {
-                                    super.updateItem(item, empty);
-                                    setText( item );
-                                    setTooltip(new Tooltip(item));
-                                }
-                            };
-                        });
+        authorshipNationalityColumn.setCellFactory(column -> cellWriter);
 
         translationForenameColumn.setCellValueFactory(
                 new PropertyValueFactory<>("forename")
