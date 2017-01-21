@@ -10,6 +10,7 @@ RETURN NUMBER IS
 BEGIN
 
 END wypozyczenia_filie;
+
 2.
 CREATE OR REPLACE FUNCTION wypozyczenia_bibliotekarze
 	(librarian_id NUMBER, year NUMBER)
@@ -22,11 +23,11 @@ END wypozyczenia_bibliotekarze;
 
 3.
 CREATE OR REPLACE PROCEDURE przenies_ksiazki
-    (lib_id_from VARCHAR2, branch_num_from INTEGER
+    (lib_id_from VARCHAR2, branch_num_from INTEGER,
 	lib_id_to VARCHAR2, branch_num_to INTEGER)
 IS
 BEGIN
-UPDATE inf122446.l_wypożyczenia SET Filie_Numer = branch_num_to , Filie_Biblioteki_ID = lib_id_to WHERE Filie_Numer = branch_num_from AND Filie_Biblioteki_ID = lib_id_from;
+UPDATE inf122446.l_kopie SET Filie_Numer = branch_num_to, Biblioteki_ID = lib_id_to WHERE Filie_Numer = branch_num_from AND Biblioteki_ID = lib_id_from;
 END przenies_ksiazki;
 
 4.
@@ -36,4 +37,4 @@ v_number NUMBER;
 BEGIN
 SELECT COUNT(*) INTO v_number FROM inf122446.L_Wypożyczenia WHERE (SELECT Filie_Numer FROM inf122446.l_kopie WHERE Sygnatura = Kopie_Sygnatura) = branch_id AND Data_oddania IS NULL;
 RETURN v_number;
-END wypozyczenia_filie;
+END;
