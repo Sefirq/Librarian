@@ -2,6 +2,10 @@
 
 <!--suppress JavaFxDefaultTag -->
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -17,7 +21,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane fx:id="tabs" stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
+<TabPane fx:id="tabs" stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
     <tabs>
         <Tab fx:id="branchTab" onSelectionChanged="#onBranchTabSelected" text="Filie">
             <content>
@@ -374,7 +378,7 @@
                         </HBox>
                         <HBox alignment="CENTER">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#onSaveBookButtonPressed" text="Zapisz">
+                              <Button fx:id="saveBookButton" mnemonicParsing="false" onAction="#onSaveBookButtonPressed" text="Zapisz">
                                  <HBox.margin>
                                     <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                                  </HBox.margin>
@@ -441,7 +445,7 @@
                         </HBox>
                         <HBox alignment="CENTER">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#onSaveEditionButtonPressed" text="Zapisz">
+                              <Button fx:id="saveEditionButton" mnemonicParsing="false" onAction="#onSaveEditionButtonPressed" text="Zapisz">
                                  <HBox.margin>
                                     <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                                  </HBox.margin>
@@ -486,7 +490,7 @@
                               </Button>
                            </children>
                         </HBox>
-                        <Button mnemonicParsing="false" onAction="#onSaveCopyButtonPressed" text="Zapisz" />
+                        <Button fx:id="saveCopyButton" mnemonicParsing="false" onAction="#onSaveCopyButtonPressed" text="Zapisz" />
                      </children>
                      <HBox.margin>
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

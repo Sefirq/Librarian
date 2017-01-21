@@ -1,6 +1,7 @@
 1. Funkcja licząca średnią liczbę wypożyczonych książek w filiach na rok lub miesiąc (lub raport roczny)
-2. Funkcja licząca średnią liczbę wypożyczonych książek przez bibliotekarza na rok lub miesiąc (lub raport roczny)
+2. Funkcja licząca liczbę wypożyczonych książek przez bibliotekarza na podany rok (lub raport roczny)
 3. Procedura usuwająca filię i przenosząca wszystkie książki z filii do innej filii
+4. Funkcja licząca ile jest obecnie wypożycznych książek w podanej filii
 
 1.
 CREATE OR REPLACE FUNCTION wypozyczenia_filie
@@ -11,19 +12,28 @@ BEGIN
 END wypozyczenia_filie;
 2.
 CREATE OR REPLACE FUNCTION wypozyczenia_bibliotekarze
+	(librarian_id NUMBER, year NUMBER)
 RETURN NUMBER IS
-
+CURSOR c_lends IS SELECT 
+v_number NUMBER;
 BEGIN
 
 END wypozyczenia_bibliotekarze;
+
 3.
 CREATE OR REPLACE PROCEDURE przenies_ksiazki
-    (lib_name_from VARCHAR2, branch_num_from INTEGER,
+    (lib_id_from VARCHAR2, branch_num_from INTEGER
 	lib_id_to VARCHAR2, branch_num_to INTEGER)
 IS
-
 BEGIN
+UPDATE inf122446.l_wypożyczenia SET Filie_Numer = branch_num_to , Filie_Biblioteki_ID = lib_id_to WHERE Filie_Numer = branch_num_from AND Filie_Biblioteki_ID = lib_id_from;
+END przenies_ksiazki;
 
-EXCEPTION
-
-END przenies_ksiazkia;
+4.
+CREATE OR REPLACE FUNCTION ile_wypozyczonych (branch_id NUMBER)
+RETURN NUMBER IS
+v_number NUMBER;
+BEGIN
+SELECT COUNT(*) INTO v_number FROM inf122446.L_Wypożyczenia WHERE (SELECT Filie_Numer FROM inf122446.l_kopie WHERE Sygnatura = Kopie_Sygnatura) = branch_id AND Data_oddania IS NULL;
+RETURN v_number;
+END wypozyczenia_filie;
