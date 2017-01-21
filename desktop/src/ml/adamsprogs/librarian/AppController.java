@@ -1346,7 +1346,6 @@ public class AppController extends FxController {
                     String editionString = composeEditionName(editionsResult.getString("Tytuł_tłumaczenia"),
                             editionsResult.getString("Nazwa"), editionsResult.getString("ISBN"));
                     shouldAddEdition = shouldAddBook || editionString.contains(filter);
-                    boolean contains = filter == null || editionString.contains(filter);
                     TreeItem<String> editionItem = new TreeItem<>(editionString);
                     Statement copies = dbConnection.createStatement();
                     ResultSet copiesResult = copies.executeQuery("SELECT SYGNATURA FROM INF122446.L_KOPIE WHERE" +
@@ -1634,8 +1633,8 @@ public class AppController extends FxController {
 
             statement = dbConnection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM INF122446.L_BIBLIOTEKI JOIN INF122446.L_FILIE " +
-                    "ON(ID = BIBLIOTEKI_ID) JOIN INF122446.L_KOPIE ON(INF122446.L_KOPIE.BIBLIOTEKI_ID = ID) " +
-                    "WHERE SYGNATURA = '" + copySignature.getText() + "'");
+                    "ON(ID = BIBLIOTEKI_ID) JOIN INF122446.L_KOPIE ON(INF122446.L_KOPIE.BIBLIOTEKI_ID = ID " +
+                    "AND FILIE_NUMER = NUMER) WHERE SYGNATURA = '" + copySignature.getText() + "'");
             resultSet.next();
             copyBranch.getSelectionModel().select("Filia nr " + resultSet.getInt("Numer") + " (" +
                     resultSet.getString("Adres") + ")");
@@ -2259,8 +2258,9 @@ public class AppController extends FxController {
             ResultSet libraryResult = library.executeQuery();
             libraryResult.next();
             if (!selected.getBranch().equals(currentBranch.split(":")[1]) ||
-                    !selected.getLibrary().equals(libraryResult.getString("Nazwa")))
-                throw new IllegalStateException("Nie można oddać kopii w filli, w której nie była wypożyczona"); //fixme throws too often
+                    !selected.getLibrary().equals(libraryResult.getString("Nazwa"))) {
+                throw new IllegalStateException("Nie można oddać kopii w filli, w której nie była wypożyczona");
+            }
             PreparedStatement update = dbConnection.prepareStatement("UPDATE INF122446.L_WYPOŻYCZENIA " +
                     "SET DATA_ODDANIA = ? WHERE KOPIE_SYGNATURA = ?");
             update.setDate(1, Date.valueOf(LocalDate.now()));
@@ -2275,11 +2275,9 @@ public class AppController extends FxController {
             if (alert.getResult() == ButtonType.YES) {
                 alert.close();
             }
-            return;
         }
-
         bookTree.getSelectionModel().select(bookTree.getSelectionModel().getSelectedItem());
-        //fixme refresh
+        //fixme refresh (select something else then this)
     }
 
     /*
