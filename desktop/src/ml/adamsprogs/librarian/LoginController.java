@@ -61,31 +61,40 @@ public class LoginController extends FxController {
                     login.getText(), password.getText());
             logger.log(Level.INFO, "Logged in");
 
-            currentLibrarian = Integer.parseInt(librarianID.getText());
+            Preferences preferences = Preferences.userNodeForPackage(this.getClass());
+            try {
+                preferences.clear();
+            } catch (BackingStoreException e) {
+                e.printStackTrace();
+            }
 
-            branch.setDisable(false);
-            enterButton.setDisable(false);
+            if (librarianID.getText().equals("")) {
+                currentLibrarian = 0;
+                currentBranch = "0:0";
+                logger.log(Level.INFO, "Entered as guest");
 
-            populateBranches();
+                setScene("ui/app.fxml", "Librarian");
+            } else {
 
-            login.setDisable(true);
-            password.setDisable(true);
-            librarianID.setDisable(true);
-            proxyToggler.setDisable(true);
-            proxyAddr.setDisable(true);
-            proxyPort.setDisable(true);
-            loginButton.setDisable(true);
-            errorText.setText("");
+                currentLibrarian = Integer.parseInt(librarianID.getText());
+
+                branch.setDisable(false);
+                enterButton.setDisable(false);
+
+                populateBranches();
+
+                login.setDisable(true);
+                password.setDisable(true);
+                librarianID.setDisable(true);
+                proxyToggler.setDisable(true);
+                proxyAddr.setDisable(true);
+                proxyPort.setDisable(true);
+                loginButton.setDisable(true);
+                errorText.setText("");
+            }
 
         } catch (SQLException e) {
             errorText.setText(e.getMessage());
-            e.printStackTrace();
-        }
-
-        Preferences preferences = Preferences.userNodeForPackage(this.getClass());
-        try {
-            preferences.clear();
-        } catch (BackingStoreException e) {
             e.printStackTrace();
         }
     }
@@ -125,7 +134,6 @@ public class LoginController extends FxController {
 
         logger.log(Level.INFO, "Entered into " + currentBranch);
         logger.log(Level.INFO, "As " + currentLibrarian);
-
 
         setScene("ui/app.fxml", "Librarian");
     }

@@ -514,12 +514,12 @@
                         </TableView>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#onLendButtonPressed" text="Wypożycz">
+                              <Button fx:id="lendButton" mnemonicParsing="false" onAction="#onLendButtonPressed" text="Wypożycz">
                                  <HBox.margin>
                                     <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#onReturnBookBorrowButtonPressed" text="Oddaj">
+                              <Button fx:id="returnButton" mnemonicParsing="false" onAction="#onReturnBookBorrowButtonPressed" text="Oddaj">
                                  <HBox.margin>
                                     <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                                  </HBox.margin>
