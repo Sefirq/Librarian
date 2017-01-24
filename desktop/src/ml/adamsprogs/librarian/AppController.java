@@ -628,7 +628,23 @@ public class AppController extends FxController {
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            //todo show user what’s wrong
+            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
+        }
+    }
+
+    private String humanReadableError(String message) {
+        switch (message.split(":")[0]){
+            case "ORA-01400":
+                return "Pole " + message.split("\\.")[2].replaceAll("(\\)|\\n)", "") + " nie może być puste";
+            case "ORA-01031":
+                return "Brak uprawnień do wykonania tej akcji";
+            default:
+                return message;
         }
     }
 
@@ -759,7 +775,12 @@ public class AppController extends FxController {
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            //todo show user what’s wrong
+            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
         }
 
     }
@@ -1820,6 +1841,12 @@ public class AppController extends FxController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
         }
 
         String itemString = bookTitle.getText() + " (";
@@ -2055,6 +2082,12 @@ public class AppController extends FxController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
         }
 
         String editionItem = composeEditionName(editionTitle.getText(), editionPublisher.getValue(), editionIsbn.getText());
@@ -2200,6 +2233,12 @@ public class AppController extends FxController {
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
         } catch (IllegalStateException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
             alert.showAndWait();
