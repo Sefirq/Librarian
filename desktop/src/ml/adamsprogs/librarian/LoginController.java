@@ -132,8 +132,7 @@ public class LoginController extends FxController {
             e.printStackTrace();
         }
 
-        logger.log(Level.INFO, "Entered into " + currentBranch);
-        logger.log(Level.INFO, "As " + currentLibrarian);
+        logger.log(Level.INFO, "Entered as " + currentLibrarian + " into " + currentBranch);
 
         setScene("ui/app.fxml", "Librarian");
     }
