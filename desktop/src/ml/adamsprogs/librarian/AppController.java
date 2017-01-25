@@ -1052,7 +1052,12 @@ public class AppController extends FxController {
             update.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            //todo show user what’s wrong
+            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
         }
     }
 
@@ -1122,7 +1127,12 @@ public class AppController extends FxController {
             update.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            //todo show user what’s wrong
+            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
         }
     }
 
@@ -1273,7 +1283,12 @@ public class AppController extends FxController {
             update.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            //todo show user what’s wrong
+            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
         }
     }
 
@@ -1300,7 +1315,7 @@ public class AppController extends FxController {
 
     @FXML
     private void onBookTabSelected(Event event) {
-        bookEditToggle.selectedProperty().setValue(false);
+        bookEditToggle.setSelected(false);
         bookBox.setVisible(false);
         editionBox.setVisible(false);
         copyBox.setVisible(false);
@@ -1314,6 +1329,7 @@ public class AppController extends FxController {
         populateBookTree(null);
 
         if (preferences.get("error", "").equals("OK")) {
+            bookEditToggle.setSelected(true);
             switch (preferences.get("callerRequest", "")) {
                 case "author":
                     if (preferences.get("selectedBook", "").equals("*Nowa Książka")) {
@@ -1857,6 +1873,7 @@ public class AppController extends FxController {
         itemString = itemString.substring(0, itemString.length() - 2);
         itemString = itemString + ')';
         onBookTabSelected(null);
+
         bookTree.getSelectionModel().select(findItemByName(bookTree, itemString));
     }
 
