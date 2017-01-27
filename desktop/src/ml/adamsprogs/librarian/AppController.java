@@ -389,7 +389,7 @@ public class AppController extends FxController {
     */
 
     private void makeLibraryAndBranchTextBoxesDisabledOrEnabled(boolean value) {
-        libraryName.setDisable(value);
+        /*libraryName.setDisable(value);
         libraryFoundDate.setDisable(value);
         libraryType.setDisable(value);
         libraryAddress.setDisable(value);
@@ -398,7 +398,9 @@ public class AppController extends FxController {
         libraryWebsite.setDisable(value);
         branchAddress.setDisable(value);
         branchNumber.setDisable(value);
-        branchType.setDisable(value);
+        branchType.setDisable(value);*/
+        libraryBox.setDisable(value);
+        branchBox.setDisable(value);
     }
 
     private TreeItem<String> updateFilteredTree(TreeItem<String> oldRoot, String filterText) {
@@ -428,8 +430,8 @@ public class AppController extends FxController {
     @FXML
     void onBranchTabSelected(Event event) {
         clearTree(libraryTree);
-        makeLibraryAndBranchTextBoxesDisabledOrEnabled(true);
         editLibraryToggle.setDisable(true);
+        makeLibraryAndBranchTextBoxesDisabledOrEnabled(!editLibraryToggle.isSelected());
         libraryBox.setVisible(false);
         branchBox.setVisible(false);
         TreeItem<String> rootItem = new TreeItem<>("Biblioteki");
@@ -507,9 +509,12 @@ public class AppController extends FxController {
     }
 
     private void onLibraryTreeItemSelected(@Nullable TreeItem<String> selectedItem) {
+        if (currentLibrarian == 0)
+            editLibraryToggle.setDisable(true);
+        else
+            editLibraryToggle.setDisable(false);
         if (selectedItem == null || selectedItem.getValue() == null || selectedItem.getValue().charAt(0) == '*')
             return;
-        editLibraryToggle.setDisable(false);
         String[] label = selectedItem.getValue().split(" ");
         if (label[0].equals("Filia")) {
             int branchNumber = Integer.parseInt(label[2]);
@@ -638,11 +643,14 @@ public class AppController extends FxController {
     }
 
     private String humanReadableError(String message) {
-        switch (message.split(":")[0]){
+        switch (message.split(":")[0]) {
             case "ORA-01400":
                 return "Pole " + message.split("\\.")[2].replaceAll("(\\)|\\n)", "") + " nie może być puste";
             case "ORA-01031":
-                return "Brak uprawnień do wykonania tej akcji";
+                return "Tylko bibliotekarz może to zrobić";
+            case "ORA-12899":
+                return "Zbyt długi tekst w polu " + message.split("\\.")[2].replaceAll("(\\)|\\n)", "") + ".\n" +
+                        "Maksymalnie może mieć " + message.split(",")[1].split(":")[1].replaceAll("( |\\))", "") + "znaków.";
             default:
                 return message;
         }
@@ -789,13 +797,13 @@ public class AppController extends FxController {
     private void onEditLibraryToggled(ActionEvent actionEvent) {
         System.out.println(!editLibraryToggle.isSelected());
         makeLibraryAndBranchTextBoxesDisabledOrEnabled(!editLibraryToggle.isSelected());
-        if (editLibraryToggle.isSelected()) {
+        /*if (editLibraryToggle.isSelected()) {
             saveLibraryButton.setText("Edytuj");
             saveBranchButton.setText("Edytuj");
         } else {
             saveLibraryButton.setText("Zapisz");
             saveBranchButton.setText("Zapisz");
-        }
+        }*/
     }
 
     @FXML
@@ -1315,6 +1323,9 @@ public class AppController extends FxController {
 
     @FXML
     private void onBookTabSelected(Event event) {
+        if (currentLibrarian == 0)
+            bookEditToggle.setDisable(true);
+
         bookEditToggle.setSelected(false);
         bookBox.setVisible(false);
         editionBox.setVisible(false);
@@ -1330,6 +1341,10 @@ public class AppController extends FxController {
 
         if (preferences.get("error", "").equals("OK")) {
             bookEditToggle.setSelected(true);
+            bookBorrowBox.setDisable(false);
+            bookBox.setDisable(false);
+            editionBox.setDisable(false);
+            copyBox.setDisable(false);
             switch (preferences.get("callerRequest", "")) {
                 case "author":
                     if (preferences.get("selectedBook", "").equals("*Nowa Książka")) {
@@ -1688,10 +1703,19 @@ public class AppController extends FxController {
         statement = dbConnection.createStatement();
         resultSet = statement.executeQuery("SELECT NAZWA FROM INF122446.L_BIBLIOTEKI JOIN INF122446.L_KOPIE " +
                 "ON(BIBLIOTEKI_ID = ID) WHERE SYGNATURA = '" + copySignature.getText() + "'");
-        if (resultSet.next())
+        if (resultSet.next()) {
             copyLibrary.getSelectionModel().select(resultSet.getString("NAZWA"));
-        resultSet.close();
-        statement.close();
+            resultSet.close();
+            statement.close();
+        } else {
+            PreparedStatement s = dbConnection.prepareStatement("SELECT NAZWA FROM INF122446.L_BIBLIOTEKI WHERE ID = ?");
+            s.setInt(1, Integer.parseInt(currentBranch.split(":")[0]));
+            resultSet = s.executeQuery();
+            resultSet.next();
+            copyLibrary.getSelectionModel().select(resultSet.getString("NAZWA"));
+            resultSet.close();
+            s.close();
+        }
     }
 
     private void onCopyLibrarySelected(String selectedItem) {
@@ -1711,9 +1735,21 @@ public class AppController extends FxController {
             resultSet = statement.executeQuery("SELECT * FROM INF122446.L_BIBLIOTEKI JOIN INF122446.L_FILIE " +
                     "ON(ID = BIBLIOTEKI_ID) JOIN INF122446.L_KOPIE ON(INF122446.L_KOPIE.BIBLIOTEKI_ID = ID " +
                     "AND FILIE_NUMER = NUMER) WHERE SYGNATURA = '" + copySignature.getText() + "'");
-            resultSet.next();
-            copyBranch.getSelectionModel().select("Filia nr " + resultSet.getInt("Numer") + " (" +
-                    resultSet.getString("Adres") + ")");
+            if (resultSet.next()) {
+                copyBranch.getSelectionModel().select("Filia nr " + resultSet.getInt("Numer") + " (" +
+                        resultSet.getString("Adres") + ")");
+                resultSet.close();
+                statement.close();
+            } else {
+                PreparedStatement s = dbConnection.prepareStatement("SELECT NUMER, ADRES FROM INF122446.L_FILIE WHERE NUMER = ?");
+                s.setInt(1, Integer.parseInt(currentBranch.split(":")[1]));
+                resultSet = s.executeQuery();
+                resultSet.next();
+                copyBranch.getSelectionModel().select("Filia nr " + resultSet.getInt("Numer") + " (" +
+                        resultSet.getString("Adres") + ")");
+                resultSet.close();
+                s.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -1872,8 +1908,8 @@ public class AppController extends FxController {
 
         itemString = itemString.substring(0, itemString.length() - 2);
         itemString = itemString + ')';
-        onBookTabSelected(null);
 
+        populateBookTree("");
         bookTree.getSelectionModel().select(findItemByName(bookTree, itemString));
     }
 
@@ -2056,7 +2092,7 @@ public class AppController extends FxController {
                 update.setInt(4, Integer.parseInt(editionReleaseDate.getText()));
                 update.setString(5, editionLanguage.getText());
                 update.setString(6, publisherId);
-                update.setString(7, editionIsbn.getText());
+                update.setString(7, isbn);
                 update.execute();
                 update.close();
             } else {
@@ -2108,7 +2144,8 @@ public class AppController extends FxController {
         }
 
         String editionItem = composeEditionName(editionTitle.getText(), editionPublisher.getValue(), editionIsbn.getText());
-        onBookTabSelected(null);
+        //onBookTabSelected(null);
+        populateBookTree("");
         bookTree.getSelectionModel().select(findItemByName(bookTree, editionItem));
     }
 
@@ -2199,12 +2236,13 @@ public class AppController extends FxController {
 
         String selectedEdition = getEditionNameFromSelectedItem(bookTree);
         String isbn = selectedEdition.split("\\(")[1].split("\\)")[0];
+        String oldSignature = bookTree.getSelectionModel().getSelectedItem().getValue();
         String signature = copySignature.getText();
 
         try {
             Statement statement = dbConnection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM INF122446.L_KOPIE " +
-                    "WHERE SYGNATURA = '" + signature + "'");
+                    "WHERE SYGNATURA = '" + oldSignature + "'");
             if (resultSet.next()) {
                 PreparedStatement update = dbConnection.prepareStatement("UPDATE INF122446.L_KOPIE " +
                         "SET SYGNATURA = ?, BIBLIOTEKI_ID = ?, FILIE_NUMER = ?, WYDANIA_ISBN = ? " +
@@ -2221,7 +2259,7 @@ public class AppController extends FxController {
                 update.setInt(2, librarySelectResult.getInt("ID"));
                 update.setInt(3, Integer.parseInt(copyBranch.getValue().split(" ")[2]));
                 update.setString(4, isbn);
-                update.setString(5, signature);
+                update.setString(5, oldSignature);
                 update.execute();
                 update.close();
                 librarySelectResult.close();
@@ -2264,7 +2302,8 @@ public class AppController extends FxController {
             }
         }
 
-        onBookTabSelected(null);
+        //onBookTabSelected(null);
+        populateBookTree("");
         bookTree.getSelectionModel().select(findItemByName(bookTree, signature));
     }
 
@@ -2393,7 +2432,7 @@ public class AppController extends FxController {
         readerPESEL.setTextFormatter(new TextFormatter<Integer>(change ->
                 change.getControlNewText().matches("\\d*") ? change : null));
         editionIsbn.setTextFormatter(new TextFormatter<Integer>(change ->
-                change.getControlNewText().matches("\\d*") ? change : null));
+                change.getControlNewText().matches("\\d{0,13}") ? change : null));
         editionNumber.setTextFormatter(new TextFormatter<Integer>(change ->
                 change.getControlNewText().matches("\\d*") ? change : null));
         editionReleaseDate.setTextFormatter(new TextFormatter<Integer>(change ->

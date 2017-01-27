@@ -94,7 +94,10 @@ public class LoginController extends FxController {
             }
 
         } catch (SQLException e) {
-            errorText.setText(e.getMessage());
+            if(e.getMessage().split(":")[0].equals("ORA-01017"))
+                errorText.setText("Błędna nazwa użytkownika lub hasło");
+            else
+                errorText.setText(e.getMessage());
             e.printStackTrace();
         }
     }
