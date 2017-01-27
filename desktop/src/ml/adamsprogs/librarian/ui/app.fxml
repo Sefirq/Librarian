@@ -221,11 +221,11 @@
                               <TableColumn fx:id="librarianLendISBN" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="ISBN" />
                                   </columns>
                               </TableView>
-                        <Button mnemonicParsing="false" onAction="#onReturnLibrarianLendButtonPressed" text="Oddaj zaznaczoną książkę">
+                        <!--<Button mnemonicParsing="false" onAction="#onReturnLibrarianLendButtonPressed" text="Oddaj zaznaczoną książkę">
                            <VBox.margin>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                            </VBox.margin>
-                        </Button>
+                        </Button>-->
                      </children>
                      <HBox.margin>
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
