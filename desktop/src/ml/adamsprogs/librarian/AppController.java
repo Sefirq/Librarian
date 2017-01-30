@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -93,6 +94,9 @@ public class AppController extends FxController {
 
     @FXML
     private Button saveBranchButton;
+
+    @FXML
+    private Text borrowdBookNumber;
 
     /*
     ====================================================================================================================
@@ -382,6 +386,9 @@ public class AppController extends FxController {
     @FXML
     private Button returnButton;
 
+    @FXML
+    private Button moveBooksHereButton;
+
     /*
     ====================================================================================================================
     ====================================================================================================================
@@ -429,6 +436,8 @@ public class AppController extends FxController {
 
     @FXML
     void onBranchTabSelected(Event event) {
+        moveBooksHereButton.setDisable(true);
+        libraryBox.setDisable(true);
         clearTree(libraryTree);
         editLibraryToggle.setDisable(true);
         makeLibraryAndBranchTextBoxesDisabledOrEnabled(!editLibraryToggle.isSelected());
@@ -538,6 +547,15 @@ public class AppController extends FxController {
                 statement.close();
                 libraryBox.setVisible(true);
                 branchBox.setVisible(true);
+
+                CallableStatement ps = dbConnection.prepareCall("{? = call ile_wypozyczonych(?, ?)}");
+                ps.setInt(2, libraryID);
+                ps.setInt(3, branchNumber);
+                ps.registerOutParameter(1, Types.INTEGER);
+                ps.execute();
+                int lentNumber = ps.getInt(1);
+                ps.close();
+                borrowdBookNumber.setText("Liczba kopii wypożyczonych aktualnie w tej filii: " + lentNumber);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -611,6 +629,16 @@ public class AppController extends FxController {
         String bossSurname = libraryBossSurname.getText();
         String website = libraryWebsite.getText();
 
+        if (findItemByName(libraryTree, name) != null && oldName.charAt(0) == '*') {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Biblioteka o tej nazwie już istnieje",
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
+            return;
+        }
+
         try {
             statement = dbConnection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT ID FROM inf122446.L_BIBLIOTEKI "
@@ -633,7 +661,7 @@ public class AppController extends FxController {
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+            Alert alert = new Alert(Alert.AlertType.ERROR, humanReadableError(e.getMessage()),
                     ButtonType.OK);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
@@ -651,6 +679,8 @@ public class AppController extends FxController {
             case "ORA-12899":
                 return "Zbyt długi tekst w polu " + message.split("\\.")[2].replaceAll("(\\)|\\n)", "") + ".\n" +
                         "Maksymalnie może mieć " + message.split(",")[1].split(":")[1].replaceAll("( |\\))", "") + "znaków.";
+            case "ORA-00001":
+                return "Obiekt, który chcesz dodać już istnieje";
             default:
                 return message;
         }
@@ -749,21 +779,21 @@ public class AppController extends FxController {
             statement = dbConnection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT ID FROM INF122446.L_FILIE JOIN INF122446.L_BIBLIOTEKI "
                     + "ON(BIBLIOTEKI_ID = ID) WHERE NUMER = " + oldNumber + " AND NAZWA = '" + libname + "'");
-            if (editLibraryToggle.isSelected()) {
-                if (resultSet.next()) {
-                    int ID = resultSet.getInt("ID");
-                    statement.close();
-                    update = dbConnection.prepareStatement("UPDATE INF122446.L_FILIE SET NUMER = ?, ADRES = ?, TYP = ?"
-                            + " WHERE BIBLIOTEKI_ID = ? AND NUMER = ?");
-                    update.setInt(1, number);
-                    update.setString(2, address);
-                    update.setString(3, type);
-                    update.setInt(4, ID);
-                    update.setInt(5, oldNumber);
-                    update.executeUpdate();
-                    refresh(update, number, address);
-                }
-            } else { //if not in edit mode
+            if (resultSet.next()) {
+                if (libraryTree.getSelectionModel().getSelectedItem().getValue().charAt(0) == '*')
+                    throw new IllegalStateException("Filia o tym numerze w tej bibliotece już istnieje");
+                int ID = resultSet.getInt("ID");
+                statement.close();
+                update = dbConnection.prepareStatement("UPDATE INF122446.L_FILIE SET NUMER = ?, ADRES = ?, TYP = ?"
+                        + " WHERE BIBLIOTEKI_ID = ? AND NUMER = ?");
+                update.setInt(1, number);
+                update.setString(2, address);
+                update.setString(3, type);
+                update.setInt(4, ID);
+                update.setInt(5, oldNumber);
+                update.executeUpdate();
+                refresh(update, number, address);
+            } else {
                 statement.close();
                 statement = dbConnection.createStatement();
                 ResultSet subResult = statement.executeQuery("SELECT ID FROM INF122446.L_BIBLIOTEKI WHERE NAZWA = '"
@@ -783,7 +813,15 @@ public class AppController extends FxController {
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+            Alert alert = new Alert(Alert.AlertType.ERROR, humanReadableError(e.getMessage()),
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(),
                     ButtonType.OK);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
@@ -806,15 +844,128 @@ public class AppController extends FxController {
         }*/
     }
 
-    @FXML
-    void onDeletePositionFromLibraryTreeButtonPressed() {
-
-    }
-
     private void refresh(PreparedStatement update, int number, String address) throws SQLException {
         update.close();
         onBranchTabSelected(null);
         libraryTree.getSelectionModel().select(findItemByName(libraryTree, composeBranchItemName(number, address)));
+    }
+
+    @FXML
+    void onMoveBooksButtonPressed(ActionEvent event) {
+        try {
+            int libId;
+            int branchNo = Integer.parseInt(branchNumber.getText());
+            PreparedStatement statement = dbConnection.prepareStatement("SELECT ID FROM INF122446.L_BIBLIOTEKI " +
+                    "WHERE NAZWA = ?");
+            statement.setString(1, libraryName.getText());
+            ResultSet subResult = statement.executeQuery();
+            subResult.next();
+            libId = subResult.getInt("ID");
+            subResult.close();
+            statement.close();
+
+
+            preferences.putInt("moveFromLib", libId);
+            preferences.putInt("moveFromBranch", branchNo);
+            moveBooksHereButton.setDisable(false);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Teraz wybierz inną filię i naciśnij " +
+                    "\"Przenieś tutaj\"", ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void onMoveHereButtonPressed(ActionEvent event) {
+        int libTo, libFrom = preferences.getInt("moveFromLib", -1);
+        int branchTo = Integer.parseInt(branchNumber.getText()), branchFrom = preferences.getInt("moveFromBranch", -1);
+        try {
+            PreparedStatement statement = dbConnection.prepareStatement("SELECT ID FROM INF122446.L_BIBLIOTEKI " +
+                    "WHERE NAZWA = ?");
+            statement.setString(1, libraryName.getText());
+            ResultSet subResult = statement.executeQuery();
+            subResult.next();
+            libTo = subResult.getInt("ID");
+            subResult.close();
+            statement.close();
+            CallableStatement call = dbConnection.prepareCall("{call przenies_ksiazki(?, ?, ?, ?)}");
+            call.setInt(1, libFrom);
+            call.setInt(2, branchFrom);
+            call.setInt(3, libTo);
+            call.setInt(4, branchTo);
+            call.execute();
+            call.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Niepowodzenie", ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
+        }
+        preferences.remove("moveFromLib");
+        preferences.remove("moveFromBranch");
+        moveBooksHereButton.setDisable(true);
+    }
+
+    @FXML
+    void onDeleteLibraryButtonPressed(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Usuniesz także wszystkie filie oraz książki w nich, " +
+                "a także zatrudnionych bibliotekarzy i wypożyczenia (także te nie oddane)", ButtonType.OK, ButtonType.CANCEL);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK)
+            alert.close();
+        else
+            return;
+        try {
+            PreparedStatement p = dbConnection.prepareStatement("DELETE FROM INF122446.L_BIBLIOTEKI WHERE NAZWA = ?");
+            p.setString(1, libraryName.getText());
+            p.execute();
+            p.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            alert = new Alert(Alert.AlertType.ERROR, "Niepowodzenie", ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK)
+                alert.close();
+        }
+        onBranchTabSelected(null);
+    }
+
+    @FXML
+    void onDeleteBranchButtonPressed(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Usuniesz także wszystkie książki w tej filii, " +
+                "a także zatrudnionych bibliotekarzy i wypożyczenia (także te nie oddane)", ButtonType.OK, ButtonType.CANCEL);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK)
+            alert.close();
+        else
+            return;
+        try {
+            PreparedStatement p = dbConnection.prepareStatement("SELECT ID FROM INF122446.L_BIBLIOTEKI WHERE NAZWA = ?");
+            p.setString(1, libraryName.getText());
+            ResultSet r = p.executeQuery();
+            r.next();
+            int id = r.getInt("ID");
+            p.close();
+            r.close();
+            p = dbConnection.prepareStatement("DELETE FROM INF122446.L_FILIE WHERE NUMER = ? AND BIBLIOTEKI_ID = ?");
+            p.setInt(1, Integer.parseInt(branchNumber.getText()));
+            p.setInt(2, id);
+            p.execute();
+            p.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            alert = new Alert(Alert.AlertType.ERROR, "Niepowodzenie", ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK)
+                alert.close();
+        }
+        onBranchTabSelected(null);
     }
 
     /*
@@ -1060,7 +1211,7 @@ public class AppController extends FxController {
             update.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+            Alert alert = new Alert(Alert.AlertType.ERROR, humanReadableError(e.getMessage()),
                     ButtonType.OK);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
@@ -1135,7 +1286,7 @@ public class AppController extends FxController {
             update.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+            Alert alert = new Alert(Alert.AlertType.ERROR, humanReadableError(e.getMessage()),
                     ButtonType.OK);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
@@ -1144,10 +1295,10 @@ public class AppController extends FxController {
         }
     }
 
-    @FXML
+    /*@FXML
     private void onReturnLibrarianLendButtonPressed(ActionEvent actionEvent) {
 
-    }
+    }*/
 
     @FXML
     private void onNextPostButtonPressed(ActionEvent actionEvent) {
@@ -1178,6 +1329,75 @@ public class AppController extends FxController {
             }
             setPostData(index);
         }
+    }
+
+    @FXML
+    void onDeleteLibrarianButtonPressed(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Usuniesz także wszystkie etaty i wypożyczenia " +
+                "(także te nie oddane)", ButtonType.OK, ButtonType.CANCEL);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK)
+            alert.close();
+        else
+            return;
+        try {
+            PreparedStatement p = dbConnection.prepareStatement("DELETE FROM INF122446.L_BIBLIOTEKARZE WHERE IMIE = ? AND NAZWISKO = ?");
+            p.setString(1, librarianForename.getText());
+            p.setString(2, librarianSurname.getText());
+            p.execute();
+            p.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            alert = new Alert(Alert.AlertType.ERROR, "Niepowodzenie", ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK)
+                alert.close();
+        }
+        onLibrarianTabSelected(null);
+    }
+
+    @FXML
+    void onDeletePostButtonPressed(ActionEvent event) {
+        /*Alert alert = new Alert(Alert.AlertType.WARNING, "Usuniesz także wszystkie książki w tej filii, " +
+                "a także zatrudnionych bibliotekarzy i wypożyczenia (także te nie oddane)", ButtonType.OK, ButtonType.CANCEL);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK)
+            alert.close();
+        else
+            return;*/
+        try {
+            PreparedStatement p = dbConnection.prepareStatement("SELECT ID FROM INF122446.L_BIBLIOTEKI WHERE NAZWA = ?");
+            p.setString(1, postLibraryChoiceBox.getValue());
+            ResultSet r = p.executeQuery();
+            r.next();
+            int id = r.getInt("ID");
+            p.close();
+            r.close();
+
+            p = dbConnection.prepareStatement("SELECT ID FROM INF122446.L_BIBLIOTEKARZE WHERE IMIE = ? AND NAZWISKO = ?");
+            p.setString(1, librarianForename.getText());
+            p.setString(2, librarianSurname.getText());
+            r = p.executeQuery();
+            r.next();
+            int librarianId = r.getInt("ID");
+            p.close();
+            r.close();
+
+            p = dbConnection.prepareStatement("DELETE FROM INF122446.L_ETATY" +
+                    " WHERE Filie_NUMER = ? AND BIBLIOTEKI_ID = ? AND BIBLIOTEKARZE_ID = ?");
+            p.setInt(1, Integer.parseInt(postBranchChoiceBox.getValue()));
+            p.setInt(2, id);
+            p.setInt(3, librarianId);
+            p.execute();
+            p.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Niepowodzenie", ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK)
+                alert.close();
+        }
+        onLibrarianTabSelected(null);
     }
 
 
@@ -1257,6 +1477,7 @@ public class AppController extends FxController {
         editReaderToggle.setDisable(false);
         readerForename.setText(reader.getForename());
         readerSurname.setText(reader.getSurname());
+        System.out.println(reader.getPesel());
         readerPESEL.setText(reader.getPesel());
         borrowsData.clear();
         try {
@@ -1291,7 +1512,7 @@ public class AppController extends FxController {
             update.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+            Alert alert = new Alert(Alert.AlertType.ERROR, humanReadableError(e.getMessage()),
                     ButtonType.OK);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
@@ -1312,9 +1533,34 @@ public class AppController extends FxController {
     }
 
     @FXML
-    private void onReturnReaderBorrowButtonPressed(ActionEvent actionEvent) {//todo
-
+    void onDeleteReaderButtonPressed(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Usuniesz także wszystkie wypożyczenia " +
+                "(także te nie oddane)", ButtonType.OK, ButtonType.CANCEL);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK)
+            alert.close();
+        else
+            return;
+        try {
+            PreparedStatement p = dbConnection.prepareStatement("DELETE FROM INF122446.L_CZYTELNICY" +
+                    " WHERE PESEL = ?");
+            p.setString(1, readersTable.getSelectionModel().getSelectedItem().getPesel());
+            p.execute();
+            p.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            alert = new Alert(Alert.AlertType.ERROR, "Niepowodzenie", ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK)
+                alert.close();
+        }
+        onReaderTabSelected(null);
     }
+
+    /*@FXML
+    private void onReturnReaderBorrowButtonPressed(ActionEvent actionEvent) {
+
+    }*/
 
     /*
     ====================================================================================================================
@@ -1323,7 +1569,7 @@ public class AppController extends FxController {
 
     @FXML
     private void onBookTabSelected(Event event) {
-        if (currentLibrarian == 0)
+        if (currentLibrarian == 0 || currentBranch.equals("0:0"))
             bookEditToggle.setDisable(true);
 
         bookEditToggle.setSelected(false);
@@ -1827,6 +2073,25 @@ public class AppController extends FxController {
             authorSurname = "";
         }
 
+        String itemString = bookTitle.getText() + " (";
+        ObservableList<Writer> authors = bookAuthorshipTable.getItems();
+        for (Writer author : authors)
+            itemString += author.getForename() + " " +
+                    author.getSurname() + ", ";
+
+        itemString = itemString.substring(0, itemString.length() - 2);
+        itemString = itemString + ')';
+
+        if (findItemByName(bookTree, itemString) != null && selectedBook.charAt(0) == '*') {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Książka o tym tytule i tych autorach już istnieje",
+                    ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                alert.close();
+            }
+            return;
+        }
+
         try {
             Statement statement = dbConnection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT INF122446.L_KSIĄŻKI.ID FROM INF122446.L_KSIĄŻKI JOIN INF122446.L_AUTORSTWA " +
@@ -1893,7 +2158,7 @@ public class AppController extends FxController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+            Alert alert = new Alert(Alert.AlertType.ERROR, humanReadableError(e.getMessage()),
                     ButtonType.OK);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
@@ -1901,7 +2166,7 @@ public class AppController extends FxController {
             }
         }
 
-        String itemString = bookTitle.getText() + " (";
+        itemString = bookTitle.getText() + " (";
         for (Writer author : bookAuthorshipTable.getItems())
             itemString += author.getForename() + " " +
                     author.getSurname() + ", ";
@@ -2135,7 +2400,7 @@ public class AppController extends FxController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+            Alert alert = new Alert(Alert.AlertType.ERROR, humanReadableError(e.getMessage()),
                     ButtonType.OK);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
@@ -2288,7 +2553,7 @@ public class AppController extends FxController {
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.WARNING, humanReadableError(e.getMessage()),
+            Alert alert = new Alert(Alert.AlertType.ERROR, humanReadableError(e.getMessage()),
                     ButtonType.OK);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
@@ -2416,6 +2681,82 @@ public class AppController extends FxController {
         bookTree.getSelectionModel().select(lastSelected);
     }
 
+    @FXML
+    void onDeleteBookButtonPressed(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Usuniesz także wszystkie wydania, kopie " +
+                " i wypożyczenia (także te nie oddane)", ButtonType.OK, ButtonType.CANCEL);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK)
+            alert.close();
+        else
+            return;
+        try {
+            PreparedStatement p = dbConnection.prepareStatement("DELETE FROM INF122446.L_KSIĄŻKI" +
+                    " WHERE TYTUŁ = ? AND ROK_UKOŃCZENIA = ?");
+            p.setString(1, bookTitle.getText());
+            p.setInt(2, Integer.parseInt(bookFinishDate.getText()));
+            p.execute();
+            p.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            alert = new Alert(Alert.AlertType.ERROR, "Niepowodzenie", ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK)
+                alert.close();
+        }
+        onBookTabSelected(null);
+    }
+
+    @FXML
+    void onDeleteEditionButtonPressed(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Usuniesz także wszystkie kopie " +
+                " i wypożyczenia (także te nie oddane)", ButtonType.OK, ButtonType.CANCEL);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK)
+            alert.close();
+        else
+            return;
+        try {
+            PreparedStatement p = dbConnection.prepareStatement("DELETE FROM INF122446.L_WYDANIA" +
+                    " WHERE ISBN = ?");
+            p.setString(1, editionIsbn.getText());
+            p.execute();
+            p.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            alert = new Alert(Alert.AlertType.ERROR, "Niepowodzenie", ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK)
+                alert.close();
+        }
+        onBookTabSelected(null);
+    }
+
+    @FXML
+    void onDeleteCopyButtonPressed(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Usuniesz także wszystkie materiały dodatkowe " +
+                " i wypożyczenia (także te nie oddane)", ButtonType.OK, ButtonType.CANCEL);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK)
+            alert.close();
+        else
+            return;
+        try {
+            PreparedStatement p = dbConnection.prepareStatement("DELETE FROM INF122446.L_KOPIE" +
+                    " WHERE SYGNATURA = ?");
+            p.setString(1, copySignature.getText());
+            p.execute();
+            p.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            alert = new Alert(Alert.AlertType.ERROR, "Niepowodzenie", ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK)
+                alert.close();
+        }
+        onBookTabSelected(null);
+    }
+
     /*
     ====================================================================================================================
     Initialiser
@@ -2430,7 +2771,7 @@ public class AppController extends FxController {
         postSalary.setTextFormatter(new TextFormatter<Integer>(change ->
                 change.getControlNewText().matches("\\d*(,\\d{0,2})?") ? change : null));
         readerPESEL.setTextFormatter(new TextFormatter<Integer>(change ->
-                change.getControlNewText().matches("\\d*") ? change : null));
+                change.getControlNewText().matches("\\d}") ? change : null));
         editionIsbn.setTextFormatter(new TextFormatter<Integer>(change ->
                 change.getControlNewText().matches("\\d{0,13}") ? change : null));
         editionNumber.setTextFormatter(new TextFormatter<Integer>(change ->

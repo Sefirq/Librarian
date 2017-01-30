@@ -8,6 +8,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -16,6 +17,7 @@
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
 <TabPane fx:id="tabs" stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
     <tabs>
@@ -34,7 +36,6 @@
                                             </HBox.margin>
                                         </Button>
                               <CheckBox fx:id="editLibraryToggle" mnemonicParsing="false" onAction="#onEditLibraryToggled" prefHeight="20.0" prefWidth="96.0" stylesheets="@materialfx-toggleswitch.css" text="Edytuj" />
-                              <Button fx:id="deletePositionFromLibraryTreeButton" mnemonicParsing="false" onAction="#onDeletePositionFromLibraryTreeButtonPressed" text="Usuń" />
                                     </children>
                                     <padding>
                                         <Insets bottom="16.0" top="16.0" />
@@ -94,6 +95,7 @@
                                         </Button>
                                     </children>
                                 </HBox>
+                        <Button mnemonicParsing="false" onAction="#onDeleteLibraryButtonPressed" text="Usuń" />
                             </children>
                             <padding>
                                 <Insets left="16.0" right="16.0" />
@@ -115,6 +117,20 @@
                                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                                     </VBox.margin>
                                 </Button>
+                        <Button mnemonicParsing="false" onAction="#onDeleteBranchButtonPressed" text="Usuń" />
+                        <Separator prefWidth="200.0" />
+                        <Text fx:id="borrowdBookNumber" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Separator prefWidth="200.0" />
+                        <Button mnemonicParsing="false" onAction="#onMoveBooksButtonPressed" text="Przenieś wszystkie książki do innej filii">
+                           <VBox.margin>
+                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="moveBooksHereButton" mnemonicParsing="false" onAction="#onMoveHereButtonPressed" text="Przenieś tutaj">
+                           <VBox.margin>
+                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                           </VBox.margin>
+                        </Button>
                             </children>
                         </VBox>
                     </children>
@@ -173,6 +189,7 @@
                                         </Button>
                                     </children>
                                 </HBox>
+                        <Button mnemonicParsing="false" onAction="#onDeleteLibrarianButtonPressed" text="Usuń" />
                             </children>
                             <padding>
                                 <Insets left="16.0" right="16.0" />
@@ -201,6 +218,7 @@
                                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                                     </VBox.margin>
                                 </Button>
+                        <Button mnemonicParsing="false" onAction="#onDeletePostButtonPressed" text="Usuń" />
                             </children>
                             <padding>
                                 <Insets left="16.0" right="16.0" />
@@ -280,6 +298,7 @@
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                            </VBox.margin>
                         </Button>
+                        <Button mnemonicParsing="false" onAction="#onDeleteReaderButtonPressed" text="Usuń" />
                      </children>
                   </VBox>
                   <VBox fx:id="readerBorrowBox" alignment="CENTER">
@@ -297,11 +316,11 @@
                               <TableColumn fx:id="readerBorrowLibrarian" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Bibliotekarz" />
                           </columns>
                         </TableView>
-                        <Button mnemonicParsing="false" onAction="#onReturnReaderBorrowButtonPressed" text="Oddaj zaznaczoną książkę">
+                        <!--<Button mnemonicParsing="false" onAction="#onReturnReaderBorrowButtonPressed" text="Oddaj zaznaczoną książkę">
                            <VBox.margin>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                            </VBox.margin>
-                        </Button>
+                        </Button>-->
                      </children>
                      <HBox.margin>
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
@@ -386,6 +405,7 @@
                               </Button>
                            </children>
                         </HBox>
+                        <Button mnemonicParsing="false" onAction="#onDeleteBookButtonPressed" text="Usuń" />
                      </children>
                      <HBox.margin>
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
@@ -453,6 +473,7 @@
                               </Button>
                            </children>
                         </HBox>
+                        <Button mnemonicParsing="false" onAction="#onDeleteEditionButtonPressed" text="Usuń" />
                      </children>
                      <HBox.margin>
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
@@ -486,7 +507,15 @@
                               </Button>
                            </children>
                         </HBox>
-                        <Button fx:id="saveCopyButton" mnemonicParsing="false" onAction="#onSaveCopyButtonPressed" text="Zapisz" />
+                        <Button fx:id="saveCopyButton" mnemonicParsing="false" onAction="#onSaveCopyButtonPressed" text="Zapisz">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin></Button>
+                        <Button mnemonicParsing="false" onAction="#onDeleteCopyButtonPressed" text="Usuń">
+                           <VBox.margin>
+                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                           </VBox.margin>
+                        </Button>
                      </children>
                      <HBox.margin>
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

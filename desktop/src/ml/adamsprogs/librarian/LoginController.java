@@ -81,7 +81,13 @@ public class LoginController extends FxController {
                 branch.setDisable(false);
                 enterButton.setDisable(false);
 
-                populateBranches();
+                if (!populateBranches()) {
+                    currentLibrarian = 0;
+                    currentBranch = "0:0";
+                    logger.log(Level.INFO, "Entered as " + currentLibrarian + " but no libraries are available");
+
+                    setScene("ui/app.fxml", "Librarian");
+                }
 
                 login.setDisable(true);
                 password.setDisable(true);
@@ -94,7 +100,7 @@ public class LoginController extends FxController {
             }
 
         } catch (SQLException e) {
-            if(e.getMessage().split(":")[0].equals("ORA-01017"))
+            if (e.getMessage().split(":")[0].equals("ORA-01017"))
                 errorText.setText("Błędna nazwa użytkownika lub hasło");
             else
                 errorText.setText(e.getMessage());
@@ -102,7 +108,7 @@ public class LoginController extends FxController {
         }
     }
 
-    private void populateBranches() throws SQLException {
+    private boolean populateBranches() throws SQLException {
         Statement statement = dbConnection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT NAZWA, NUMER, '(' || L_FILIE.ADRES || ')'" +
                 "AS ADRES_FILII FROM INF122446.L_FILIE JOIN INF122446.L_BIBLIOTEKI ON(INF122446.L_FILIE.BIBLIOTEKI_ID = ID)" +
@@ -114,7 +120,10 @@ public class LoginController extends FxController {
             items.add(resultSet.getString("Nazwa") + ", filia nr " + resultSet.getInt("Numer") + " " +
                     resultSet.getString("Adres_Filii"));
         }
+        if(items.isEmpty())
+            return false;
         branch.setItems(items);
+        return true;
     }
 
     @FXML
