@@ -20,12 +20,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<TabPane fx:id="tabs" maxHeight="720.0" maxWidth="1024.0" stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
+<TabPane fx:id="tabs" stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
     <tabs>
         <Tab fx:id="branchTab" onSelectionChanged="#onBranchTabSelected" text="Filie">
             <content>
-            <ScrollPane maxHeight="720.0" maxWidth="1024.0">
+            <ScrollPane>
                <content>
                       <HBox alignment="CENTER">
                           <children>
@@ -234,6 +233,11 @@
                               </VBox>
                         <VBox fx:id="librarianLendBox" alignment="CENTER">
                            <children>
+                              <Label text="Wypożyczenia">
+                                 <VBox.margin>
+                                    <Insets bottom="32.0" />
+                                 </VBox.margin>
+                              </Label>
                                     <TableView fx:id="librarianLends">
                                         <columns>
                                             <TableColumn fx:id="librarianLendTitle" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Tytuł" />
@@ -315,6 +319,11 @@
                         </VBox>
                         <VBox fx:id="readerBorrowBox" alignment="CENTER">
                            <children>
+                              <Label text="Wypożyczenia">
+                                 <VBox.margin>
+                                    <Insets bottom="32.0" />
+                                 </VBox.margin>
+                              </Label>
                               <TableView fx:id="readerBorrowsTable">
                                 <columns>
                                   <TableColumn fx:id="readerBorrowTitle" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Tytuł" />
@@ -541,6 +550,11 @@
                         </VBox>
                         <VBox fx:id="bookBorrowBox" alignment="CENTER">
                            <children>
+                              <Label text="Wypożyczenia">
+                                 <VBox.margin>
+                                    <Insets bottom="64.0" />
+                                 </VBox.margin>
+                              </Label>
                               <TextField fx:id="bookBorrowTableSearchBar" promptText="Szukaj">
                                  <VBox.margin>
                                     <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

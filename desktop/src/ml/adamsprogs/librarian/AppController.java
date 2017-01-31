@@ -548,7 +548,7 @@ public class AppController extends FxController {
                 libraryBox.setVisible(true);
                 branchBox.setVisible(true);
 
-                CallableStatement ps = dbConnection.prepareCall("{? = call ile_wypozyczonych(?, ?)}");
+                CallableStatement ps = dbConnection.prepareCall("{? = call inf122446.ile_wypozyczonych(?, ?)}");
                 ps.setInt(2, libraryID);
                 ps.setInt(3, branchNumber);
                 ps.registerOutParameter(1, Types.INTEGER);
@@ -892,7 +892,7 @@ public class AppController extends FxController {
             libTo = subResult.getInt("ID");
             subResult.close();
             statement.close();
-            CallableStatement call = dbConnection.prepareCall("{call przenies_ksiazki(?, ?, ?, ?)}");
+            CallableStatement call = dbConnection.prepareCall("{call INF122446.przenies_ksiazki(?, ?, ?, ?)}");
             call.setInt(1, libFrom);
             call.setInt(2, branchFrom);
             call.setInt(3, libTo);
@@ -1814,6 +1814,11 @@ public class AppController extends FxController {
     private void onBookTreeItemSelected(TreeItem<String> selectedItem) {
         if (selectedItem == null || selectedItem.getValue() == null || selectedItem.getValue().charAt(0) == '*')
             return;
+
+        if (currentLibrarian == 0 || currentBranch.equals("0:0"))
+            bookEditToggle.setDisable(true);
+        else
+            bookEditToggle.setDisable(false);
 
         String label = selectedItem.getValue();
         int bookId = -1;

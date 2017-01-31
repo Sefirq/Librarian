@@ -23,6 +23,16 @@ public class ReaderPickerController extends FxController {
     private Preferences preferences;
 
     @FXML
+    void onCancelButtonPressed(ActionEvent event){
+        preferences.put("error", "OK");
+
+        String previousScreenPath = preferences.get("callerScreenPath", "");
+        String previousScreenTitle = preferences.get("callerScreenTitle", "");
+
+        setScene(previousScreenPath, previousScreenTitle);
+    }
+
+    @FXML
     void onChooseReaderButtonPressed(ActionEvent actionEvent) {
         String selectedItem = readerList.getSelectionModel().getSelectedItem();
         String pesel = selectedItem.split("\\(")[1].split("\\)")[0];

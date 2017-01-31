@@ -15,6 +15,7 @@
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </VBox.margin>
       </Button>
+      <Button mnemonicParsing="false" onAction="#onCancelButtonPressed" text="Anuluj" />
    </children>
    <padding>
       <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

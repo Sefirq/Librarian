@@ -74,6 +74,11 @@ public class PickerController extends FxController {
     }
 
     @FXML
+    void onCancelButtonPressed(ActionEvent event){
+        returnToPreviousScreen("OK");
+    }
+
+    @FXML
     void onBackButtonPressed(ActionEvent event) {
         returnToPreviousScreen("OK");
     }

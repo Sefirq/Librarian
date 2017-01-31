@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
@@ -22,6 +21,11 @@
             </Button>
             <TextField fx:id="searchBar" text="Szukaj" />
             <ListView fx:id="pickerList" />
+            <Button mnemonicParsing="false" onAction="#onCancelButtonPressed" text="Anuluj">
+               <VBox.margin>
+                  <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+               </VBox.margin>
+            </Button>
          </children>
          <HBox.margin>
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
