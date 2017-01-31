@@ -8,6 +8,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -19,542 +20,563 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<TabPane fx:id="tabs" stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
+
+<TabPane fx:id="tabs" maxHeight="720.0" maxWidth="1024.0" stylesheets="@materialfx-without-checkbox.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ml.adamsprogs.librarian.AppController">
     <tabs>
         <Tab fx:id="branchTab" onSelectionChanged="#onBranchTabSelected" text="Filie">
             <content>
-                <HBox alignment="CENTER">
-                    <children>
-                        <VBox alignment="CENTER">
-                            <children>
-                        <TextField fx:id="searchLibrariesBar" promptText="Szukaj" />
-                                <HBox alignment="CENTER">
-                                    <children>
-                                        <Button fx:id="addLibraryButton" mnemonicParsing="false" onAction="#onAddLibraryButtonPressed" text="Dodaj">
-                                            <HBox.margin>
-                                                <Insets right="16.0" />
-                                            </HBox.margin>
-                                        </Button>
-                              <CheckBox fx:id="editLibraryToggle" mnemonicParsing="false" onAction="#onEditLibraryToggled" prefHeight="20.0" prefWidth="96.0" stylesheets="@materialfx-toggleswitch.css" text="Edytuj" />
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="16.0" top="16.0" />
-                                    </padding>
-                                </HBox>
-                                <TreeView fx:id="libraryTree">
-                                    <VBox.margin>
-                                        <Insets bottom="16.0" />
-                                    </VBox.margin>
-                                </TreeView>
-                            </children>
-                            <padding>
-                                <Insets left="16.0" right="16.0" />
-                            </padding>
-                        </VBox>
-                        <VBox fx:id="libraryBox" alignment="CENTER">
-                            <children>
-                                <Label text="Nazwa" />
-                                <TextField fx:id="libraryName" />
-                                <Label text="Data założenia" />
-                                <DatePicker fx:id="libraryFoundDate" />
-                                <Label text="Typ" />
-                                <TextField fx:id="libraryType" />
-                                <Label text="Adres biura" />
-                                <TextField fx:id="libraryAddress" />
-                                <Label text="Dyrektor" />
-                                <HBox alignment="CENTER">
-                                    <children>
-                                        <TextField fx:id="libraryBossForename">
-                                            <HBox.margin>
-                                                <Insets right="16.0" />
-                                            </HBox.margin>
-                                        </TextField>
-                                        <TextField fx:id="libraryBossSurname">
-                                            <HBox.margin>
-                                                <Insets left="16.0" />
-                                            </HBox.margin>
-                                        </TextField>
-                                    </children>
-                                </HBox>
-                                <Label text="Strona www" />
-                                <TextField fx:id="libraryWebsite" />
-                                <HBox alignment="CENTER">
-                                    <VBox.margin>
-                                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                    </VBox.margin>
-                                    <children>
-                                        <Button fx:id="saveLibraryButton" mnemonicParsing="false" onAction="#onSaveLibraryButtonPressed" text="Zapisz">
-                                            <HBox.margin>
-                                                <Insets right="16.0" />
-                                            </HBox.margin>
-                                        </Button>
-                                        <Button fx:id="addBranchButton" mnemonicParsing="false" onAction="#onAddBranchButtonPressed" text="Dodaj Filię">
-                                            <HBox.margin>
-                                                <Insets left="16.0" />
-                                            </HBox.margin>
-                                        </Button>
-                                    </children>
-                                </HBox>
-                        <Button mnemonicParsing="false" onAction="#onDeleteLibraryButtonPressed" text="Usuń" />
-                            </children>
-                            <padding>
-                                <Insets left="16.0" right="16.0" />
-                            </padding>
-                        </VBox>
-                        <VBox fx:id="branchBox" alignment="CENTER">
-                            <padding>
-                                <Insets left="16.0" right="16.0" />
-                            </padding>
-                            <children>
-                                <Label text="Numer" />
-                                <TextField fx:id="branchNumber" />
-                                <Label text="Adres" />
-                                <TextField fx:id="branchAddress" />
-                                <Label text="Typ" />
-                                <TextField fx:id="branchType" />
-                                <Button fx:id="saveBranchButton" mnemonicParsing="false" onAction="#onSaveBranchButtonPressed" text="Zapisz">
-                                    <VBox.margin>
-                                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                    </VBox.margin>
-                                </Button>
-                        <Button mnemonicParsing="false" onAction="#onDeleteBranchButtonPressed" text="Usuń" />
-                        <Separator prefWidth="200.0" />
-                        <Text fx:id="borrowdBookNumber" strokeType="OUTSIDE" strokeWidth="0.0" />
-                        <Separator prefWidth="200.0" />
-                        <Button mnemonicParsing="false" onAction="#onMoveBooksButtonPressed" text="Przenieś wszystkie książki do innej filii">
-                           <VBox.margin>
-                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="moveBooksHereButton" mnemonicParsing="false" onAction="#onMoveHereButtonPressed" text="Przenieś tutaj">
-                           <VBox.margin>
-                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                           </VBox.margin>
-                        </Button>
-                            </children>
-                        </VBox>
-                    </children>
-                </HBox>
+            <ScrollPane maxHeight="720.0" maxWidth="1024.0">
+               <content>
+                      <HBox alignment="CENTER">
+                          <children>
+                              <VBox alignment="CENTER">
+                                  <children>
+                              <TextField fx:id="searchLibrariesBar" promptText="Szukaj" />
+                                      <HBox alignment="CENTER">
+                                          <children>
+                                              <Button fx:id="addLibraryButton" mnemonicParsing="false" onAction="#onAddLibraryButtonPressed" text="Dodaj">
+                                                  <HBox.margin>
+                                                      <Insets right="16.0" />
+                                                  </HBox.margin>
+                                              </Button>
+                                    <CheckBox fx:id="editLibraryToggle" mnemonicParsing="false" onAction="#onEditLibraryToggled" prefHeight="20.0" prefWidth="96.0" stylesheets="@materialfx-toggleswitch.css" text="Edytuj" />
+                                          </children>
+                                          <padding>
+                                              <Insets bottom="16.0" top="16.0" />
+                                          </padding>
+                                      </HBox>
+                                      <TreeView fx:id="libraryTree">
+                                          <VBox.margin>
+                                              <Insets bottom="16.0" />
+                                          </VBox.margin>
+                                      </TreeView>
+                                  </children>
+                                  <padding>
+                                      <Insets left="16.0" right="16.0" />
+                                  </padding>
+                              </VBox>
+                              <VBox fx:id="libraryBox" alignment="CENTER">
+                                  <children>
+                                      <Label text="Nazwa" />
+                                      <TextField fx:id="libraryName" />
+                                      <Label text="Data założenia" />
+                                      <DatePicker fx:id="libraryFoundDate" />
+                                      <Label text="Typ" />
+                                      <TextField fx:id="libraryType" />
+                                      <Label text="Adres biura" />
+                                      <TextField fx:id="libraryAddress" />
+                                      <Label text="Dyrektor" />
+                                      <HBox alignment="CENTER">
+                                          <children>
+                                              <TextField fx:id="libraryBossForename">
+                                                  <HBox.margin>
+                                                      <Insets right="16.0" />
+                                                  </HBox.margin>
+                                              </TextField>
+                                              <TextField fx:id="libraryBossSurname">
+                                                  <HBox.margin>
+                                                      <Insets left="16.0" />
+                                                  </HBox.margin>
+                                              </TextField>
+                                          </children>
+                                      </HBox>
+                                      <Label text="Strona www" />
+                                      <TextField fx:id="libraryWebsite" />
+                                      <HBox alignment="CENTER">
+                                          <VBox.margin>
+                                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                          </VBox.margin>
+                                          <children>
+                                              <Button fx:id="saveLibraryButton" mnemonicParsing="false" onAction="#onSaveLibraryButtonPressed" text="Zapisz">
+                                                  <HBox.margin>
+                                                      <Insets right="16.0" />
+                                                  </HBox.margin>
+                                              </Button>
+                                              <Button fx:id="addBranchButton" mnemonicParsing="false" onAction="#onAddBranchButtonPressed" text="Dodaj Filię">
+                                                  <HBox.margin>
+                                                      <Insets left="16.0" />
+                                                  </HBox.margin>
+                                              </Button>
+                                          </children>
+                                      </HBox>
+                              <Button mnemonicParsing="false" onAction="#onDeleteLibraryButtonPressed" text="Usuń" />
+                                  </children>
+                                  <padding>
+                                      <Insets left="16.0" right="16.0" />
+                                  </padding>
+                              </VBox>
+                              <VBox fx:id="branchBox" alignment="CENTER">
+                                  <padding>
+                                      <Insets left="16.0" right="16.0" />
+                                  </padding>
+                                  <children>
+                                      <Label text="Numer" />
+                                      <TextField fx:id="branchNumber" />
+                                      <Label text="Adres" />
+                                      <TextField fx:id="branchAddress" />
+                                      <Label text="Typ" />
+                                      <TextField fx:id="branchType" />
+                                      <Button fx:id="saveBranchButton" mnemonicParsing="false" onAction="#onSaveBranchButtonPressed" text="Zapisz">
+                                          <VBox.margin>
+                                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                          </VBox.margin>
+                                      </Button>
+                              <Button mnemonicParsing="false" onAction="#onDeleteBranchButtonPressed" text="Usuń" />
+                              <Separator prefWidth="200.0" />
+                              <Text fx:id="borrowdBookNumber" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Separator prefWidth="200.0" />
+                              <Button mnemonicParsing="false" onAction="#onMoveBooksButtonPressed" text="Przenieś wszystkie książki do innej filii">
+                                 <VBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="moveBooksHereButton" mnemonicParsing="false" onAction="#onMoveHereButtonPressed" text="Przenieś tutaj">
+                                 <VBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </VBox.margin>
+                              </Button>
+                                  </children>
+                              </VBox>
+                          </children>
+                      </HBox>
+               </content>
+            </ScrollPane>
             </content>
         </Tab>
         <Tab fx:id="librarianTab" onSelectionChanged="#onLibrarianTabSelected" text="Bibliotekarze">
             <content>
-                <HBox alignment="CENTER">
-                    <children>
-                        <VBox alignment="CENTER">
-                            <children>
-                        <TextField fx:id="searchLibrarianBar" promptText="Szukaj" />
-                                <HBox alignment="CENTER">
-                                    <children>
-                                        <Button fx:id="addLibrarianButton" mnemonicParsing="false" onAction="#onAddLibrarianButtonPressed" text="Dodaj">
-                                            <HBox.margin>
-                                                <Insets right="16.0" />
-                                            </HBox.margin>
-                                        </Button>
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="16.0" top="16.0" />
-                                    </padding>
-                                </HBox>
-                                <TreeView fx:id="librarianTree">
-                                    <VBox.margin>
-                                        <Insets />
-                                    </VBox.margin>
-                                </TreeView>
-                            </children>
-                            <padding>
-                                <Insets left="16.0" right="16.0" />
-                            </padding>
-                        </VBox>
-                        <VBox fx:id="librarianBox" alignment="CENTER">
-                            <children>
-                                <Label text="Imię" />
-                                <TextField fx:id="librarianForename" />
-                                <Label text="Nazwisko" />
-                                <TextField fx:id="librarianSurname" />
-                                <HBox alignment="CENTER">
-                                    <VBox.margin>
-                                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                    </VBox.margin>
-                                    <children>
-                                        <Button fx:id="saveLibrarianButton" mnemonicParsing="false" onAction="#onSaveLibrarianButtonPressed" text="Zapisz">
-                                            <HBox.margin>
+            <ScrollPane>
+               <content>
+                      <HBox alignment="CENTER">
+                          <children>
+                              <VBox alignment="CENTER">
+                                  <children>
+                              <TextField fx:id="searchLibrarianBar" promptText="Szukaj" />
+                                      <HBox alignment="CENTER">
+                                          <children>
+                                              <Button fx:id="addLibrarianButton" mnemonicParsing="false" onAction="#onAddLibrarianButtonPressed" text="Dodaj">
+                                                  <HBox.margin>
+                                                      <Insets right="16.0" />
+                                                  </HBox.margin>
+                                              </Button>
+                                          </children>
+                                          <padding>
+                                              <Insets bottom="16.0" top="16.0" />
+                                          </padding>
+                                      </HBox>
+                                      <TreeView fx:id="librarianTree">
+                                          <VBox.margin>
+                                              <Insets />
+                                          </VBox.margin>
+                                      </TreeView>
+                                  </children>
+                                  <padding>
+                                      <Insets left="16.0" right="16.0" />
+                                  </padding>
+                              </VBox>
+                              <VBox fx:id="librarianBox" alignment="CENTER">
+                                  <children>
+                                      <Label text="Imię" />
+                                      <TextField fx:id="librarianForename" />
+                                      <Label text="Nazwisko" />
+                                      <TextField fx:id="librarianSurname" />
+                                      <HBox alignment="CENTER">
+                                          <VBox.margin>
+                                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                          </VBox.margin>
+                                          <children>
+                                              <Button fx:id="saveLibrarianButton" mnemonicParsing="false" onAction="#onSaveLibrarianButtonPressed" text="Zapisz">
+                                                  <HBox.margin>
+                                                      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                                  </HBox.margin>
+                                              </Button>
+                                              <Button fx:id="addPostButton" mnemonicParsing="false" onAction="#onAddPostButtonPressed" text="Dodaj etat">
+                                                  <HBox.margin>
+                                                      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                                  </HBox.margin>
+                                              </Button>
+                                          </children>
+                                      </HBox>
+                              <Button mnemonicParsing="false" onAction="#onDeleteLibrarianButtonPressed" text="Usuń" />
+                                  </children>
+                                  <padding>
+                                      <Insets left="16.0" right="16.0" />
+                                  </padding>
+                              </VBox>
+                              <VBox fx:id="postBox" alignment="CENTER">
+                                  <children>
+                                      <Label text="Część etatu" />
+                                      <TextField fx:id="postFraction" />
+                                      <Label text="Pensja" />
+                                      <TextField fx:id="postSalary" />
+                              <ChoiceBox fx:id="postLibraryChoiceBox" prefWidth="150.0" />
+                              <ChoiceBox fx:id="postBranchChoiceBox" prefWidth="150.0" />
+                              <Button fx:id="previousPostButton" mnemonicParsing="false" onAction="#onPreviousPostButtonPressed" text="Poprzedni etat">
+                                 <VBox.margin>
+                                    <Insets bottom="8.0" left="16.0" right="16.0" top="16.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="nextPostButton" mnemonicParsing="false" onAction="#onNextPostButtonPressed" text="Następny etat">
+                                 <VBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="8.0" />
+                                 </VBox.margin>
+                              </Button>
+                                      <Button fx:id="savePostButton" mnemonicParsing="false" onAction="#onSavePostButtonPressed" text="Zapisz">
+                                          <VBox.margin>
+                                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                          </VBox.margin>
+                                      </Button>
+                              <Button mnemonicParsing="false" onAction="#onDeletePostButtonPressed" text="Usuń" />
+                                  </children>
+                                  <padding>
+                                      <Insets left="16.0" right="16.0" />
+                                  </padding>
+                              </VBox>
+                        <VBox fx:id="librarianLendBox" alignment="CENTER">
+                           <children>
+                                    <TableView fx:id="librarianLends">
+                                        <columns>
+                                            <TableColumn fx:id="librarianLendTitle" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Tytuł" />
+                                            <TableColumn fx:id="librarianLendAuthor" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Autor" />
+                                            <TableColumn fx:id="librarianLendReader" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Czytelnik" />
+                                            <TableColumn fx:id="librarianLendSince" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Od" />
+                                            <TableColumn fx:id="librarianLendTill" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Do" />
+                                            <TableColumn fx:id="librarianLendLibrary" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Biblioteka" />
+                                            <TableColumn fx:id="librarianLendBranch" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Filia" />
+                                            <TableColumn fx:id="librarianLendSignature" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Sygnatura" />
+                                    <TableColumn fx:id="librarianLendISBN" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="ISBN" />
+                                        </columns>
+                                    </TableView>
+                              <!--<Button mnemonicParsing="false" onAction="#onReturnLibrarianLendButtonPressed" text="Oddaj zaznaczoną książkę">
+                                 <VBox.margin>
                                                 <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                            </HBox.margin>
-                                        </Button>
-                                        <Button fx:id="addPostButton" mnemonicParsing="false" onAction="#onAddPostButtonPressed" text="Dodaj etat">
-                                            <HBox.margin>
-                                                <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                            </HBox.margin>
-                                        </Button>
-                                    </children>
-                                </HBox>
-                        <Button mnemonicParsing="false" onAction="#onDeleteLibrarianButtonPressed" text="Usuń" />
-                            </children>
-                            <padding>
-                                <Insets left="16.0" right="16.0" />
-                            </padding>
-                        </VBox>
-                        <VBox fx:id="postBox" alignment="CENTER">
-                            <children>
-                                <Label text="Część etatu" />
-                                <TextField fx:id="postFraction" />
-                                <Label text="Pensja" />
-                                <TextField fx:id="postSalary" />
-                        <ChoiceBox fx:id="postLibraryChoiceBox" prefWidth="150.0" />
-                        <ChoiceBox fx:id="postBranchChoiceBox" prefWidth="150.0" />
-                        <Button fx:id="previousPostButton" mnemonicParsing="false" onAction="#onPreviousPostButtonPressed" text="Poprzedni etat">
-                           <VBox.margin>
-                              <Insets bottom="8.0" left="16.0" right="16.0" top="16.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="nextPostButton" mnemonicParsing="false" onAction="#onNextPostButtonPressed" text="Następny etat">
-                           <VBox.margin>
-                              <Insets bottom="16.0" left="16.0" right="16.0" top="8.0" />
-                           </VBox.margin>
-                        </Button>
-                                <Button fx:id="savePostButton" mnemonicParsing="false" onAction="#onSavePostButtonPressed" text="Zapisz">
-                                    <VBox.margin>
-                                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                    </VBox.margin>
-                                </Button>
-                        <Button mnemonicParsing="false" onAction="#onDeletePostButtonPressed" text="Usuń" />
-                            </children>
-                            <padding>
-                                <Insets left="16.0" right="16.0" />
-                            </padding>
-                        </VBox>
-                  <VBox fx:id="librarianLendBox" alignment="CENTER">
-                     <children>
-                              <TableView fx:id="librarianLends">
-                                  <columns>
-                                      <TableColumn fx:id="librarianLendTitle" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Tytuł" />
-                                      <TableColumn fx:id="librarianLendAuthor" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Autor" />
-                                      <TableColumn fx:id="librarianLendReader" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Czytelnik" />
-                                      <TableColumn fx:id="librarianLendSince" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Od" />
-                                      <TableColumn fx:id="librarianLendTill" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Do" />
-                                      <TableColumn fx:id="librarianLendLibrary" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Biblioteka" />
-                                      <TableColumn fx:id="librarianLendBranch" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Filia" />
-                                      <TableColumn fx:id="librarianLendSignature" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Sygnatura" />
-                              <TableColumn fx:id="librarianLendISBN" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="ISBN" />
-                                  </columns>
-                              </TableView>
-                        <!--<Button mnemonicParsing="false" onAction="#onReturnLibrarianLendButtonPressed" text="Oddaj zaznaczoną książkę">
-                           <VBox.margin>
+                                             </VBox.margin>
+                                          </Button>-->
+                           </children>
+                           <HBox.margin>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                           </VBox.margin>
-                        </Button>-->
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </HBox.margin>
-                  </VBox>
-                    </children>
-                </HBox>
+                           </HBox.margin>
+                        </VBox>
+                          </children>
+                      </HBox>
+               </content>
+            </ScrollPane>
             </content>
         </Tab>
         <Tab fx:id="readerTab" onSelectionChanged="#onReaderTabSelected" text="Czytelnicy">
          <content>
-            <HBox alignment="CENTER">
-               <children>
-                  <VBox alignment="CENTER">
+            <ScrollPane>
+               <content>
+                  <HBox alignment="CENTER">
                      <children>
-                        <TextField fx:id="searchBar" promptText="Szukaj" />
-                        <HBox alignment="CENTER" prefHeight="36.0" prefWidth="281.0">
+                        <VBox alignment="CENTER">
                            <children>
-                              <Button fx:id="addReaderButton" mnemonicParsing="false" onAction="#onAddReaderButtonPressed" text="Dodaj">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <CheckBox fx:id="editReaderToggle" mnemonicParsing="false" onAction="#onEditReaderToggled" prefHeight="34.0" prefWidth="106.0" stylesheets="@materialfx-toggleswitch.css" text="Edytuj" />
+                              <TextField fx:id="searchBar" promptText="Szukaj" />
+                              <HBox alignment="CENTER" prefHeight="36.0" prefWidth="281.0">
+                                 <children>
+                                    <Button fx:id="addReaderButton" mnemonicParsing="false" onAction="#onAddReaderButtonPressed" text="Dodaj">
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <CheckBox fx:id="editReaderToggle" mnemonicParsing="false" onAction="#onEditReaderToggled" prefHeight="34.0" prefWidth="106.0" stylesheets="@materialfx-toggleswitch.css" text="Edytuj" />
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="readersTable" prefHeight="400.0" prefWidth="342.0">
+                                <columns>
+                                  <TableColumn fx:id="readerForenameColumn" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Imię" />
+                                  <TableColumn fx:id="readerSurnameColumn" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Nazwisko" />
+                                    <TableColumn fx:id="readerPeselColumn" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="PESEL" />
+                                </columns>
+                              </TableView>
                            </children>
-                        </HBox>
-                        <TableView fx:id="readersTable" prefHeight="400.0" prefWidth="342.0">
-                          <columns>
-                            <TableColumn fx:id="readerForenameColumn" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Imię" />
-                            <TableColumn fx:id="readerSurnameColumn" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Nazwisko" />
-                              <TableColumn fx:id="readerPeselColumn" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="PESEL" />
-                          </columns>
-                        </TableView>
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox fx:id="readerBox" alignment="CENTER">
-                     <HBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </HBox.margin>
-                     <children>
-                        <Label text="PESEL" />
-                        <TextField fx:id="readerPESEL" />
-                        <Label text="Imię" />
-                        <TextField fx:id="readerForename" />
-                        <Label text="Nazwisko" />
-                        <TextField fx:id="readerSurname" />
-                        <Button fx:id="saveReaderButton" mnemonicParsing="false" onAction="#onSaveReaderButtonPressed" text="Zapisz">
-                           <VBox.margin>
+                           <HBox.margin>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#onDeleteReaderButtonPressed" text="Usuń" />
-                     </children>
-                  </VBox>
-                  <VBox fx:id="readerBorrowBox" alignment="CENTER">
-                     <children>
-                        <TableView fx:id="readerBorrowsTable">
-                          <columns>
-                            <TableColumn fx:id="readerBorrowTitle" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Tytuł" />
-                            <TableColumn fx:id="readerBorrowAuthor" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Autor" />
-                              <TableColumn fx:id="readerBorrowSince" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Od" />
-                              <TableColumn fx:id="readerBorrowTill" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Do" />
-                              <TableColumn fx:id="readerBorrowLibrary" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Biblioteka" />
-                              <TableColumn fx:id="readerBorrowBranch" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Filia" />
-                              <TableColumn fx:id="readerBorrowSignature" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Sygnatura" />
-                              <TableColumn fx:id="readerBorrowISBN" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="ISBN" />
-                              <TableColumn fx:id="readerBorrowLibrarian" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Bibliotekarz" />
-                          </columns>
-                        </TableView>
-                        <!--<Button mnemonicParsing="false" onAction="#onReturnReaderBorrowButtonPressed" text="Oddaj zaznaczoną książkę">
-                           <VBox.margin>
+                           </HBox.margin>
+                        </VBox>
+                        <VBox fx:id="readerBox" alignment="CENTER">
+                           <HBox.margin>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                           </VBox.margin>
-                        </Button>-->
+                           </HBox.margin>
+                           <children>
+                              <Label text="PESEL" />
+                              <TextField fx:id="readerPESEL" />
+                              <Label text="Imię" />
+                              <TextField fx:id="readerForename" />
+                              <Label text="Nazwisko" />
+                              <TextField fx:id="readerSurname" />
+                              <Button fx:id="saveReaderButton" mnemonicParsing="false" onAction="#onSaveReaderButtonPressed" text="Zapisz">
+                                 <VBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#onDeleteReaderButtonPressed" text="Usuń" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="readerBorrowBox" alignment="CENTER">
+                           <children>
+                              <TableView fx:id="readerBorrowsTable">
+                                <columns>
+                                  <TableColumn fx:id="readerBorrowTitle" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Tytuł" />
+                                  <TableColumn fx:id="readerBorrowAuthor" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Autor" />
+                                    <TableColumn fx:id="readerBorrowSince" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Od" />
+                                    <TableColumn fx:id="readerBorrowTill" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Do" />
+                                    <TableColumn fx:id="readerBorrowLibrary" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Biblioteka" />
+                                    <TableColumn fx:id="readerBorrowBranch" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Filia" />
+                                    <TableColumn fx:id="readerBorrowSignature" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Sygnatura" />
+                                    <TableColumn fx:id="readerBorrowISBN" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="ISBN" />
+                                    <TableColumn fx:id="readerBorrowLibrarian" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Bibliotekarz" />
+                                </columns>
+                              </TableView>
+                              <!--<Button mnemonicParsing="false" onAction="#onReturnReaderBorrowButtonPressed" text="Oddaj zaznaczoną książkę">
+                                 <VBox.margin>
+                                                <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                             </VBox.margin>
+                                          </Button>-->
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                           </HBox.margin>
+                        </VBox>
                      </children>
-                     <HBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </HBox.margin>
-                  </VBox>
-               </children>
-            </HBox>
+                  </HBox>
+               </content>
+            </ScrollPane>
          </content>
         </Tab>
         <Tab fx:id="bookTab" onSelectionChanged="#onBookTabSelected" text="Książki">
          <content>
-            <HBox alignment="CENTER">
-               <children>
-                  <VBox alignment="CENTER">
+            <ScrollPane>
+               <content>
+                  <HBox alignment="CENTER">
                      <children>
-                        <CheckBox fx:id="bookEditToggle" mnemonicParsing="false" onAction="#onBookEditToggled" stylesheets="@materialfx-toggleswitch.css" text="Edycja">
-                           <VBox.margin>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <CheckBox fx:id="bookEditToggle" mnemonicParsing="false" onAction="#onBookEditToggled" stylesheets="@materialfx-toggleswitch.css" text="Edycja">
+                                 <VBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <Button mnemonicParsing="false" onAction="#onAddBookButtonPressed" text="Dodaj">
+                                 <VBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <TextField fx:id="bookTreeSearchBar" promptText="Szukaj">
+                                 <VBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TreeView fx:id="bookTree" />
+                           </children>
+                           <HBox.margin>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                           </VBox.margin>
-                        </CheckBox>
-                        <Button mnemonicParsing="false" onAction="#onAddBookButtonPressed" text="Dodaj">
-                           <VBox.margin>
+                           </HBox.margin>
+                        </VBox>
+                        <VBox fx:id="bookBox" alignment="CENTER">
+                           <children>
+                              <Label text="Tytuł" />
+                              <TextField fx:id="bookTitle" />
+                              <Label text="Rok ukończenia" />
+                              <TextField fx:id="bookFinishDate" />
+                              <Label text="Język" />
+                              <TextField fx:id="bookLanguage" />
+                              <Label text="Gatunek" />
+                              <TextField fx:id="bookGenre" />
+                              <Label text="Nurt" />
+                              <TextField fx:id="bookStream" />
+                              <Label text="Autorzy" />
+                              <TableView fx:id="bookAuthorshipTable">
+                                <columns>
+                                  <TableColumn fx:id="authorshipForenameColumn" editable="false" maxWidth="1024" minWidth="60" prefWidth="60" text="Imię" />
+                                  <TableColumn fx:id="authorshipSurnameColumn" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Nazwisko" />
+                                    <TableColumn fx:id="authorshipNationalityColumn" editable="false" maxWidth="1024" minWidth="140" prefWidth="140" text="Narodowość" />
+                                </columns>
+                              </TableView>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#onAddBookAuthorButtonPressed" text="Dodaj">
+                                       <HBox.margin>
+                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#onRemoveBookAuthorButtonPressed" text="Usuń">
+                                       <HBox.margin>
+                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <Button fx:id="saveBookButton" mnemonicParsing="false" onAction="#onSaveBookButtonPressed" text="Zapisz">
+                                       <HBox.margin>
+                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#onAddEditionButtonPressed" text="Dodaj wydanie">
+                                       <HBox.margin>
+                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <Button mnemonicParsing="false" onAction="#onDeleteBookButtonPressed" text="Usuń" />
+                           </children>
+                           <HBox.margin>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                           </VBox.margin>
-                        </Button>
-                        <TextField fx:id="bookTreeSearchBar" promptText="Szukaj">
-                           <VBox.margin>
+                           </HBox.margin>
+                        </VBox>
+                        <VBox fx:id="editionBox" alignment="CENTER">
+                           <children>
+                              <Label text="ISBN" />
+                              <TextField fx:id="editionIsbn" />
+                              <Label layoutX="10.0" layoutY="10.0" text="Tytuł wydania" />
+                              <TextField fx:id="editionTitle" />
+                              <Label layoutX="10.0" layoutY="28.0" text="Numer wydania" />
+                              <TextField fx:id="editionNumber" />
+                              <Label layoutX="10.0" layoutY="46.0" text="Rok wydania" />
+                              <TextField fx:id="editionReleaseDate" />
+                              <Label layoutX="10.0" layoutY="64.0" text="Język" />
+                              <TextField fx:id="editionLanguage" />
+                              <Label layoutX="10.0" layoutY="100.0" text="Wydawnictwo" />
+                              <HBox>
+                                 <children>
+                                    <ChoiceBox fx:id="editionPublisher" prefWidth="150.0">
+                                       <HBox.margin>
+                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                       </HBox.margin>
+                                    </ChoiceBox>
+                                    <Button mnemonicParsing="false" onAction="#onNewPublisherButtonPressed" text="Nowe">
+                                       <HBox.margin>
+                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <Label layoutX="10.0" layoutY="136.0" text="Tłumacze" />
+                              <TableView fx:id="editionTranslationTable">
+                                <columns>
+                                  <TableColumn fx:id="translationForenameColumn" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Imię" />
+                                  <TableColumn fx:id="translationSurnameColumn" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Nazwisko" />
+                                </columns>
+                              </TableView>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#onAddEditionTranslatorButtonPressed" text="Dodaj">
+                                       <HBox.margin>
+                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#onRemoveEditionTranslatorButtonPressed" text="Usuń">
+                                       <HBox.margin>
+                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <Button fx:id="saveEditionButton" mnemonicParsing="false" onAction="#onSaveEditionButtonPressed" text="Zapisz">
+                                       <HBox.margin>
+                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#onAddCopyButtonPressed" text="Dodaj kopię">
+                                       <HBox.margin>
+                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <Button mnemonicParsing="false" onAction="#onDeleteEditionButtonPressed" text="Usuń" />
+                           </children>
+                           <HBox.margin>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <TreeView fx:id="bookTree" />
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox fx:id="bookBox" alignment="CENTER">
-                     <children>
-                        <Label text="Tytuł" />
-                        <TextField fx:id="bookTitle" />
-                        <Label text="Rok ukończenia" />
-                        <TextField fx:id="bookFinishDate" />
-                        <Label text="Język" />
-                        <TextField fx:id="bookLanguage" />
-                        <Label text="Gatunek" />
-                        <TextField fx:id="bookGenre" />
-                        <Label text="Nurt" />
-                        <TextField fx:id="bookStream" />
-                        <Label text="Autorzy" />
-                        <TableView fx:id="bookAuthorshipTable">
-                          <columns>
-                            <TableColumn fx:id="authorshipForenameColumn" editable="false" maxWidth="1024" minWidth="60" prefWidth="60" text="Imię" />
-                            <TableColumn fx:id="authorshipSurnameColumn" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Nazwisko" />
-                              <TableColumn fx:id="authorshipNationalityColumn" editable="false" maxWidth="1024" minWidth="140" prefWidth="140" text="Narodowość" />
-                          </columns>
-                        </TableView>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           </HBox.margin>
+                        </VBox>
+                        <VBox fx:id="copyBox" alignment="CENTER">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#onAddBookAuthorButtonPressed" text="Dodaj">
-                                 <HBox.margin>
-                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
+                              <Label text="Sygnatura" />
+                              <TextField fx:id="copySignature" />
+                              <Label layoutX="10.0" layoutY="10.0" text="Biblioteka" />
+                              <ChoiceBox fx:id="copyLibrary" prefWidth="150.0" />
+                              <Label layoutX="10.0" layoutY="28.0" text="Filia" />
+                              <ChoiceBox fx:id="copyBranch" prefWidth="150.0" />
+                              <Label layoutX="10.0" layoutY="46.0" text="Materiały dodatkowe" />
+                              <TableView fx:id="copyMaterialTable" editable="true">
+                                <columns>
+                                  <TableColumn fx:id="copyMaterialTypeColumn" maxWidth="1024" minWidth="100" prefWidth="100" text="Typ" />
+                                  <TableColumn fx:id="copyMaterialDescriptionColumn" maxWidth="1024" minWidth="100" prefWidth="100" text="Opis" />
+                                </columns>
+                              </TableView>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#onAddCopyMaterialButtonPressed" text="Nowy">
+                                       <HBox.margin>
+                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#onDeleteCopyMaterialButtonPressed" text="Usuń">
+                                       <HBox.margin>
+                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <Button fx:id="saveCopyButton" mnemonicParsing="false" onAction="#onSaveCopyButtonPressed" text="Zapisz">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#onRemoveBookAuthorButtonPressed" text="Usuń">
-                                 <HBox.margin>
+                              <Button mnemonicParsing="false" onAction="#onDeleteCopyButtonPressed" text="Usuń">
+                                 <VBox.margin>
                                     <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
+                                 </VBox.margin>
                               </Button>
                            </children>
-                        </HBox>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <Button fx:id="saveBookButton" mnemonicParsing="false" onAction="#onSaveBookButtonPressed" text="Zapisz">
-                                 <HBox.margin>
-                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button mnemonicParsing="false" onAction="#onAddEditionButtonPressed" text="Dodaj wydanie">
-                                 <HBox.margin>
-                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <Button mnemonicParsing="false" onAction="#onDeleteBookButtonPressed" text="Usuń" />
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox fx:id="editionBox" alignment="CENTER">
-                     <children>
-                        <Label text="ISBN" />
-                        <TextField fx:id="editionIsbn" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Tytuł wydania" />
-                        <TextField fx:id="editionTitle" />
-                        <Label layoutX="10.0" layoutY="28.0" text="Numer wydania" />
-                        <TextField fx:id="editionNumber" />
-                        <Label layoutX="10.0" layoutY="46.0" text="Rok wydania" />
-                        <TextField fx:id="editionReleaseDate" />
-                        <Label layoutX="10.0" layoutY="64.0" text="Język" />
-                        <TextField fx:id="editionLanguage" />
-                        <Label layoutX="10.0" layoutY="100.0" text="Wydawnictwo" />
-                        <HBox>
-                           <children>
-                              <ChoiceBox fx:id="editionPublisher" prefWidth="150.0">
-                                 <HBox.margin>
-                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
-                              </ChoiceBox>
-                              <Button mnemonicParsing="false" onAction="#onNewPublisherButtonPressed" text="Nowe">
-                                 <HBox.margin>
-                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <Label layoutX="10.0" layoutY="136.0" text="Tłumacze" />
-                        <TableView fx:id="editionTranslationTable">
-                          <columns>
-                            <TableColumn fx:id="translationForenameColumn" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Imię" />
-                            <TableColumn fx:id="translationSurnameColumn" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Nazwisko" />
-                          </columns>
-                        </TableView>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#onAddEditionTranslatorButtonPressed" text="Dodaj">
-                                 <HBox.margin>
-                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button mnemonicParsing="false" onAction="#onRemoveEditionTranslatorButtonPressed" text="Usuń">
-                                 <HBox.margin>
-                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <Button fx:id="saveEditionButton" mnemonicParsing="false" onAction="#onSaveEditionButtonPressed" text="Zapisz">
-                                 <HBox.margin>
-                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button mnemonicParsing="false" onAction="#onAddCopyButtonPressed" text="Dodaj kopię">
-                                 <HBox.margin>
-                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <Button mnemonicParsing="false" onAction="#onDeleteEditionButtonPressed" text="Usuń" />
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </HBox.margin></VBox>
-                  <VBox fx:id="copyBox" alignment="CENTER">
-                     <children>
-                        <Label text="Sygnatura" />
-                        <TextField fx:id="copySignature" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Biblioteka" />
-                        <ChoiceBox fx:id="copyLibrary" prefWidth="150.0" />
-                        <Label layoutX="10.0" layoutY="28.0" text="Filia" />
-                        <ChoiceBox fx:id="copyBranch" prefWidth="150.0" />
-                        <Label layoutX="10.0" layoutY="46.0" text="Materiały dodatkowe" />
-                        <TableView fx:id="copyMaterialTable" editable="true">
-                          <columns>
-                            <TableColumn fx:id="copyMaterialTypeColumn" maxWidth="1024" minWidth="100" prefWidth="100" text="Typ" />
-                            <TableColumn fx:id="copyMaterialDescriptionColumn" maxWidth="1024" minWidth="100" prefWidth="100" text="Opis" />
-                          </columns>
-                        </TableView>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#onAddCopyMaterialButtonPressed" text="Nowy">
-                                 <HBox.margin>
-                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button mnemonicParsing="false" onAction="#onDeleteCopyMaterialButtonPressed" text="Usuń">
-                                 <HBox.margin>
-                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <Button fx:id="saveCopyButton" mnemonicParsing="false" onAction="#onSaveCopyButtonPressed" text="Zapisz">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin></Button>
-                        <Button mnemonicParsing="false" onAction="#onDeleteCopyButtonPressed" text="Usuń">
-                           <VBox.margin>
+                           <HBox.margin>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </HBox.margin></VBox>
-                  <VBox fx:id="bookBorrowBox" alignment="CENTER">
-                     <children>
-                        <TextField fx:id="bookBorrowTableSearchBar" promptText="Szukaj">
-                           <VBox.margin>
-                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <TableView fx:id="bookBorrowsTable">
-                           <columns>
-                              <TableColumn fx:id="bookBorrowReader" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Czytelnik" />
-                              <TableColumn fx:id="bookBorrowSince" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Od" />
-                              <TableColumn fx:id="bookBorrowTill" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Do" />
-                              <TableColumn fx:id="bookBorrowSignature" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Sygnatura" />
-                              <TableColumn fx:id="bookBorrowISBN" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="ISBN" />
-                              <TableColumn fx:id="bookBorrowLibrarian" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Bibliotekarz" />
-                           </columns>
-                        </TableView>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           </HBox.margin>
+                        </VBox>
+                        <VBox fx:id="bookBorrowBox" alignment="CENTER">
                            <children>
-                              <Button fx:id="lendButton" mnemonicParsing="false" onAction="#onLendButtonPressed" text="Wypożycz">
-                                 <HBox.margin>
+                              <TextField fx:id="bookBorrowTableSearchBar" promptText="Szukaj">
+                                 <VBox.margin>
                                     <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="returnButton" mnemonicParsing="false" onAction="#onReturnBookBorrowButtonPressed" text="Oddaj">
-                                 <HBox.margin>
-                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                 </HBox.margin>
-                              </Button>
+                                 </VBox.margin>
+                              </TextField>
+                              <TableView fx:id="bookBorrowsTable">
+                                 <columns>
+                                    <TableColumn fx:id="bookBorrowReader" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Czytelnik" />
+                                    <TableColumn fx:id="bookBorrowSince" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Od" />
+                                    <TableColumn fx:id="bookBorrowTill" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Do" />
+                                    <TableColumn fx:id="bookBorrowSignature" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Sygnatura" />
+                                    <TableColumn fx:id="bookBorrowISBN" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="ISBN" />
+                                    <TableColumn fx:id="bookBorrowLibrarian" editable="false" maxWidth="1024" minWidth="100" prefWidth="100" text="Bibliotekarz" />
+                                 </columns>
+                              </TableView>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="lendButton" mnemonicParsing="false" onAction="#onLendButtonPressed" text="Wypożycz">
+                                       <HBox.margin>
+                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="returnButton" mnemonicParsing="false" onAction="#onReturnBookBorrowButtonPressed" text="Oddaj">
+                                       <HBox.margin>
+                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
                            </children>
-                        </HBox>
+                        </VBox>
                      </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </content></Tab>
+                  </HBox>
+               </content>
+            </ScrollPane>
+         </content>
+      </Tab>
     </tabs>
 </TabPane>
